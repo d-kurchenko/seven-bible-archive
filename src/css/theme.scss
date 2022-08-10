@@ -1,0 +1,166 @@
+@import 'scrollbar';
+@import 'splitter';
+@import 'notifications';
+@import 'markers';
+
+.q-list--separator > .q-item-type + .q-item-type {
+  border-top: 1px solid var(--separator);
+}
+
+.vue-recycle-scroller.separated {
+  .vue-recycle-scroller__item-view + .vue-recycle-scroller__item-view {
+    border-top: 1px solid var(--separator);
+  }
+}
+
+.q-separator {
+  background-color: var(--separator);
+}
+
+.q-bar {
+  background-color: var(--system-bar);
+}
+
+body {
+  color: var(--text);
+}
+
+.introduction:hover {
+  color: var(--text-active);
+}
+
+.layout-sidebar {
+  background-color: var(--drawer);
+}
+
+.top-bar {
+  background-color: var(--top-bar);
+}
+
+.q-tabs {
+  background-color: var(--tabs);
+}
+
+.ui-modal-window {
+  z-index: 1;
+  background-color: var(--background);
+}
+.layout-main{
+  background-color: var(--background);
+}
+.q-tab-panels {
+  background-color: var(--background);
+}
+
+.verse-number {
+  font-size: 0.8em;
+  cursor: pointer;
+  padding-right: 3px;
+
+  &:hover {
+    color: var(--text-active);
+  }
+}
+
+.splitpanes--vertical > .splitpanes__splitter {
+  min-width: 2px !important;
+  background: var(--separator);
+}
+
+.splitpanes--horizontal > .splitpanes__splitter {
+  min-height: 2px !important;
+  background: var(--separator);
+}
+
+.transition {
+  z-index: 2;
+  background-color: var(--background);
+}
+
+.introduction {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.transition .q-item[dir='rtl'] .q-item__section .ellipsis > span:first-child {
+  float: right;
+}
+
+.torah {
+  color: var(--torah);
+}
+
+.poetry {
+  color: var(--poetry);
+}
+
+.major-prophets {
+  color: var(--major-prophets);
+}
+
+.minor-prophets {
+  color: var(--minor-prophets);
+}
+
+.gospels {
+  color: var(--gospels);
+}
+
+.acts {
+  color: var(--acts);
+}
+
+.epistles {
+  color: var(--epistles);
+}
+
+.revelations {
+  color: var(--revelations);
+}
+
+.non-canonical {
+  color: var(--non-canonical);
+}
+
+.checkbox {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--transition-delay);
+}
+
+.verse {
+  transition: background-color var(--transition-delay);
+}
+
+.selected-verse {
+  background-color: var(--selected-verse);
+}
+
+.verse-block:hover .checkbox {
+  opacity: 0.7;
+}
+
+.bookmarks {
+  //padding: 0 2px;
+  min-width: 5px;
+  position: relative;
+
+  > .bookmark {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+  }
+}
+.bookmark-block {
+  min-width: 5px;
+  opacity: 0.4;
+  background-color: var(--bookmark-default);
+  &:hover {
+    background-color: var(--bookmark-hover) !important;
+  }
+}
+.background-transparent {
+  background-color: var(--background-transparent) !important;
+}

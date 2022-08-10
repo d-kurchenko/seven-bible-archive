@@ -1,0 +1,197 @@
+{
+  "app": {
+    "appearance": {
+      "theme": "light",
+      "font": "Roboto"
+    },
+    "control": {
+      "verseNumberClickEvent": "openTranslationsComparator"
+    },
+    "win": {
+      "x": 960,
+      "y": 0,
+      "width": 960,
+      "height": 1048
+    },
+    "bookmarks": {
+      "filename": "bookmarks"
+    }
+  },
+  "workPlace": [
+    {
+      "active": true,
+      "bible": {
+        "fileName": "ABC",
+        "bookNumber": 510,
+        "chapterNumber": 14,
+        "view": {
+          "showBookName": true,
+          "showChapterNumber": true,
+          "showSubheadings": true,
+          "subheadings": {
+            "embededOverwriteOthers": true,
+            "activeModules": [
+              "RST-п",
+              "Гёце-д"
+            ]
+          },
+          "showCommentaries": true,
+          "commentaries": {
+            "activeModules": []
+          },
+          "showVerseNumber": true,
+          "showJesusWords": true,
+          "showStrongNumbers": false,
+          "showParagraphs": false,
+          "showContinuousText": false,
+          "showDreamy": true,
+          "fontSize": 16
+        },
+        "isTrusted": true
+      },
+      "strong": {
+        "show": true,
+        "windowHeight": 150,
+        "fileName": "Лексикон",
+        "strongNumbers": [
+          "G2596",
+          "G846"
+        ],
+        "view": {
+          "test": false
+        }
+      },
+      "dictionary": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "",
+        "view": {
+          "test": false
+        }
+      },
+      "commentaries": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "Rodger-к",
+        "view": {
+          "test": false
+        }
+      }
+    },
+    {
+      "active": false,
+      "bible": {
+        "fileName": "KJV+",
+        "bookNumber": 10,
+        "chapterNumber": 1,
+        "view": {
+          "showBookName": true,
+          "showChapterNumber": true,
+          "showSubheadings": true,
+          "subheadings": {
+            "embededOverwriteOthers": true,
+            "activeModules": []
+          },
+          "showCommentaries": false,
+          "commentaries": {
+            "activeModules": []
+          },
+          "showVerseNumber": true,
+          "showJesusWords": true,
+          "showStrongNumbers": false,
+          "showParagraphs": false,
+          "showContinuousText": false,
+          "showDreamy": true,
+          "fontSize": 16
+        },
+        "isTrusted": true
+      },
+      "strong": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "Лексикон",
+        "strongNumbers": [
+          "G3668"
+        ],
+        "view": {
+          "test": false
+        }
+      },
+      "dictionary": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "",
+        "view": {
+          "test": false
+        }
+      },
+      "commentaries": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "RSTB",
+        "view": {
+          "test": false
+        }
+      }
+    },
+    {
+      "active": false,
+      "bible": {
+        "fileName": "Orig2+",
+        "bookNumber": 490,
+        "chapterNumber": 18,
+        "view": {
+          "showBookName": true,
+          "showChapterNumber": true,
+          "showSubheadings": true,
+          "subheadings": {
+            "embededOverwriteOthers": true,
+            "activeModules": []
+          },
+          "showCommentaries": true,
+          "commentaries": {
+            "activeModules": [
+              "Rodger-к",
+              "RSTB"
+            ]
+          },
+          "showVerseNumber": true,
+          "showJesusWords": true,
+          "showStrongNumbers": false,
+          "showParagraphs": false,
+          "showContinuousText": false,
+          "showDreamy": true,
+          "fontSize": 16
+        },
+        "isTrusted": true
+      },
+      "strong": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "Лексикон",
+        "strongNumbers": [
+          "G1556"
+        ],
+        "view": {
+          "test": false
+        }
+      },
+      "dictionary": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "",
+        "view": {
+          "test": false
+        }
+      },
+      "commentaries": {
+        "show": false,
+        "windowHeight": 150,
+        "fileName": "RSTB",
+        "view": {
+          "test": false
+        }
+      }
+    }
+  ]
+}
