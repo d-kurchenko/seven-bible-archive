@@ -18,6 +18,11 @@
 
 ---
 
+Модули с репозитория MyBible:
+![изображение](https://user-images.githubusercontent.com/93146235/184013574-07cf0cdb-7cd3-44b3-ab05-91907870fce5.png)
+
+---
+
 Поиск по номерам стронга:
 ![image](https://user-images.githubusercontent.com/93146235/153063949-580a8a27-125a-4f84-be5d-1d2075aa2809.png)
 
