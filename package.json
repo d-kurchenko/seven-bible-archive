@@ -12,8 +12,7 @@
     "build-linux": "quasar build -m electron -T linux",
     "build-windows": "quasar build -m electron -T win",
     "build-mac": "quasar build -m electron -T mac",
-    "rebuild": "electron-rebuild -f -w better-sqlite3",
-    "postinstallжжжжж": "electron-builder install-app-deps"
+    "postinstall": "electron-rebuild -f -w better-sqlite3"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

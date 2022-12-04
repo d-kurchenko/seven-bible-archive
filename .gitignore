@@ -36,3 +36,4 @@ yarn-error.log*
 /modules
 /user
 /.vscode
+yarn.lock
