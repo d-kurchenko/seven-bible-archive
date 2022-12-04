@@ -29,7 +29,7 @@ import useSevenBible from 'src/hooks/useSevenBible';
 import { onMounted, ref, defineComponent, Ref, nextTick } from 'vue';
 import { Commentaries } from 'src-electron/types/commentaries';
 import UIError from 'components/UI/UIError.vue';
-import UILoader from 'components/UI/UILoader.vue';
+import UILoader from 'src/components/UI/UILoader.vue';
 
 export default defineComponent({
   setup(props, { emit }) {

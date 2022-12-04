@@ -6,7 +6,6 @@ import { BibleRef } from 'src/types/bibleRef';
 export default () => {
   const store = useStore();
 
-
   const state = {
     get: (path: string) => Object.getValue(path, store.state.settings),
     getReactive: (path: string) =>

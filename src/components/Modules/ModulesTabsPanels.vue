@@ -4,7 +4,7 @@
     :show="showModuleDetailedInfo"
     @before-hide="showModuleDetailedInfo = false"
   />
-  <q-tab-panels v-model="activeTab" class="col">
+  <q-tab-panels :model-value="activeTab" class="col">
     <q-tab-panel :name="activeTab">
       <q-table
         ref="table"
@@ -58,6 +58,10 @@ import { ref, shallowRef, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Icons } from 'src/types/icons';
 
+export interface TableFilter {
+  language: string,
+  other: string
+}
 
 const props = defineProps<{
   activeTab: string
@@ -79,10 +83,6 @@ const getSelectedString = () => selected.value.length === 0
   ? ''
   : `${selected.value.length} ${t('modulesSelectedOf')} ${props.modulesList.length}`
 
-export interface TableFilter {
-  language: string,
-  other: string
-}
 const filter = ref<TableFilter>()
 const filterMethod = (raws: Download[], filter: TableFilter) => {
 
@@ -113,7 +113,6 @@ getInstalledModules()
 
 const onDownloadClick = async () => {
   const downloadedModules = await window.api.electron.downloadModules(selected.value)
-  console.log(downloadedModules);
   selected.value = []
   getInstalledModules()
 }

@@ -26,7 +26,7 @@
 
 <script>
 import { computed, ref } from 'vue';
-import GeneralTab from 'components/Settings/generalTab';
+import GeneralTab from 'components/Settings/generalTab.vue';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -45,7 +45,7 @@ export default {
         icon: 'brush',
       },
     ];
-    const tab = ref('generalTab');
+    const tab = ref(tabs[0].name);
 
     const activeTabLabel = computed(
       () => tabs.find((currTab) => (currTab.name = tab.value)).label

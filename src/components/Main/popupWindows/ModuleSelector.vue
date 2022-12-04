@@ -18,10 +18,11 @@
 </template>
 
 <script>
+import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue';
+
 import { defineComponent, ref } from 'vue';
 import useStore from 'src/hooks/useStore';
 import useSevenBible from 'src/hooks/useSevenBible';
-import UIButtonDropdown from 'components/UI/UIButtonDropdown';
 
 export default defineComponent({
   components: { UIButtonDropdown },

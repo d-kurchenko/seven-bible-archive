@@ -78,10 +78,11 @@
 </template>
 
 <script setup>
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
+
 import useStore from 'src/hooks/useStore';
 import { ref } from 'vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow';
 import useSevenBible from 'src/hooks/useSevenBible';
 import { initBooksCategories } from 'src/helpers';
 import { Icons } from 'src/types/icons';

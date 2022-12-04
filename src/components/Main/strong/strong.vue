@@ -16,11 +16,12 @@
   </UIWorkPlaceWindow>
 </template>
 <script>
+import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.vue';
+import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader.vue';
+import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody.vue';
 import StrongTopBar from './strongTopBar.vue';
-import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow';
-import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader';
-import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody';
-import StrongBody from 'components/Main/strong/StrongBody';
+import StrongBody from 'components/Main/strong/StrongBody.vue';
+
 import useSevenBible from 'src/hooks/useSevenBible';
 import useStore from 'src/hooks/useStore';
 import { useStrongDatabaseConnection } from 'src/hooks/DBconnectionController';

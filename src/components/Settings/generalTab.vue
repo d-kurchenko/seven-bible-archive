@@ -58,11 +58,11 @@ import useStore from 'src/hooks/useStore';
 import { ref } from 'vue';
 import configurationList from 'src/settings/configurationList';
 import { useI18n } from 'vue-i18n';
-import Input from 'components/Settings/components/universal/Input';
-import Select from 'components/Settings/components/universal/Select';
-import FontSelector from 'components/Settings/components/special/FontSelector';
-import ThemeSelector from 'components/Settings/components/special/ThemeSelector';
-import Checkbox from 'components/Settings/components/universal/Checkbox';
+import Input from 'components/Settings/components/universal/Input.vue';
+import Select from 'components/Settings/components/universal/Select.vue';
+import FontSelector from 'components/Settings/components/special/FontSelector.vue';
+import ThemeSelector from 'components/Settings/components/special/ThemeSelector.vue';
+import Checkbox from 'components/Settings/components/universal/Checkbox.vue';
 export default {
   components: {
     Input,

@@ -47,7 +47,7 @@ export class Database extends WrapperDatabaseApi {
 
   _setConnection = () => {
     this.database = new BetterSqlite(
-      path.join(dir, this._directory, ...this._path, this._filename),
+      path.resolve(dir, this._directory, ...this._path, this._filename),
       { readonly: this._readonly }
     );
   };

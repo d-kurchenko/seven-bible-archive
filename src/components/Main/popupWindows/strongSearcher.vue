@@ -85,14 +85,14 @@
 import useStore from 'src/hooks/useStore';
 import { onMounted, ref } from 'vue';
 import normalizeSearchInput from 'src/hooks/normalizeSearchInput';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader';
-import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
+import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings.vue';
 import useSevenBible from 'src/hooks/useSevenBible';
-import StrongBody from 'components/Main/strong/StrongBody';
-import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller';
+import StrongBody from 'components/Main/strong/StrongBody.vue';
+import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue';
 import { notify } from 'src/wrappers/notify';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody';
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
 import { Icons } from 'src/types/icons';
 
 const emit = defineEmits(['close']);

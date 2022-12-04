@@ -3,7 +3,7 @@
     <UIWorkPlaceWindowHeader>
       <CommentariesTopBar
         :commentaries-file-name="commentariesModule.fileName"
-        :book-short-name="bookShortName"
+        :book-short-name="bookShortName || ''"
         :chapter-number="chapterNumber"
       />
     </UIWorkPlaceWindowHeader>
@@ -19,7 +19,7 @@
         />
         <div
           v-else
-          v-for="(item, id) in commentaries"
+          v-for="(item, id) in (commentaries as any[])"
           :key="id"
           :items="commentaries"
         >
@@ -40,66 +40,49 @@
   </UIWorkPlaceWindow>
 </template>
 
-<script>
-import CommentariesTopBar from 'components/Main/commentaries/commentariesTopBar';
+<script setup lang="ts">
+import UILoader from 'src/components/UI/UILoader.vue';
+import CommentariesTopBar from 'components/Main/commentaries/commentariesTopBar.vue';
+import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.vue';
+import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader.vue';
+import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody.vue';
+
 import { onMounted, watch, computed } from 'vue';
 import useStore from 'src/hooks/useStore';
-import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow';
-import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader';
-import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody';
 import useSevenBible from 'src/hooks/useSevenBible';
 import useCommentaries from 'src/hooks/useCommentaries';
 import { useCommentariesDatabaseConnection } from 'src/hooks/DBconnectionController';
-import UILoader from 'components/UI/UILoader';
 
-export default {
-  setup() {
-    const { id, bookShortName, refString } = useSevenBible();
-    const store = useStore();
-    const commentariesModule = store.state.getReactive(
-      `workPlace.${id}.commentaries`
-    );
-    const commentariesFilename = computed(
-      () => commentariesModule.value.fileName
-    );
-    useCommentariesDatabaseConnection(commentariesFilename);
-    const chapterNumber = store.state.getReactive(
-      `workPlace.${id}.bible.chapterNumber`
-    );
 
-    const { commentaries, showLoader, getCommentaries } = useCommentaries(
-      id,
-      store,
-      commentariesModule
-    );
+const { id, bookShortName, refString } = useSevenBible();
+const store = useStore();
+const commentariesModule = store.state.getReactive(
+  `workPlace.${id}.commentaries`
+);
+const commentariesFilename = computed(
+  () => commentariesModule.value.fileName
+);
+useCommentariesDatabaseConnection(commentariesFilename);
+const chapterNumber = store.state.getReactive(
+  `workPlace.${id}.bible.chapterNumber`
+);
 
-    watch(refString, () => {
-      getCommentaries();
-    });
-    watch(
-      () => commentariesModule.value.fileName,
-      (newFilename, oldFilename) => {
-        window.api.commentaries.disconnectDatabase(oldFilename);
-        window.api.commentaries.connectDatabase(newFilename);
-        getCommentaries();
-      }
-    );
-    onMounted(() => getCommentaries());
+const { commentaries, showLoader, getCommentaries } = useCommentaries(
+  id,
+  store,
+  commentariesModule
+);
 
-    return {
-      commentaries,
-      showLoader,
-      commentariesModule,
-      bookShortName,
-      chapterNumber,
-    };
-  },
-  components: {
-    UILoader,
-    UIWorkPlaceWindowBody,
-    UIWorkPlaceWindowHeader,
-    UIWorkPlaceWindow,
-    CommentariesTopBar,
-  },
-};
+watch(refString as any, () => {
+  getCommentaries();
+});
+watch(
+  () => commentariesModule.value.fileName,
+  (newFilename, oldFilename) => {
+    window.api.commentaries.disconnectDatabase(oldFilename);
+    window.api.commentaries.connectDatabase(newFilename);
+    getCommentaries();
+  }
+);
+onMounted(() => getCommentaries());
 </script>

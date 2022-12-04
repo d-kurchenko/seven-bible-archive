@@ -1,6 +1,5 @@
 import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron';
 import path from 'path';
-import fs from 'fs';
 import os from 'os';
 import { getSettings } from './helpers/getSettings';
 import useApi from 'src-electron/api/useApi';
@@ -18,20 +17,22 @@ const platform = process.platform || os.platform();
 
 try {
   if (platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
-    fs.unlinkSync(path.join(app.getPath('userData'), 'DevTools Extensions'));
+    require('fs').unlinkSync(
+      path.join(app.getPath('userData'), 'DevTools Extensions')
+    );
   }
 } catch (_) {}
 
 useApi();
 
-let mainWindow: BrowserWindow | null;
+let mainWindow: BrowserWindow | undefined;
 
 function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    icon: path.resolve(__dirname, 'icons/icon.png'),
+    icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
     center: true,
     useContentSize: true,
     frame: false,
@@ -40,11 +41,12 @@ function createWindow() {
     ...win,
     webPreferences: {
       contextIsolation: true,
-      preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD!),
+      preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
+      sandbox: false,
     },
   });
 
-  mainWindow.loadURL(process.env.APP_URL!);
+  mainWindow.loadURL(process.env.APP_URL);
 
   if (process.env.DEBUGGING) {
     // if on DEV or Production with debug enabled
@@ -65,7 +67,7 @@ function createWindow() {
   });
 
   mainWindow.on('closed', () => {
-    mainWindow = null;
+    mainWindow = undefined;
   });
 }
 
@@ -78,7 +80,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (mainWindow === undefined) {
     createWindow();
   }
 });

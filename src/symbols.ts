@@ -11,7 +11,7 @@ export const popup_: InjectionKey<Popup> = Symbol('popup');
 export const bibleModuleInfo_: InjectionKey<Ref<BibleInfo>> =
   Symbol('bibleModuleInfo');
 export const bookFullName_: InjectionKey<Ref<string>> = Symbol('bookFullName');
-export const bookShortName_: InjectionKey<Ref<string>> =
+export const bookShortName_: InjectionKey<Ref<string | undefined>> =
   Symbol('bookShortName');
 export const bookmarks_: InjectionKey<typeof bookmarks> = Symbol('bookmarks');
 //main

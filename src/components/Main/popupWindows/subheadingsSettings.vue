@@ -36,8 +36,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
 import useSevenBible from 'src/hooks/useSevenBible';
 import useStore from 'src/hooks/useStore';
 import { Icons } from 'src/types/icons';

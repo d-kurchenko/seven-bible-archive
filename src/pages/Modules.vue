@@ -4,28 +4,29 @@
 
     <div class="flex fit">
       <ModulesTabs @change-tab="onChangeTab" :active-tab="activeTab" />
-      <q-separator vertical/>
-      <ModulesTabsPanels :active-tab="activeTab" :modules-list="preparedModulesList[activeTab]" />
+      <q-separator vertical />
+      <ModulesTabsPanels
+        :active-tab="activeTab"
+        :modules-list="preparedModulesList[activeTab]"
+      />
     </div>
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { computed, nextTick, ref, shallowRef } from 'vue';
 import { Download, ModulesRegistry } from 'types/registry';
-import UILoader from 'components/UI/UILoader.vue';
+import UILoader from 'src/components/UI/UILoader.vue';
 import { Modules } from 'types/modules';
 import ModulesTabs from 'src/components/Modules/ModulesTabs.vue';
 import ModulesTabsPanels from 'src/components/Modules/ModulesTabsPanels.vue';
-
 
 interface ModulesList {
   [moduleType: string]: Download[];
 }
 
-const activeTab = ref(Modules.Bible)
-const onChangeTab = (tab: Modules) => activeTab.value = tab
+const activeTab = ref(Modules.Bible);
+const onChangeTab = (tab: Modules) => (activeTab.value = tab);
 
 const showLoader = ref(false);
 

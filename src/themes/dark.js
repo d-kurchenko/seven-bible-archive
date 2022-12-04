@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "strong": "#919100",
   "i": "#8d8d8d",
   "n": "#b6b6b6",

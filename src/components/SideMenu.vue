@@ -16,20 +16,14 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { menuList } from 'src/objects/menu.js';
 import { useI18n } from 'vue-i18n';
 
-export default {
-  setup() {
-    const { t } = useI18n();
-    return {
-      menuList,
-      t,
-    };
-  },
-  props: {
-    visibleRight: Boolean,
-  },
-};
+
+defineProps<{
+  visibleRight: boolean
+}>();
+
+const { t } = useI18n();
 </script>

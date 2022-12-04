@@ -23,10 +23,11 @@
 </template>
 
 <script setup>
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
+
 import useStore from 'src/hooks/useStore';
 import { onMounted, ref } from 'vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader';
 import useSevenBible from 'src/hooks/useSevenBible';
 import { Icons } from 'src/types/icons';
 

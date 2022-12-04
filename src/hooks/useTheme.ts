@@ -1,5 +1,6 @@
 import defaultThemes from 'src/themes';
 
+
 export default () => {
   const getUserThemes = () => window.api.system.getUserThemes();
 
@@ -7,10 +8,11 @@ export default () => {
     return [...defaultThemes, ...(await getUserThemes())];
   };
 
-  const readDefaultTheme = (themeName) => import(`src/themes/${themeName}.js`);
-  const readUserTheme = (themeName) =>
+  const readDefaultTheme = (themeName: string) => import(`../themes/${themeName}.js`)
+  .then(res => res.default);
+  const readUserTheme = (themeName: string) =>
     window.api.system.readUserTheme(themeName);
-  const setCssVars = (theme) => {
+  const setCssVars = (theme: Record<string, string>) => {
     const body = document.body;
     body.removeAttribute('style');
 
@@ -18,9 +20,10 @@ export default () => {
       body.style.setProperty('--' + key, theme[key]);
     });
   };
-  const setTheme = async (themeName) => {
+  const setTheme = async (themeName: string) => {
     if (defaultThemes.includes(themeName)) {
       const theme = await readDefaultTheme(themeName);
+
       setCssVars(theme);
     } else {
       const userThemes = await getUserThemes();
