@@ -1,9 +1,9 @@
-import path from 'path';
-import fs from 'fs';
-import { CommentariesDatabase } from 'src-electron/models/Database/CommentariesDatabase';
+import path from 'path'
+import fs from 'fs'
+import { CommentariesDatabase } from 'src-electron/models/Database/CommentariesDatabase'
 
 export default (args) => {
-  const { bookNumber, chapterNumber, verseNumber } = args;
+  const { bookNumber, chapterNumber, verseNumber } = args
   const sql = `
     select text
     from commentaries
@@ -15,22 +15,22 @@ export default (args) => {
                                                               ${verseNumber} BETWEEN verse_number_from AND verse_number_to
             WHEN ${chapterNumber} = chapter_number_from THEN ${verseNumber} >= verse_number_from
             when ${chapterNumber} = chapter_number_to THEN ${verseNumber} <= verse_number_to END
-  `;
+  `
 
   const commentariesModules = fs
     .readdirSync(path.join(global.dir, 'modules', 'commentaries'))
-    .map((name) => name.split('.')[0]);
-  const res = [];
+    .map((name) => name.split('.')[0])
+  const res = []
 
   commentariesModules.forEach((moduleName) => {
     const commentariesDatabase = new CommentariesDatabase(moduleName, {
       native: true,
-    });
-    const data = commentariesDatabase.prepare(sql).get();
+    })
+    const data = commentariesDatabase.prepare(sql).get()
     if (data) {
-      data.filename = moduleName;
-      res.push(data);
+      data.filename = moduleName
+      res.push(data)
     }
-  });
-  return res;
-};
+  })
+  return res
+}

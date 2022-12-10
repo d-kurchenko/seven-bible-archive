@@ -6,29 +6,28 @@
     :options="themeList"
     @update:model-value="
       (event) => {
-        onSelect(event);
-        setTheme(event);
+        onSelect(event)
+        setTheme(event)
       }
     "
   />
 </template>
 
 <script>
-import useTheme from 'src/hooks/useTheme';
+import useTheme from 'src/hooks/useTheme'
 
 export default {
   async setup(props) {
-    const { getAllThemes, setTheme } = useTheme();
+    const { getAllThemes, setTheme } = useTheme()
 
-    const onSelect = (value) =>
-      props.store.state.set(`app.${props.config.path}`, value);
-    let themeList = await getAllThemes();
+    const onSelect = (value) => props.store.state.set(`app.${props.config.path}`, value)
+    let themeList = await getAllThemes()
 
     return {
       themeList,
       setTheme,
       onSelect,
-    };
+    }
   },
   props: {
     config: {
@@ -44,5 +43,5 @@ export default {
     },
     store: Object,
   },
-};
+}
 </script>

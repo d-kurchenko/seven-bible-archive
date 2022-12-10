@@ -1,64 +1,64 @@
 export default class DatabaseApi {
-  database;
+  database
 
   prepare(sql) {
-    return new PreparedDatabase(this.database, sql);
+    return new PreparedDatabase(this.database, sql)
   }
   close() {
-    this.database.close();
+    this.database.close()
   }
 }
 class PreparedDatabase {
-  database;
-  sql;
+  database
+  sql
   constructor(database, sql) {
-    this.database = database;
-    this.sql = sql;
+    this.database = database
+    this.sql = sql
   }
   pluck() {
-    return new PluckedDatabase(this.database, this.sql);
+    return new PluckedDatabase(this.database, this.sql)
   }
   raw() {
-    return new RawwedDatabase(this.database, this.sql);
+    return new RawwedDatabase(this.database, this.sql)
   }
   get() {
-    return this.database.prepare(this.sql).get(...arguments);
+    return this.database.prepare(this.sql).get(...arguments)
   }
   all() {
-    return this.database.prepare(this.sql).all(...arguments);
+    return this.database.prepare(this.sql).all(...arguments)
   }
 }
 class PluckedDatabase extends PreparedDatabase {
   constructor(database, sql) {
-    super(database, sql);
+    super(database, sql)
   }
   get() {
     return this.database
       .prepare(this.sql)
       .pluck()
-      .get(...arguments);
+      .get(...arguments)
   }
   all() {
     return this.database
       .prepare(this.sql)
       .pluck()
-      .all(...arguments);
+      .all(...arguments)
   }
 }
 class RawwedDatabase extends PreparedDatabase {
   constructor(database, sql) {
-    super(database, sql);
+    super(database, sql)
   }
   get() {
     return this.database
       .prepare(this.sql)
       .raw()
-      .get(...arguments);
+      .get(...arguments)
   }
   all() {
     return this.database
       .prepare(this.sql)
       .raw()
-      .all(...arguments);
+      .all(...arguments)
   }
 }

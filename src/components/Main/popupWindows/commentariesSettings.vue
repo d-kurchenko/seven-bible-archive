@@ -7,8 +7,7 @@
 
     <div class="overlay container">
       <span>
-        Отмеченные ниже модули комментариев будут использоваться для всех
-        модулей Библии
+        Отмеченные ниже модули комментариев будут использоваться для всех модулей Библии
       </span>
 
       <div v-for="(moduleName, idx) in commentariesModules" :key="idx">
@@ -23,32 +22,32 @@
 </template>
 
 <script setup>
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
 
-import useStore from 'src/hooks/useStore';
-import { onMounted, ref } from 'vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { onMounted, ref } from 'vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { Icons } from 'src/types/icons'
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
-const { id, bibleTextKey } = useSevenBible();
-const store = useStore();
+const { id, bibleTextKey } = useSevenBible()
+const store = useStore()
 
-const commentariesModules = ref([]);
+const commentariesModules = ref([])
 const toggleCommentariesModule = (moduleName, value) =>
-  store.mutations.toggleCommentariesModule(id, moduleName, value);
-const commentaries = store.state.get(`workPlace.${id}.bible.view.commentaries`);
+  store.mutations.toggleCommentariesModule(id, moduleName, value)
+const commentaries = store.state.get(`workPlace.${id}.bible.view.commentaries`)
 
 const close = () => {
-  bibleTextKey.value++;
-  emit('close');
-};
+  bibleTextKey.value++
+  emit('close')
+}
 
 onMounted(() => {
   commentariesModules.value = window.api.system
     .fsReaddirSync(['modules', 'commentaries'])
-    .map((moduleName) => moduleName.match(/.+?(?=\.)/g)[0]);
-});
+    .map((moduleName) => moduleName.match(/.+?(?=\.)/g)[0])
+})
 </script>

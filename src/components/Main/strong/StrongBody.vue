@@ -19,39 +19,37 @@
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue'
 
 export default {
   setup(props) {
-    const strongNumbersInfo = ref({});
+    const strongNumbersInfo = ref({})
     const searchInfo = async () => {
       const settings = {
         strongNumbers: [...props.strongNumbers],
         filename: props.strongFileName,
-      };
-      strongNumbersInfo.value = await window.api.strong.getStrongNumbersInfo(
-        settings
-      );
-    };
+      }
+      strongNumbersInfo.value = await window.api.strong.getStrongNumbersInfo(settings)
+    }
 
-    onMounted(() => searchInfo());
+    onMounted(() => searchInfo())
 
     watch(
       () => props.strongNumbers,
       () => searchInfo()
-    );
+    )
     watch(
       () => props.strongFileName,
       (newFilename, oldFilename) => {
-        window.api.strong.disconnectDatabase(oldFilename);
-        window.api.strong.connectDatabase(newFilename);
-        searchInfo();
+        window.api.strong.disconnectDatabase(oldFilename)
+        window.api.strong.connectDatabase(newFilename)
+        searchInfo()
       }
-    );
+    )
 
     return {
       strongNumbersInfo,
-    };
+    }
   },
   props: {
     strongNumbers: {
@@ -60,5 +58,5 @@ export default {
     },
     strongFileName: String,
   },
-};
+}
 </script>

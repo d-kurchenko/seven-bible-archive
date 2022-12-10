@@ -30,20 +30,14 @@
 
           <span v-if="config.description" v-text="t(config.description)" />
 
-          <div
-            v-for="(childConfig, i) in config.children"
-            :key="i"
-            class="q-pb-lg"
-          >
+          <div v-for="(childConfig, i) in config.children" :key="i" class="q-pb-lg">
             <div class="text-h5">{{ t(childConfig.label) }}</div>
             <component
               :store="store"
               :is="childConfig.component"
               :config="childConfig"
               :value="Object.getValue(childConfig.path, app)"
-              :description="
-                childConfig.description ? t(childConfig.description) : null
-              "
+              :description="childConfig.description ? t(childConfig.description) : null"
             />
           </div>
           <q-separator v-if="i + 1 !== configurationList.length" />
@@ -54,15 +48,15 @@
 </template>
 
 <script>
-import useStore from 'src/hooks/useStore';
-import { ref } from 'vue';
-import configurationList from 'src/settings/configurationList';
-import { useI18n } from 'vue-i18n';
-import Input from 'components/Settings/components/universal/Input.vue';
-import Select from 'components/Settings/components/universal/Select.vue';
-import FontSelector from 'components/Settings/components/special/FontSelector.vue';
-import ThemeSelector from 'components/Settings/components/special/ThemeSelector.vue';
-import Checkbox from 'components/Settings/components/universal/Checkbox.vue';
+import useStore from 'src/hooks/useStore'
+import { ref } from 'vue'
+import configurationList from 'src/settings/configurationList'
+import { useI18n } from 'vue-i18n'
+import Input from 'components/Settings/components/universal/Input.vue'
+import Select from 'components/Settings/components/universal/Select.vue'
+import FontSelector from 'components/Settings/components/special/FontSelector.vue'
+import ThemeSelector from 'components/Settings/components/special/ThemeSelector.vue'
+import Checkbox from 'components/Settings/components/universal/Checkbox.vue'
 export default {
   components: {
     Input,
@@ -72,8 +66,8 @@ export default {
     ThemeSelector,
   },
   setup() {
-    const { t } = useI18n();
-    const store = useStore();
+    const { t } = useI18n()
+    const store = useStore()
 
     const themes = [
       {
@@ -84,22 +78,22 @@ export default {
         label: 'Темная',
         value: 'dark',
       },
-    ];
-    const app = store.state.getReactive('app');
+    ]
+    const app = store.state.getReactive('app')
 
-    const tree = ref(null);
-    const selected = ref(configurationList[0].label);
+    const tree = ref(null)
+    const selected = ref(configurationList[0].label)
 
     const categoryIntersectionOptions = {
       handler: (entry, cfg) => {
-        const label = entry.target.dataset.label;
+        const label = entry.target.dataset.label
 
         // tree.value.setExpanded(label, tree)
       },
       cfg: {
         threshold: 1,
       },
-    };
+    }
 
     return {
       themes,
@@ -109,7 +103,7 @@ export default {
       selected,
       app,
       store,
-    };
+    }
   },
-};
+}
 </script>

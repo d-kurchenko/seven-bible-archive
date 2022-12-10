@@ -7,4 +7,4 @@ export default [
     title: 'Открыть / закрыть словарь стронга',
     command: 'toggleCommentariesWindow',
   },
-];
+]

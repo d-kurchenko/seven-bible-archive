@@ -17,13 +17,12 @@
 </template>
 
 <script setup lang="ts">
-import { menuList } from 'src/objects/menu.js';
-import { useI18n } from 'vue-i18n';
-
+import { menuList } from 'src/objects/menu.js'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
   visibleRight: boolean
-}>();
+}>()
 
-const { t } = useI18n();
+const { t } = useI18n()
 </script>

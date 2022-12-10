@@ -85,4 +85,4 @@ export declare enum BookNumbers {
   Rev = 730,
   Lao = 780,
 }
-export declare const nonCanonicalBooks: BookNumbers[];
+export declare const nonCanonicalBooks: BookNumbers[]

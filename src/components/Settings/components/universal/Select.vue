@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n'
 
 export default {
   setup() {
-    const { t } = useI18n();
-    const onSelect = () => null;
+    const { t } = useI18n()
+    const onSelect = () => null
     return {
       t,
       onSelect,
-    };
+    }
   },
   props: {
     config: {
@@ -41,5 +41,5 @@ export default {
       default: '',
     },
   },
-};
+}
 </script>

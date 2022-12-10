@@ -1,14 +1,14 @@
-import { Notify } from 'quasar';
+import { Notify } from 'quasar'
 
 interface DefaultSettings {
-  timeout?: number;
-  position?: any;
+  timeout?: number
+  position?: any
 }
 
 const defaultSettings: DefaultSettings = {
   timeout: 3000,
   position: 'bottom-right',
-};
+}
 
 const create = (message: string, classes: string, args?: DefaultSettings) => {
   Notify.create({
@@ -16,8 +16,8 @@ const create = (message: string, classes: string, args?: DefaultSettings) => {
     classes,
     timeout: args?.timeout ?? defaultSettings.timeout,
     position: args?.position ?? defaultSettings.position,
-  });
-};
+  })
+}
 
 export const notify = {
   showInfo: (message: string, args?: DefaultSettings) =>
@@ -26,4 +26,4 @@ export const notify = {
     create(message, 'notify-warning', args),
   showError: (message: string, args?: DefaultSettings) =>
     create(message, 'notify-error', args),
-};
+}

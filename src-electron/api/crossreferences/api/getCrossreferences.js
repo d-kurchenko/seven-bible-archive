@@ -1,40 +1,40 @@
-import fs from 'fs-extra';
-import path from 'path';
-import { CrossreferencesDatabase } from 'src-electron/models/Database/CrossreferencesDatabase';
-import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase';
+import fs from 'fs-extra'
+import path from 'path'
+import { CrossreferencesDatabase } from 'src-electron/models/Database/CrossreferencesDatabase'
+import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
 
 export default (args) => {
   {
     const crossreferencesDir = fs.readdirSync(
       path.join(global.dir, 'modules', 'crossreferences')
-    );
+    )
     const sql =
-      'SELECT *, rowid FROM cross_references WHERE book = ? AND chapter = ? AND verse = ?';
-    const result = [];
-    const bibleDatabase = new BibleDatabase(args.filename);
+      'SELECT *, rowid FROM cross_references WHERE book = ? AND chapter = ? AND verse = ?'
+    const result = []
+    const bibleDatabase = new BibleDatabase(args.filename)
     crossreferencesDir.forEach((filename, i) => {
       const crossreferencesDatabase = new CrossreferencesDatabase(filename, {
         native: true,
-      });
+      })
       const foundedRefs = crossreferencesDatabase
         .prepare(sql)
-        .all(args.bookNumber, args.chapterNumber, args.verse);
-      crossreferencesDatabase.close();
+        .all(args.bookNumber, args.chapterNumber, args.verse)
+      crossreferencesDatabase.close()
 
       const sql1 =
-        'SELECT verse, text FROM verses WHERE book_number = @bookNumber AND chapter = @chapterNumber AND verse BETWEEN @verseStart AND @verseEnd';
-      const prepared = bibleDatabase.prepare(sql1);
+        'SELECT verse, text FROM verses WHERE book_number = @bookNumber AND chapter = @chapterNumber AND verse BETWEEN @verseStart AND @verseEnd'
+      const prepared = bibleDatabase.prepare(sql1)
 
-      let j = 0;
+      let j = 0
       for (const foundedRef of foundedRefs) {
-        j++;
+        j++
         const unique = result.some(
           (ref) =>
             ref.book_to === foundedRef.book_to &&
             ref.chapter_to === foundedRef.chapter_to &&
             ref.verse_to_start === foundedRef.verse_to_start &&
             ref.verse_to_end === foundedRef.verse_to_end
-        );
+        )
 
         if (!unique) {
           const texts = prepared.all({
@@ -45,20 +45,20 @@ export default (args) => {
               foundedRef.verse_to_end === 0
                 ? foundedRef.verse_to_start
                 : foundedRef.verse_to_end,
-          });
-          if (!texts.length) continue;
-          foundedRef.rowid = `${i}${j}`;
-          foundedRef.texts = texts;
-          foundedRef.module_name = filename.split('.')[0];
-          foundedRef.expanded = false;
+          })
+          if (!texts.length) continue
+          foundedRef.rowid = `${i}${j}`
+          foundedRef.texts = texts
+          foundedRef.module_name = filename.split('.')[0]
+          foundedRef.expanded = false
           foundedRef.bookShortName = bibleDatabase
             .prepare('SELECT short_name FROM books WHERE book_number = ?')
             .pluck()
-            .get(foundedRef.book_to);
-          result.push(foundedRef);
+            .get(foundedRef.book_to)
+          result.push(foundedRef)
         }
       }
-    });
-    return result;
+    })
+    return result
   }
-};
+}

@@ -1,9 +1,9 @@
-import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase';
+import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
 
 export default (args) => {
   {
     const parsedNumbers = args.strongNumbers.map((current) => {
-      const strongNumbersPrefix = current[0].toUpperCase();
+      const strongNumbersPrefix = current[0].toUpperCase()
       return {
         strongNumbersPrefix,
         number: current.substr(1),
@@ -18,38 +18,36 @@ export default (args) => {
             : strongNumbersPrefix === 'G'
             ? '>=470'
             : '<0',
-      };
-    });
-    let res = [];
-    const bibleDatabase = new BibleDatabase(args.filename);
+      }
+    })
+    let res = []
+    const bibleDatabase = new BibleDatabase(args.filename)
     if (args.separator === 'AND') {
-      let sql = `SELECT v.*, v.rowid b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumbers[0].testament} AND v.book_number = b.book_number `;
+      let sql = `SELECT v.*, v.rowid b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumbers[0].testament} AND v.book_number = b.book_number `
       parsedNumbers.forEach(
         (item) => (sql += `AND v.text like '%<S>${item.number}</S>%' `)
-      );
-      res = bibleDatabase.prepare(sql).all();
+      )
+      res = bibleDatabase.prepare(sql).all()
       res.forEach(
         (item) =>
-          (item.strongNumbersPrefix =
-            parsedNumbers[0].testament === '<=460' ? 'H' : 'G')
-      );
+          (item.strongNumbersPrefix = parsedNumbers[0].testament === '<=460' ? 'H' : 'G')
+      )
     } else if (args.separator === 'OR') {
-      const texts = {};
+      const texts = {}
       parsedNumbers.forEach((parsedNumber) => {
-        const sql = `SELECT v.*, v.rowid, b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumber.testament} AND v.book_number = b.book_number AND v.text like '%<S>${parsedNumber.number}</S>%'`;
-        const findedTexts = bibleDatabase.prepare(sql).all();
+        const sql = `SELECT v.*, v.rowid, b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumber.testament} AND v.book_number = b.book_number AND v.text like '%<S>${parsedNumber.number}</S>%'`
+        const findedTexts = bibleDatabase.prepare(sql).all()
         findedTexts.forEach((item) => {
-          const prop = item.book_number + '-' + item.chapter + '-' + item.verse;
+          const prop = item.book_number + '-' + item.chapter + '-' + item.verse
           if (!(prop in texts)) {
-            item.strongNumbersPrefix =
-              parsedNumber.testament === '<=460' ? 'H' : 'G';
-            texts[prop] = item;
+            item.strongNumbersPrefix = parsedNumber.testament === '<=460' ? 'H' : 'G'
+            texts[prop] = item
           }
-        });
-      });
-      res = Object.values(texts);
+        })
+      })
+      res = Object.values(texts)
     }
 
-    return res;
+    return res
   }
-};
+}

@@ -9,22 +9,22 @@
 </template>
 
 <script>
-import { debounce } from 'quasar';
+import { debounce } from 'quasar'
 
 export default {
   setup(props) {
     const onInput = debounce((value) => {
       if (props.config.type === 'number') {
-        if (isNaN(value)) return;
-        value = parseInt(value);
+        if (isNaN(value)) return
+        value = parseInt(value)
       }
 
-      props.store.state.set(`app.${props.config.path}`, value);
-    }, 500);
+      props.store.state.set(`app.${props.config.path}`, value)
+    }, 500)
 
     return {
       onInput,
-    };
+    }
   },
   props: {
     config: {
@@ -40,5 +40,5 @@ export default {
     },
     store: Object,
   },
-};
+}
 </script>

@@ -14,14 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { Icons } from 'src/types/icons';
-
+import { Icons } from 'src/types/icons'
 
 interface Props {
-  icon?: Icons,
-  label?: string,
-  disable?: boolean,
-  tooltip?: string,
+  icon?: Icons
+  label?: string
+  disable?: boolean
+  tooltip?: string
 }
 
 defineProps<Props>()

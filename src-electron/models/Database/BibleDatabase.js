@@ -1,12 +1,12 @@
-import { ModuleDatabase } from 'src-electron/models/Database/ModuleDatabase';
+import { ModuleDatabase } from 'src-electron/models/Database/ModuleDatabase'
 
 export class BibleDatabase extends ModuleDatabase {
-  static _instance = {};
-  static _connections = {};
-  static ext = '.SQLite3';
-  static path = ['books'];
+  static _instance = {}
+  static _connections = {}
+  static ext = '.SQLite3'
+  static path = ['books']
 
   constructor(filename, settings) {
-    super(filename, settings, BibleDatabase.ext, BibleDatabase.path);
+    super(filename, settings, BibleDatabase.ext, BibleDatabase.path)
   }
 }

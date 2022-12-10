@@ -21,29 +21,26 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default {
   async setup(props) {
-    const onSelect = (value) =>
-      props.store.state.set(`app.${props.config.path}`, value);
-    const fontList = await window.api.system.getFontList();
-    let options = ref([...fontList]);
+    const onSelect = (value) => props.store.state.set(`app.${props.config.path}`, value)
+    const fontList = await window.api.system.getFontList()
+    let options = ref([...fontList])
 
     const filterFn = (val, update, abort) => {
       update(() => {
-        const needle = val.toLowerCase();
-        options.value = fontList.filter(
-          (v) => v.toLowerCase().indexOf(needle) > -1
-        );
-      });
-    };
+        const needle = val.toLowerCase()
+        options.value = fontList.filter((v) => v.toLowerCase().indexOf(needle) > -1)
+      })
+    }
 
     return {
       options,
       filterFn,
       onSelect,
-    };
+    }
   },
   props: {
     config: {
@@ -59,5 +56,5 @@ export default {
     },
     store: Object,
   },
-};
+}
 </script>

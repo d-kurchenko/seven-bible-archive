@@ -17,5 +17,5 @@ export default (info) => {
     : {
         nt: 'ltr',
         ot: 'ltr',
-      };
-};
+      }
+}

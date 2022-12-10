@@ -25,4 +25,4 @@ export const menuList = [
     label: 'helpPage',
     path: '/help',
   },
-];
+]

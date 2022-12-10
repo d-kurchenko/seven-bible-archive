@@ -82,29 +82,29 @@
 </template>
 
 <script setup>
-import useStore from 'src/hooks/useStore';
-import { onMounted, ref } from 'vue';
-import normalizeSearchInput from 'src/hooks/normalizeSearchInput';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import StrongBody from 'components/Main/strong/StrongBody.vue';
-import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue';
-import { notify } from 'src/wrappers/notify';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { onMounted, ref } from 'vue'
+import normalizeSearchInput from 'src/hooks/normalizeSearchInput'
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import StrongBody from 'components/Main/strong/StrongBody.vue'
+import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue'
+import { notify } from 'src/wrappers/notify'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import { Icons } from 'src/types/icons'
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
-const { id, bibleModuleInfo } = useSevenBible();
-const store = useStore();
+const { id, bibleModuleInfo } = useSevenBible()
+const store = useStore()
 const {
   bible: { fileName: bibleFileName },
   strong: { strongNumbers: fixedStrongNumbers, fileName: strongFileName },
-} = store.native.state.settings.workPlace[id];
+} = store.native.state.settings.workPlace[id]
 
-const close = (ref) => emit('close', ref);
+const close = (ref) => emit('close', ref)
 
 const options = [
   {
@@ -115,17 +115,17 @@ const options = [
     value: 'OR',
     label: 'Искать любой из введенных номеров стронга',
   },
-];
-const searchMode = ref(options[1]);
-const textsCount = ref(0);
-const searchInput = ref('');
-const showLoader = ref(false);
-const strongNumbers = ref([]);
+]
+const searchMode = ref(options[1])
+const textsCount = ref(0)
+const searchInput = ref('')
+const showLoader = ref(false)
+const strongNumbers = ref([])
 
-const foundedTexts = ref([]);
+const foundedTexts = ref([])
 const searchByStrong = async () => {
-  showLoader.value = true;
-  strongNumbers.value = normalizeSearchInput(searchInput.value).split(' ');
+  showLoader.value = true
+  strongNumbers.value = normalizeSearchInput(searchInput.value).split(' ')
 
   if (
     searchInput.value.toUpperCase().includes('H') &&
@@ -134,8 +134,8 @@ const searchByStrong = async () => {
   ) {
     notify.showInfo(
       'Строка поиска не может сожержать одновременно два префикса (H и G) в текущем режиме поиска.'
-    );
-    return;
+    )
+    return
   }
 
   const settings = {
@@ -143,33 +143,30 @@ const searchByStrong = async () => {
     separator: searchMode.value.value,
     fixedStrongNumbersPrefix: bibleModuleInfo.value.strong_numbers_prefix,
     filename: bibleFileName,
-  };
+  }
 
-  const normalizedNumbers = strongNumbers.value.map((curr) =>
-    curr.substring(1)
-  );
-  const strongNumbersRegexString = normalizedNumbers.join('|');
-  const data = await window.api.strong.getFindedVerseByStrong(settings);
+  const normalizedNumbers = strongNumbers.value.map((curr) => curr.substring(1))
+  const strongNumbersRegexString = normalizedNumbers.join('|')
+  const data = await window.api.strong.getFindedVerseByStrong(settings)
 
-  const regex = new RegExp(`<S>(${strongNumbersRegexString})</S>`, 'gi');
+  const regex = new RegExp(`<S>(${strongNumbersRegexString})</S>`, 'gi')
   data.forEach((current) => {
     current.text = current.text.replace(
       regex,
       `<mark>${current.strongNumbersPrefix}$1</mark>`
-    );
-  });
+    )
+  })
 
-  foundedTexts.value = data;
-  textsCount.value = data.length;
-  showLoader.value = false;
-};
-const goToText = (bookNumber, chapterNumber) =>
-  close({ bookNumber, chapterNumber });
+  foundedTexts.value = data
+  textsCount.value = data.length
+  showLoader.value = false
+}
+const goToText = (bookNumber, chapterNumber) => close({ bookNumber, chapterNumber })
 
 onMounted(() => {
-  searchInput.value = fixedStrongNumbers.join(' ');
-  searchByStrong();
-});
+  searchInput.value = fixedStrongNumbers.join(' ')
+  searchByStrong()
+})
 </script>
 
 <style lang="scss">

@@ -1,4 +1,4 @@
-import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase';
+import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
 
 export default (args) => {
   {
@@ -7,11 +7,11 @@ export default (args) => {
         before: null,
         next: null,
       },
-    };
+    }
     // before
-    let sql = `SELECT book_number, chapter FROM verses WHERE chapter < ${args.chapterNumber} AND book_number = ${args.bookNumber} ORDER BY chapter DESC`;
-    const bibleDatabase = new BibleDatabase(args.filename);
-    let data = bibleDatabase.prepare(sql).get();
+    let sql = `SELECT book_number, chapter FROM verses WHERE chapter < ${args.chapterNumber} AND book_number = ${args.bookNumber} ORDER BY chapter DESC`
+    const bibleDatabase = new BibleDatabase(args.filename)
+    let data = bibleDatabase.prepare(sql).get()
     if (data) {
       res.arrows.before = {
         ref: {
@@ -19,10 +19,10 @@ export default (args) => {
           chapterNumber: data.chapter,
         },
         disabled: false,
-      };
+      }
     } else {
-      sql = `SELECT book_number, chapter FROM verses WHERE book_number < ${args.bookNumber} ORDER BY book_number DESC`;
-      data = bibleDatabase.prepare(sql).get();
+      sql = `SELECT book_number, chapter FROM verses WHERE book_number < ${args.bookNumber} ORDER BY book_number DESC`
+      data = bibleDatabase.prepare(sql).get()
 
       if (data) {
         res.arrows.before = {
@@ -31,15 +31,15 @@ export default (args) => {
             chapterNumber: data.chapter,
           },
           disabled: false,
-        };
+        }
       } else {
-        res.arrows.before = { disabled: true };
+        res.arrows.before = { disabled: true }
       }
     }
 
     // next
-    sql = `SELECT book_number, chapter FROM verses WHERE chapter > ${args.chapterNumber} AND book_number = ${args.bookNumber}`;
-    data = bibleDatabase.prepare(sql).get();
+    sql = `SELECT book_number, chapter FROM verses WHERE chapter > ${args.chapterNumber} AND book_number = ${args.bookNumber}`
+    data = bibleDatabase.prepare(sql).get()
 
     if (data) {
       res.arrows.next = {
@@ -48,10 +48,10 @@ export default (args) => {
           chapterNumber: data.chapter,
         },
         disabled: false,
-      };
+      }
     } else {
-      sql = `SELECT book_number FROM verses WHERE book_number > ${args.bookNumber}`;
-      data = bibleDatabase.prepare(sql).get();
+      sql = `SELECT book_number FROM verses WHERE book_number > ${args.bookNumber}`
+      data = bibleDatabase.prepare(sql).get()
       if (data) {
         res.arrows.next = {
           ref: {
@@ -59,12 +59,12 @@ export default (args) => {
             chapterNumber: 1,
           },
           disabled: false,
-        };
+        }
       } else {
-        res.arrows.next = { disabled: true };
+        res.arrows.next = { disabled: true }
       }
     }
 
-    return res;
+    return res
   }
-};
+}

@@ -1,1 +1,1 @@
-export default ['light', 'dark'];
+export default ['light', 'dark']

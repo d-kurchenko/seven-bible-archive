@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue';
-import { BibleVerses } from 'src-electron/types/bible';
+import { PropType, defineComponent } from 'vue'
+import { BibleVerses } from 'src-electron/types/bible'
 
 export default defineComponent({
   props: {
@@ -19,5 +19,5 @@ export default defineComponent({
       default: () => [],
     },
   },
-});
+})
 </script>

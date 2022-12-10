@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import GeneralTab from 'components/Settings/generalTab.vue';
-import { useI18n } from 'vue-i18n';
+import { computed, ref } from 'vue'
+import GeneralTab from 'components/Settings/generalTab.vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
   setup() {
-    const { t } = useI18n();
+    const { t } = useI18n()
 
     const tabs = [
       {
@@ -44,20 +44,20 @@ export default {
         label: 'themeEditorTab',
         icon: 'brush',
       },
-    ];
-    const tab = ref(tabs[0].name);
+    ]
+    const tab = ref(tabs[0].name)
 
     const activeTabLabel = computed(
       () => tabs.find((currTab) => (currTab.name = tab.value)).label
-    );
+    )
 
     return {
       tab,
       tabs,
       activeTabLabel,
       t,
-    };
+    }
   },
   components: { GeneralTab },
-};
+}
 </script>

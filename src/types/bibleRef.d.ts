@@ -1,8 +1,8 @@
-import { BookNumbers } from 'types/bookNumbers';
+import { BookNumbers } from 'types/bookNumbers'
 
 export interface BibleRef {
-  filename?: string;
-  bookNumber?: BookNumbers;
-  chapterNumber?: number;
-  verseNumber?: number;
+  filename?: string
+  bookNumber?: BookNumbers
+  chapterNumber?: number
+  verseNumber?: number
 }

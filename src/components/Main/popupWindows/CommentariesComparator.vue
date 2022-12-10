@@ -22,14 +22,14 @@
 </template>
 
 <script lang="ts">
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { onMounted, ref, defineComponent, Ref, nextTick } from 'vue';
-import { Commentaries } from 'src-electron/types/commentaries';
-import UIError from 'components/UI/UIError.vue';
-import UILoader from 'src/components/UI/UILoader.vue';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { onMounted, ref, defineComponent, Ref, nextTick } from 'vue'
+import { Commentaries } from 'src-electron/types/commentaries'
+import UIError from 'components/UI/UIError.vue'
+import UILoader from 'src/components/UI/UILoader.vue'
 
 export default defineComponent({
   setup(props, { emit }) {
@@ -38,23 +38,23 @@ export default defineComponent({
       bible: {
         value: { chapterNumber, bookNumber },
       },
-    } = useSevenBible();
+    } = useSevenBible()
 
-    const loading = ref(false);
-    const close = () => emit('close');
-    const compared: Ref<Commentaries[]> = ref([]);
+    const loading = ref(false)
+    const close = () => emit('close')
+    const compared: Ref<Commentaries[]> = ref([])
     const getCompared = async () => {
       const settings = {
         bookNumber,
         chapterNumber,
         verseNumber: props.verseNumber,
-      };
-      loading.value = true;
-      compared.value = await window.api.commentaries.getCompared(settings);
-      nextTick(() => (loading.value = false));
-    };
+      }
+      loading.value = true
+      compared.value = await window.api.commentaries.getCompared(settings)
+      nextTick(() => (loading.value = false))
+    }
 
-    onMounted(() => getCompared());
+    onMounted(() => getCompared())
 
     return {
       close,
@@ -62,7 +62,7 @@ export default defineComponent({
       bookShortName,
       chapterNumber,
       compared,
-    };
+    }
   },
   props: {
     verseNumber: Number,
@@ -74,5 +74,5 @@ export default defineComponent({
     UIModalWindowHeader,
     UIModalWindow,
   },
-});
+})
 </script>

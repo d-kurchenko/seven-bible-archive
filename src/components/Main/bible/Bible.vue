@@ -18,7 +18,12 @@
     :target="verseNumberPopupTarget"
   >
     <q-list>
-      <q-item v-for="(item, i) in verseMenuItems" :key="i" clickable @click="item.callback">
+      <q-item
+        v-for="(item, i) in verseMenuItems"
+        :key="i"
+        clickable
+        @click="item.callback"
+      >
         <q-item-section v-t="item.title" />
       </q-item>
     </q-list>
@@ -121,12 +126,13 @@
                 :key="'B' + idx"
                 @click="
                   ({ target }) => {
-                    htmlPopupTarget = target;
-                    htmlPopupText = commentary.text;
-                    $refs.htmlPopup.toggle();
+                    htmlPopupTarget = target
+                    htmlPopupText = commentary.text
+                    $refs.htmlPopup.toggle()
                   }
                 "
-              >{{ commentary.moduleName }}</span>
+                >{{ commentary.moduleName }}</span
+              >
             </span>
 
             <div
@@ -140,7 +146,7 @@
                 class="bookmark-category"
               >
                 <div
-                  v-for="({ }, i) in category.bookmarks"
+                  v-for="({}, i) in category.bookmarks"
                   :key="i"
                   class="bookmark bookmark-block"
                   :style="{ backgroundColor: category.backgroundColor }"
@@ -164,29 +170,28 @@
 </template>
 
 <script lang="ts" setup>
-import Headings from 'components/Main/bible/headings.vue';
-import ContextMenu from 'components/Main/bible/ContextMenu.vue';
-import useBibleEvents from 'src/hooks/useBibleEvents';
-import useVerseNumber from 'src/hooks/useVerseNumber';
-import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.vue';
-import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader.vue';
-import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody.vue';
-import BibleTopBar from 'components/Main/bible/bibleTopBar.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import useStore from 'src/hooks/useStore';
-import { onMounted, watch, computed, ref, defineComponent } from 'vue';
-import useChapter from 'src/hooks/useChapter';
-import useFootnotes from 'src/hooks/useFootnotes';
-import useVerseSelector from 'src/hooks/useVerseSelector';
-import useVerse from 'src/hooks/useVerse';
-import { clearTags, cropString } from 'src/helpers';
-import { convertVerses } from 'src/helpers/verseSelector';
-import { notify } from 'src/wrappers/notify';
-import { useI18n } from 'vue-i18n';
-import UIError from 'components/UI/UIError.vue';
-import { BookNumbers } from 'types/bookNumbers';
-import useBookmarkBlock from 'src/hooks/useBookmarkBlock';
-
+import Headings from 'components/Main/bible/headings.vue'
+import ContextMenu from 'components/Main/bible/ContextMenu.vue'
+import useBibleEvents from 'src/hooks/useBibleEvents'
+import useVerseNumber from 'src/hooks/useVerseNumber'
+import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.vue'
+import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader.vue'
+import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody.vue'
+import BibleTopBar from 'components/Main/bible/bibleTopBar.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import useStore from 'src/hooks/useStore'
+import { onMounted, watch, computed, ref, defineComponent } from 'vue'
+import useChapter from 'src/hooks/useChapter'
+import useFootnotes from 'src/hooks/useFootnotes'
+import useVerseSelector from 'src/hooks/useVerseSelector'
+import useVerse from 'src/hooks/useVerse'
+import { clearTags, cropString } from 'src/helpers'
+import { convertVerses } from 'src/helpers/verseSelector'
+import { notify } from 'src/wrappers/notify'
+import { useI18n } from 'vue-i18n'
+import UIError from 'components/UI/UIError.vue'
+import { BookNumbers } from 'types/bookNumbers'
+import useBookmarkBlock from 'src/hooks/useBookmarkBlock'
 
 const {
   id,
@@ -198,16 +203,15 @@ const {
   bookShortName,
   bookFullName,
   bibleWindowsUpdates,
-} = useSevenBible();
-const store = useStore();
+} = useSevenBible()
+const store = useStore()
 
 const bibleError = ref({
   show: false,
   message: '',
-});
-const { chapter, getChapter } = useChapter({ bible, bibleError });
-const { footnotes, getFootNotes } = useFootnotes(bible);
-
+})
+const { chapter, getChapter } = useChapter({ bible, bibleError })
+const { footnotes, getFootNotes } = useFootnotes(bible)
 
 watch(
   [
@@ -218,46 +222,41 @@ watch(
     () => bible.value.fileName,
   ],
   async () => {
-    await getChapter();
-    await getFootNotes();
+    await getChapter()
+    await getFootNotes()
   }
-);
+)
 
-const {
-  onVerseContextmenu,
-  versePopup,
-  versePopupOptions,
-  versePopupTarget,
-} = useVerse();
+const { onVerseContextmenu, versePopup, versePopupOptions, versePopupTarget } = useVerse()
 
-const { onVerseClick, htmlPopup, htmlPopupText, htmlPopupTarget } =
-  useBibleEvents(id, store, footnotes);
+const { onVerseClick, htmlPopup, htmlPopupText, htmlPopupTarget } = useBibleEvents(
+  id,
+  store,
+  footnotes
+)
 
-const { onBookmarkBlockClick } = useBookmarkBlock();
+const { onBookmarkBlockClick } = useBookmarkBlock()
 
-const {
-  selectedVerses,
-  onSelectorClick,
-  onSelectorHold,
-  clearSelectedVerses,
-} = useVerseSelector();
+const { selectedVerses, onSelectorClick, onSelectorHold, clearSelectedVerses } =
+  useVerseSelector()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const copyVerses = (verses: number[]) => {
-  const ref = `${bookShortName?.value} ${bible.value.chapterNumber
-    }:${convertVerses(verses)}`;
-  let text = '';
-  text += '[';
+  const ref = `${bookShortName?.value} ${bible.value.chapterNumber}:${convertVerses(
+    verses
+  )}`
+  let text = ''
+  text += '['
   verses.forEach((verseNumber) => {
-    const html = chapter?.value![verseNumber - 1].text;
-    text += clearTags(html);
-  });
-  text += ']';
-  text += `\n${ref}`;
-  navigator.clipboard.writeText(text);
-  notify.showInfo(`${t('textCopied')}: "${cropString(text, 20)}"`);
-};
+    const html = chapter?.value![verseNumber - 1].text
+    text += clearTags(html)
+  })
+  text += ']'
+  text += `\n${ref}`
+  navigator.clipboard.writeText(text)
+  notify.showInfo(`${t('textCopied')}: "${cropString(text, 20)}"`)
+}
 
 const {
   verseMenuItems,
@@ -268,34 +267,29 @@ const {
   openCrossreferencesSearcher,
   openTranslationsComparator,
   openBookmarkCreator,
-} = useVerseNumber({ copyVerses });
+} = useVerseNumber({ copyVerses })
 
 onMounted(() => {
-  getChapter();
-  getFootNotes();
-});
+  getChapter()
+  getFootNotes()
+})
 
-const localizedChapterName = t('chapterString');
+const localizedChapterName = t('chapterString')
 const chapterString = computed(() => {
-  return info.value?.chapter_string_ps &&
-    bible.value.bookNumber === BookNumbers.Ps
+  return info.value?.chapter_string_ps && bible.value.bookNumber === BookNumbers.Ps
     ? info.value?.chapter_string_ps
-    : info.value?.chapter_string_nt &&
-      bible.value.bookNumber >= BookNumbers.Mat
-      ? info.value?.chapter_string_nt
-      : info.value?.chapter_string_ot &&
-        bible.value.bookNumber < BookNumbers.Mat
-        ? info.value?.chapter_string_ot
-        : info.value?.chapter_string
-          ? info.value?.chapter_string
-          : localizedChapterName;
-});
+    : info.value?.chapter_string_nt && bible.value.bookNumber >= BookNumbers.Mat
+    ? info.value?.chapter_string_nt
+    : info.value?.chapter_string_ot && bible.value.bookNumber < BookNumbers.Mat
+    ? info.value?.chapter_string_ot
+    : info.value?.chapter_string
+    ? info.value?.chapter_string
+    : localizedChapterName
+})
 
 // const copyText = async () => {
 //   let text = await navigator.clipboard.readText()
 //   text = text.replace(/\n/g, ' ')
 //   navigator.clipboard.writeText(text)
 // }
-
-
 </script>

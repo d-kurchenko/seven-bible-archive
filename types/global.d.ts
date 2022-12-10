@@ -1,34 +1,34 @@
-import { API } from 'src-electron/electron-preload';
+import { API } from 'src-electron/electron-preload'
 
 declare global {
-  var dir: string;
+  var dir: string
   interface Window {
-    api: typeof API;
-    dir: string;
+    api: typeof API
+    dir: string
   }
   interface String {
-    format: (...args: any[]) => void;
+    format: (...args: any[]) => void
   }
   interface StringConstructor {
-    hasReplacer: (string: string) => boolean;
+    hasReplacer: (string: string) => boolean
   }
   interface ObjectConstructor {
-    getValue: (path: string, object: any) => any;
-    setValue: (path: string, object: any, value: any) => void;
+    getValue: (path: string, object: any) => any
+    setValue: (path: string, object: any, value: any) => void
   }
   interface Array<T> {
-    remove: (value: any) => void;
+    remove: (value: any) => void
   }
   interface BooleanConstructor {
-    parse: (str: string | undefined, fallback?: boolean) => boolean;
+    parse: (str: string | undefined, fallback?: boolean) => boolean
   }
 }
-import Vue from 'vue';
+import Vue from 'vue'
 
 declare module 'vue/types/vue' {
   interface Vue {
     directives: {
-      vFocus: object;
-    };
+      vFocus: object
+    }
   }
 }

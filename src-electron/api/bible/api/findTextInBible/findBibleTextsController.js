@@ -1,5 +1,5 @@
-import runInThread from 'src-electron/helpers/runInThread';
+import runInThread from 'src-electron/helpers/runInThread'
 
 export default (args) => {
-  return runInThread([__dirname, './findBibleTextWorker.mjs'], args);
-};
+  return runInThread([__dirname, './findBibleTextWorker.mjs'], args)
+}

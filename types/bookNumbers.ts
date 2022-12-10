@@ -104,4 +104,4 @@ export const nonCanonicalBooks = [
   BookNumbers.Mac4,
   BookNumbers.Esd2,
   BookNumbers.Lao,
-];
+]

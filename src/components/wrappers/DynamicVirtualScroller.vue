@@ -6,12 +6,7 @@
     style="min-height: 100px"
   >
     <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem
-        :item="item"
-        :active="active"
-        buffer="20"
-        :data-index="index"
-      >
+      <DynamicScrollerItem :item="item" :active="active" buffer="20" :data-index="index">
         <slot :item="item" />
       </DynamicScrollerItem>
     </template>
@@ -26,5 +21,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

@@ -1,5 +1,5 @@
-import { BookmarkCategory } from 'types/bookmark';
+import { BookmarkCategory } from 'types/bookmark'
 
 export interface ChapterBookmarkCategories {
-  [categoryName: string]: BookmarkCategory;
+  [categoryName: string]: BookmarkCategory
 }

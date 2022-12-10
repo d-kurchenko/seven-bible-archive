@@ -12,45 +12,45 @@
 </template>
 
 <script setup>
-import SystemBar from 'components/SystemBar.vue';
-import SideMenu from 'components/SideMenu.vue';
+import SystemBar from 'components/SystemBar.vue'
+import SideMenu from 'components/SideMenu.vue'
 
-import { ref, computed } from 'vue';
-import { useStore } from 'src/store';
-import useTheme from 'src/hooks/useTheme';
+import { ref, computed } from 'vue'
+import { useStore } from 'src/store'
+import useTheme from 'src/hooks/useTheme'
 
-const visibleRight = ref(true);
+const visibleRight = ref(true)
 
-const store = useStore();
-const app = computed(() => store.getters['settings/app']);
+const store = useStore()
+const app = computed(() => store.getters['settings/app'])
 
 const font = computed(() => ({
   fontFamily: `${app.value.appearance.font}, sans-serif`,
-}));
+}))
 
-const { setTheme } = useTheme();
-setTheme(app.value.appearance.theme);
+const { setTheme } = useTheme()
+setTheme(app.value.appearance.theme)
 
-const stringify = (state) => JSON.stringify(state, null, 2);
+const stringify = (state) => JSON.stringify(state, null, 2)
 const saveProgramSettings = (state) =>
-  window.api.system.saveProgramSettings(stringify(state));
+  window.api.system.saveProgramSettings(stringify(state))
 
 const changeAppSettings = (settings) =>
-  store.commit('settings/changeAppSettings', settings);
+  store.commit('settings/changeAppSettings', settings)
 
 const saveProgramState = async () => {
-  const bounds = await window.api.electron.getWindowBounds();
-  changeAppSettings({ win: bounds });
-  saveProgramSettings(store.state.settings);
-};
+  const bounds = await window.api.electron.getWindowBounds()
+  changeAppSettings({ win: bounds })
+  saveProgramSettings(store.state.settings)
+}
 
 setInterval(() => {
-  saveProgramState();
-  console.log('saved');
-}, 60000 * 5);
+  saveProgramState()
+  console.log('saved')
+}, 60000 * 5)
 
 window.api.electron.onCloseApp(async () => {
-  await saveProgramState();
-  window.api.electron.closeApp();
-});
+  await saveProgramState()
+  window.api.electron.closeApp()
+})
 </script>

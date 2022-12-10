@@ -33,11 +33,7 @@
             >
               <template v-slot:append>
                 <q-icon :name="Icons.Colorize" class="cursor-pointer">
-                  <q-popup-proxy
-                    cover
-                    transition-show="scale"
-                    transition-hide="scale"
-                  >
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                     <q-color
                       no-header-tabs
                       no-footer
@@ -65,12 +61,7 @@
           <q-item-label v-text="$t('deleteCategoryConfirm')" />
           <q-item-label class="flex justify-center q-gutter-x-sm">
             <q-btn :label="$t('cancel')" flat dense v-close-popup />
-            <q-btn
-              :label="$t('proceed')"
-              flat
-              dense
-              @click.stop="deleteCategory"
-            />
+            <q-btn :label="$t('proceed')" flat dense @click.stop="deleteCategory" />
           </q-item-label>
         </q-card-section>
       </q-card>
@@ -186,48 +177,41 @@
 </template>
 
 <script setup lang="ts">
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { computed, onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import {
-  PreparedBookmark,
-  PreparedCategory,
-} from 'types/api-modified/categories';
-import { GetPreparedCategoriesArgs } from 'types/api-args/categories';
-import { refToString } from 'src/helpers';
-import BibleVerses from 'components/Main/BibleVerses.vue';
-import useStore from 'src/hooks/useStore';
-import { Icons } from 'src/types/icons';
-import { notify } from 'src/wrappers/notify';
-import useCategoryCreator from 'src/hooks/useCategoryCreator';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { PreparedBookmark, PreparedCategory } from 'types/api-modified/categories'
+import { GetPreparedCategoriesArgs } from 'types/api-args/categories'
+import { refToString } from 'src/helpers'
+import BibleVerses from 'components/Main/BibleVerses.vue'
+import useStore from 'src/hooks/useStore'
+import { Icons } from 'src/types/icons'
+import { notify } from 'src/wrappers/notify'
+import useCategoryCreator from 'src/hooks/useCategoryCreator'
 
-const emit = defineEmits(['close']);
-const close = () => emit('close');
+const emit = defineEmits(['close'])
+const close = () => emit('close')
 
-const { t } = useI18n();
-const { bookmarks, bible, id, updateBibleWindows, popup } = useSevenBible();
-const store = useStore();
+const { t } = useI18n()
+const { bookmarks, bible, id, updateBibleWindows, popup } = useSevenBible()
+const store = useStore()
 
-const selectedCategory = ref(bookmarks.categoriesList.value[0]);
+const selectedCategory = ref(bookmarks.categoriesList.value[0])
 
-const preparedCategories = ref<PreparedCategory[]>();
+const preparedCategories = ref<PreparedCategory[]>()
 const getPreparedCategories = async () => {
   const settings: GetPreparedCategoriesArgs = {
     bibleFileName: bible.value.fileName,
     categories: bookmarks.bookmarkCategories.value,
-  };
-  preparedCategories.value = await window.api.categories.getPreparedCategories(
-    settings
-  );
-};
-onMounted(() => getPreparedCategories());
+  }
+  preparedCategories.value = await window.api.categories.getPreparedCategories(settings)
+}
+onMounted(() => getPreparedCategories())
 
-const allCategoriesSelected = computed(
-  () => selectedCategory.value.index === 0
-);
+const allCategoriesSelected = computed(() => selectedCategory.value.index === 0)
 
 const selectedCategories = computed<PreparedCategory[]>(() => {
   return allCategoriesSelected.value
@@ -236,8 +220,8 @@ const selectedCategories = computed<PreparedCategory[]>(() => {
         preparedCategories.value?.find(
           (category) => category.name === selectedCategory.value.name
         )!,
-      ];
-});
+      ]
+})
 
 const convertRef = (bookmark: PreparedBookmark) =>
   refToString(
@@ -245,15 +229,15 @@ const convertRef = (bookmark: PreparedBookmark) =>
     bookmark.startChapterNumber,
     bookmark.startVerseNumber,
     bookmark.endVerseNumber
-  );
+  )
 
 const goToText = (bookmark: PreparedBookmark) => {
   store.state.setBibleRef(id, {
     bookNumber: bookmark.bookNumber,
     chapterNumber: bookmark.startChapterNumber,
-  });
-  close();
-};
+  })
+  close()
+}
 const onEdit = async (bookmark: PreparedBookmark, categoryName: string) => {
   await popup.showBookmarkCreator({
     _bookmark: {
@@ -269,16 +253,16 @@ const onEdit = async (bookmark: PreparedBookmark, categoryName: string) => {
     },
     isEditMode: true,
     categoryNameToDeleteIn: categoryName,
-  });
-  popup.showBookmarksManager({});
-  updateBibleWindows();
-};
+  })
+  popup.showBookmarksManager({})
+  updateBibleWindows()
+}
 const onDelete = async (bookmark: PreparedBookmark, categoryName: string) => {
-  await bookmarks.deleteBookmark(categoryName, bookmark);
-  getPreparedCategories();
-  updateBibleWindows();
-  notify.showInfo(t('bookmarkWasDeleted'));
-};
+  await bookmarks.deleteBookmark(categoryName, bookmark)
+  getPreparedCategories()
+  updateBibleWindows()
+  notify.showInfo(t('bookmarkWasDeleted'))
+}
 
 const {
   categoryName,
@@ -286,17 +270,17 @@ const {
   showCategoryCreator,
   openCategoryCreator,
   createCategory,
-} = useCategoryCreator({ getPreparedCategories });
+} = useCategoryCreator({ getPreparedCategories })
 
-const showDeleteCategoryConfirm = ref(false);
-let categoryToDelete: string;
+const showDeleteCategoryConfirm = ref(false)
+let categoryToDelete: string
 const onBeforeDeleteCategory = (categoryName: string) => {
-  categoryToDelete = categoryName;
-  showDeleteCategoryConfirm.value = true;
-};
+  categoryToDelete = categoryName
+  showDeleteCategoryConfirm.value = true
+}
 const deleteCategory = async () => {
-  showDeleteCategoryConfirm.value = false;
-  await bookmarks.deleteCategory(categoryToDelete);
-  updateBibleWindows();
-};
+  showDeleteCategoryConfirm.value = false
+  await bookmarks.deleteCategory(categoryToDelete)
+  updateBibleWindows()
+}
 </script>

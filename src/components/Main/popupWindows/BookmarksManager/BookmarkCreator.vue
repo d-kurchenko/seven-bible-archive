@@ -28,11 +28,7 @@
         />
         <div class="flex justify-around">
           <UIButton :tooltip="$t('cancel')" :icon="'cancel'" @click="close" />
-          <UIButton
-            :tooltip="$t('accept')"
-            :icon="'done'"
-            @click="makeBookmark"
-          />
+          <UIButton :tooltip="$t('accept')" :icon="'done'" @click="makeBookmark" />
         </div>
       </div>
     </UIModalWindowBody>
@@ -40,32 +36,32 @@
 </template>
 
 <script setup lang="ts">
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { computed, onMounted, ref } from 'vue';
-import BibleVerses from 'components/Main/BibleVerses.vue';
-import UIButton from 'components/UI/UIButton.vue';
-import { createDateString } from 'src/helpers';
-import { notify } from 'src/wrappers/notify';
-import { useI18n } from 'vue-i18n';
-import { Bookmark } from 'types/bookmark';
-import { Icons } from 'src/types/icons';
-import { PreparedVerse } from 'types/api-modified/bible';
-import { BookmarkArgs } from 'src/hooks/useBookmarks';
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { computed, onMounted, ref } from 'vue'
+import BibleVerses from 'components/Main/BibleVerses.vue'
+import UIButton from 'components/UI/UIButton.vue'
+import { createDateString } from 'src/helpers'
+import { notify } from 'src/wrappers/notify'
+import { useI18n } from 'vue-i18n'
+import { Bookmark } from 'types/bookmark'
+import { Icons } from 'src/types/icons'
+import { PreparedVerse } from 'types/api-modified/bible'
+import { BookmarkArgs } from 'src/hooks/useBookmarks'
 
 interface Props {
-  _bookmark: Bookmark;
-  isEditMode?: boolean;
-  categoryNameToDeleteIn?: string;
+  _bookmark: Bookmark
+  isEditMode?: boolean
+  categoryNameToDeleteIn?: string
 }
 
 let props = withDefaults(defineProps<Props>(), {
   isEditMode: false,
-});
+})
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
 const {
   bible: { value: bible },
@@ -73,9 +69,9 @@ const {
   bibleModuleInfo: { value: info },
   bookmarks,
   updateBibleWindows,
-} = useSevenBible();
+} = useSevenBible()
 
-const { _bookmark, isEditMode, categoryNameToDeleteIn } = props;
+const { _bookmark, isEditMode, categoryNameToDeleteIn } = props
 
 const bookmark = ref<Bookmark>({
   bookNumber: bible.bookNumber,
@@ -85,11 +81,11 @@ const bookmark = ref<Bookmark>({
   endVerseNumber: _bookmark.endVerseNumber ?? _bookmark.startVerseNumber,
   description: '',
   isForRussianNumbering: Boolean.parse(info.russian_numbering),
-});
-bookmark.value = { ...bookmark.value, ..._bookmark };
+})
+bookmark.value = { ...bookmark.value, ..._bookmark }
 
-const close = () => emit('close');
-const verses = ref<PreparedVerse[]>();
+const close = () => emit('close')
+const verses = ref<PreparedVerse[]>()
 
 const getVersesText = async () => {
   const settings = {
@@ -98,51 +94,49 @@ const getVersesText = async () => {
     chapterNumber: bible.chapterNumber,
     selectedVerseFrom: bookmark.value.startVerseNumber,
     selectedVerseTo: bookmark.value.endVerseNumber,
-  };
-  verses.value = await window.api.bible.getVerses(settings);
-};
+  }
+  verses.value = await window.api.bible.getVerses(settings)
+}
 
 onMounted(() => {
-  getVersesText();
-});
+  getVersesText()
+})
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const convertedVerses = computed(() => {
   return !bookmark.value.endVerseNumber ||
     bookmark.value.endVerseNumber === bookmark.value.startVerseNumber
     ? bookmark.value.startVerseNumber
-    : `${bookmark.value.startVerseNumber}-${bookmark.value.endVerseNumber}`;
-});
+    : `${bookmark.value.startVerseNumber}-${bookmark.value.endVerseNumber}`
+})
 
-const categoriesList = bookmarks.bookmarkCategories.value.map(
-  (category) => category.name
-);
-const selectedCategory = ref(categoryNameToDeleteIn ?? categoriesList[0]);
+const categoriesList = bookmarks.bookmarkCategories.value.map((category) => category.name)
+const selectedCategory = ref(categoryNameToDeleteIn ?? categoriesList[0])
 
 const makeBookmark = async () => {
-  if (!bookmark.value.startVerseNumber) return;
+  if (!bookmark.value.startVerseNumber) return
   const settings: BookmarkArgs = {
     categoryName: selectedCategory.value,
     bookmark: { ...bookmark.value },
-  };
-  const date = createDateString();
-  if (isEditMode) settings.bookmark.dateModified = date;
+  }
+  const date = createDateString()
+  if (isEditMode) settings.bookmark.dateModified = date
   else {
-    settings.bookmark.dateCreated = date;
-    settings.bookmark.dateModified = date;
+    settings.bookmark.dateCreated = date
+    settings.bookmark.dateModified = date
   }
   if (isEditMode) {
     await bookmarks.editBookmark(settings, {
       categoryName: categoryNameToDeleteIn!,
       bookmark: { ..._bookmark },
-    });
-    notify.showInfo(t('bookmarkWasEdited'));
+    })
+    notify.showInfo(t('bookmarkWasEdited'))
   } else {
-    await bookmarks.addBookmark(settings);
-    notify.showInfo(t('bookmarkWasCreated'));
+    await bookmarks.addBookmark(settings)
+    notify.showInfo(t('bookmarkWasCreated'))
   }
-  close();
-  updateBibleWindows();
-};
+  close()
+  updateBibleWindows()
+}
 </script>

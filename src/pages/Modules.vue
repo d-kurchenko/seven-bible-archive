@@ -14,30 +14,30 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, shallowRef } from 'vue';
-import { Download, ModulesRegistry } from 'types/registry';
-import UILoader from 'src/components/UI/UILoader.vue';
-import { Modules } from 'types/modules';
-import ModulesTabs from 'src/components/Modules/ModulesTabs.vue';
-import ModulesTabsPanels from 'src/components/Modules/ModulesTabsPanels.vue';
+import { computed, nextTick, ref, shallowRef } from 'vue'
+import { Download, ModulesRegistry } from 'types/registry'
+import UILoader from 'src/components/UI/UILoader.vue'
+import { Modules } from 'types/modules'
+import ModulesTabs from 'src/components/Modules/ModulesTabs.vue'
+import ModulesTabsPanels from 'src/components/Modules/ModulesTabsPanels.vue'
 
 interface ModulesList {
-  [moduleType: string]: Download[];
+  [moduleType: string]: Download[]
 }
 
-const activeTab = ref(Modules.Bible);
-const onChangeTab = (tab: Modules) => (activeTab.value = tab);
+const activeTab = ref(Modules.Bible)
+const onChangeTab = (tab: Modules) => (activeTab.value = tab)
 
-const showLoader = ref(false);
+const showLoader = ref(false)
 
-const modulesRegistry = shallowRef<ModulesRegistry>();
+const modulesRegistry = shallowRef<ModulesRegistry>()
 
 const fetchModulesRegistry = async () => {
-  showLoader.value = true;
-  modulesRegistry.value = await window.api.system.getModulesRegistry();
-  nextTick(() => (showLoader.value = false));
-};
-fetchModulesRegistry();
+  showLoader.value = true
+  modulesRegistry.value = await window.api.system.getModulesRegistry()
+  nextTick(() => (showLoader.value = false))
+}
+fetchModulesRegistry()
 
 const preparedModulesList = computed(() => {
   const modulesList: ModulesList = {
@@ -46,16 +46,16 @@ const preparedModulesList = computed(() => {
     dictionary: [],
     crossreferences: [],
     bible: [],
-  };
-  const downloads = modulesRegistry.value?.downloads!;
-  if (!downloads) return modulesList;
+  }
+  const downloads = modulesRegistry.value?.downloads!
+  if (!downloads) return modulesList
   for (const module of downloads) {
-    let moduleType = module.fil.split('.')[1];
-    if (!moduleType) moduleType = Modules.Bible;
-    if (!Object.values(Modules).includes(moduleType as Modules)) continue;
-    modulesList[moduleType].push(module);
+    let moduleType = module.fil.split('.')[1]
+    if (!moduleType) moduleType = Modules.Bible
+    if (!Object.values(Modules).includes(moduleType as Modules)) continue
+    modulesList[moduleType].push(module)
   }
 
-  return modulesList;
-});
+  return modulesList
+})
 </script>

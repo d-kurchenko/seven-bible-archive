@@ -1,10 +1,10 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow } from 'electron'
 
 export default () => {
-  const win = BrowserWindow.getFocusedWindow();
+  const win = BrowserWindow.getFocusedWindow()
   if (win.isMaximized()) {
-    win.unmaximize();
+    win.unmaximize()
   } else {
-    win.maximize();
+    win.maximize()
   }
-};
+}

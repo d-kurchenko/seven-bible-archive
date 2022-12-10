@@ -1,15 +1,15 @@
-import { Bookmark, BookmarkCategory } from 'types/bookmark';
+import { Bookmark, BookmarkCategory } from 'types/bookmark'
 
 export interface GetPreparedCategoriesArgs {
-  bibleFileName: string;
-  categories: BookmarkCategory[];
+  bibleFileName: string
+  categories: BookmarkCategory[]
 }
 
 export interface CreateCategoryArgs {
-  filename: string;
-  category: BookmarkCategory;
+  filename: string
+  category: BookmarkCategory
 }
 export interface DeleteCategoryArgs {
-  filename: string;
-  categoryName: string;
+  filename: string
+  categoryName: string
 }

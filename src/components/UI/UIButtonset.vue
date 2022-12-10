@@ -9,5 +9,5 @@
 </template>
 
 <script setup>
-import { horizontalScrollOnWheel } from 'src/hooks/HorizontalScrollOnWheel';
+import { horizontalScrollOnWheel } from 'src/hooks/HorizontalScrollOnWheel'
 </script>

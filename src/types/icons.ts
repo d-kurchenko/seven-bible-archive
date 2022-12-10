@@ -24,5 +24,5 @@ export enum Icons {
   Edit = 'edit',
   Bookmark = 'bookmark',
   Colorize = 'colorize',
-  DownloadFile = 'download'
+  DownloadFile = 'download',
 }

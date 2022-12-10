@@ -43,4 +43,4 @@ export default {
   'bookmark-default': 'rgb(110,0,0)',
   'bookmark-hover': 'var(--primary)',
   'table-borders': 'var(--background)',
-};
+}

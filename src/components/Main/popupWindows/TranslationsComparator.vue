@@ -2,9 +2,7 @@
   <UIModalWindow>
     <UIModalWindowHeader @click="close">
       <template #title
-        >{{ bookShortName }} {{ chapterNumber }}:{{
-          convertVerses(selectedVerses)
-        }}
+        >{{ bookShortName }} {{ chapterNumber }}:{{ convertVerses(selectedVerses) }}
         в разных местах
       </template>
       <q-btn disable flat round :icon="Icons.Dots" />
@@ -22,9 +20,7 @@
           <q-item-section>
             <q-item-label class="q-gutter-x-md q-pb-sm">
               <span class="text-weight-bold">{{ item.moduleName }}</span>
-              <span class="text-weight-light">{{
-                item.moduleDescription
-              }}</span>
+              <span class="text-weight-light">{{ item.moduleDescription }}</span>
             </q-item-label>
 
             <q-item-label>
@@ -45,41 +41,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, PropType, onMounted } from 'vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import { convertVerses } from 'src/helpers/verseSelector';
-import { Icons } from 'src/types/icons';
+import { ref, PropType, onMounted } from 'vue'
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import { convertVerses } from 'src/helpers/verseSelector'
+import { Icons } from 'src/types/icons'
 
 const props = defineProps({
   selectedVerses: {
     type: Array as PropType<number[]>,
     required: true,
   },
-});
-const emit = defineEmits(['close']);
+})
+const emit = defineEmits(['close'])
 
-const { bookShortName, bible } = useSevenBible();
-const { bookNumber, chapterNumber } = bible!.value!;
+const { bookShortName, bible } = useSevenBible()
+const { bookNumber, chapterNumber } = bible!.value!
 
-const testament = bookNumber >= 470 ? 'nt' : 'ot';
+const testament = bookNumber >= 470 ? 'nt' : 'ot'
 
-const close = (ref: any) => emit('close', ref);
+const close = (ref: any) => emit('close', ref)
 
 const goToModule = (filename: string) => {
-  close({ fileName: filename });
-};
+  close({ fileName: filename })
+}
 
-const translationsTexts = ref([]);
+const translationsTexts = ref([])
 const getComparedTranslations = async () => {
   const settings = {
     bookNumber: bookNumber,
     chapterNumber: chapterNumber,
     versesNumbers: [...props.selectedVerses],
-  };
-  translationsTexts.value = await window.api.bible.getCompared(settings);
-};
-onMounted(() => getComparedTranslations());
+  }
+  translationsTexts.value = await window.api.bible.getCompared(settings)
+}
+onMounted(() => getComparedTranslations())
 </script>

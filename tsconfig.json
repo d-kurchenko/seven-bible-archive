@@ -5,6 +5,6 @@
   },
   "paths": {
     "src-electron/*": ["src/*"],
-    "types/*": ["*"],
+    "types/*": ["*"]
   }
 }

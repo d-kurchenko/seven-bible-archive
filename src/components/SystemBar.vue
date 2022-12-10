@@ -23,22 +23,19 @@
 </template>
 
 <script>
-import useStore from 'src/hooks/useStore';
-import { computed } from 'vue';
-import { Icons } from '../types/icons';
+import useStore from 'src/hooks/useStore'
+import { computed } from 'vue'
+import { Icons } from '../types/icons'
 
 export default {
   setup() {
-    const store = useStore();
-    const activeWorkPlaces = computed(
-      () => store.getters.getActiveWorkPlaces().indexes
-    );
+    const store = useStore()
+    const activeWorkPlaces = computed(() => store.getters.getActiveWorkPlaces().indexes)
 
-    const minimize = () => window.api.electron.minimize();
-    const toggleMaximize = () => window.api.electron.toggleMaximize();
-    const close = () => window.api.electron.close();
-    const openNewWorkPlace = () =>
-      store.native.commit('settings/openNewWorkPlace');
+    const minimize = () => window.api.electron.minimize()
+    const toggleMaximize = () => window.api.electron.toggleMaximize()
+    const close = () => window.api.electron.close()
+    const openNewWorkPlace = () => store.native.commit('settings/openNewWorkPlace')
 
     return {
       minimize,
@@ -47,8 +44,8 @@ export default {
       openNewWorkPlace,
       activeWorkPlaces,
       Icons,
-    };
+    }
   },
   emits: ['toggle-drawer'],
-};
+}
 </script>

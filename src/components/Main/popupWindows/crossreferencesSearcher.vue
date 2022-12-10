@@ -9,10 +9,7 @@
     </UIModalWindowHeader>
 
     <UIModalWindowBody>
-      <DynamicVirtualScroller
-        :items="crossreferences"
-        class="overlay separated"
-      >
+      <DynamicVirtualScroller :items="crossreferences" class="overlay separated">
         <template v-slot="{ item }">
           <q-item
             clickable
@@ -23,9 +20,9 @@
               <q-item-label lines="1" class="q-gutter-x-md q-pb-sm">
                 <bdi class="text-weight-light">{{ item.module_name }}</bdi>
                 <span>{{
-                  `${item.bookShortName} ${item.chapter_to}:${
-                    item.verse_to_start
-                  }${item.verse_to_end === 0 ? '' : '-' + item.verse_to_end}`
+                  `${item.bookShortName} ${item.chapter_to}:${item.verse_to_start}${
+                    item.verse_to_end === 0 ? '' : '-' + item.verse_to_end
+                  }`
                 }}</span>
               </q-item-label>
 
@@ -66,12 +63,7 @@
                     class="absolute-center"
                     name="expand_less"
                   />
-                  <q-icon
-                    v-else
-                    key="more"
-                    class="absolute-center"
-                    name="expand_more"
-                  />
+                  <q-icon v-else key="more" class="absolute-center" name="expand_more" />
                   <!--                </transition>-->
                 </q-btn>
               </q-item-label>
@@ -84,32 +76,32 @@
 </template>
 
 <script setup lang="ts">
-import useStore from 'src/hooks/useStore';
-import { onMounted, ref } from 'vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { onMounted, ref } from 'vue'
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue'
+import { Icons } from 'src/types/icons'
 
 interface Props {
-  selectedVerses: number[];
+  selectedVerses: number[]
 }
-const props = defineProps<Props>();
-const emit = defineEmits(['close']);
+const props = defineProps<Props>()
+const emit = defineEmits(['close'])
 
-const { id, textDirections, bookShortName } = useSevenBible();
-const close = (ref: any) => emit('close', ref);
-const store = useStore();
+const { id, textDirections, bookShortName } = useSevenBible()
+const close = (ref: any) => emit('close', ref)
+const store = useStore()
 
 const {
   bookNumber,
   chapterNumber,
   fileName: bibleFileName,
-} = store.native.state.settings.workPlace[id].bible;
+} = store.native.state.settings.workPlace[id].bible
 
-const crossreferences = ref([]);
+const crossreferences = ref([])
 
 const getCrosrefferences = async () => {
   const settings = {
@@ -117,41 +109,41 @@ const getCrosrefferences = async () => {
     chapterNumber: chapterNumber,
     verse: props.selectedVerses[0],
     filename: bibleFileName,
-  };
-  let data = await window.api.crossreferences.getCrossreferences(settings);
+  }
+  let data = await window.api.crossreferences.getCrossreferences(settings)
 
   data.sort((a: any, b: any) => {
     if (a.book_to === b.book_to) {
       if (a.chapter_to === b.chapter_to) {
-        return a.verse_to_start - b.verse_to_start;
+        return a.verse_to_start - b.verse_to_start
       }
-      return a.chapter_to - b.chapter_to;
-    } else return a.book_to - b.book_to;
-  });
+      return a.chapter_to - b.chapter_to
+    } else return a.book_to - b.book_to
+  })
 
-  crossreferences.value = data;
-};
+  crossreferences.value = data
+}
 
-onMounted(() => getCrosrefferences());
+onMounted(() => getCrosrefferences())
 
 const openPanel = ({ target }: any, expanded: boolean, ref: any) => {
   while (target.className !== 'q-item__label') {
-    target = target.parentNode;
+    target = target.parentNode
   }
-  const eToExpand = target.querySelector('#el');
+  const eToExpand = target.querySelector('#el')
 
   if (expanded) {
-    eToExpand.style.maxHeight = 0;
+    eToExpand.style.maxHeight = 0
     setTimeout(() => {
-      ref.expanded = !ref.expanded;
-    }, 100);
+      ref.expanded = !ref.expanded
+    }, 100)
   } else {
-    eToExpand.style.maxHeight = eToExpand.scrollHeight + 8 + 'px';
-    ref.expanded = !ref.expanded;
+    eToExpand.style.maxHeight = eToExpand.scrollHeight + 8 + 'px'
+    ref.expanded = !ref.expanded
   }
-};
+}
 
 const goToText = (bookNumber: number, chapterNumber: number) => {
-  close({ bookNumber, chapterNumber });
-};
+  close({ bookNumber, chapterNumber })
+}
 </script>

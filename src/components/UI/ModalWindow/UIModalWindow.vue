@@ -12,14 +12,14 @@
 
 <script setup lang="ts">
 interface Props {
-  transparent?: boolean;
+  transparent?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   transparent: false,
-});
+})
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
 const onCLick = (event: any) => {
   if (
@@ -27,6 +27,6 @@ const onCLick = (event: any) => {
       event.target.parentElement.classList.contains('ui-modal-window')) ||
     event.target.classList.contains('ui-modal-window')
   )
-    emit('close');
-};
+    emit('close')
+}
 </script>

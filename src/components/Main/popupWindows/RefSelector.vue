@@ -11,9 +11,7 @@
       </template>
       <template #title
         >{{
-          step === 1
-            ? `Выбор книги - ${fileName}`
-            : `${selectedBookName} - ${fileName}`
+          step === 1 ? `Выбор книги - ${fileName}` : `${selectedBookName} - ${fileName}`
         }}
       </template>
       <q-btn disable flat round :icon="Icons.Dots" />
@@ -29,9 +27,7 @@
             flat
             stretch
             no-caps
-            :class="
-              ({ active: book.book_number === bookNumber }, book.bookCategory)
-            "
+            :class="({ active: book.book_number === bookNumber }, book.bookCategory)"
             :label="book.short_name"
             @click="firstStep(book.book_number, book.long_name)"
           />
@@ -48,9 +44,7 @@
             no-caps
             stretch
             class="col-md-1 col-xs-2 col-sm-2"
-            :class="
-              ({ active: book.book_number === bookNumber }, book.bookCategory)
-            "
+            :class="({ active: book.book_number === bookNumber }, book.bookCategory)"
             :label="book.short_name"
             @click="firstStep(book.book_number, book.long_name)"
           />
@@ -66,8 +60,7 @@
           stretch
           no-caps
           :class="{
-            active:
-              chapter === chapterNumber && selectedBookName === bookFullName,
+            active: chapter === chapterNumber && selectedBookName === bookFullName,
           }"
           :label="chapter"
           @click.once="secondStep(chapter)"
@@ -78,55 +71,51 @@
 </template>
 
 <script setup>
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
 
-import useStore from 'src/hooks/useStore';
-import { ref } from 'vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { initBooksCategories } from 'src/helpers';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { ref } from 'vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { initBooksCategories } from 'src/helpers'
+import { Icons } from 'src/types/icons'
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
-const { id, textDirections, bookFullName, booksList } = useSevenBible();
-const store = useStore();
+const { id, textDirections, bookFullName, booksList } = useSevenBible()
+const store = useStore()
 const { fileName, chapterNumber, bookNumber } =
-  store.native.state.settings.workPlace[id].bible;
+  store.native.state.settings.workPlace[id].bible
 
-const step = ref(1);
-const countOfChapters = ref(0);
-const selectedBookNumber = ref(0);
-const selectedBookName = ref('');
+const step = ref(1)
+const countOfChapters = ref(0)
+const selectedBookNumber = ref(0)
+const selectedBookName = ref('')
 
-initBooksCategories(booksList.value);
+initBooksCategories(booksList.value)
 
-const newTestamentBooks = booksList.value.filter(
-  (book) => book.book_number >= 470
-);
-const oldTestamentBooks = booksList.value.filter(
-  (book) => book.book_number <= 460
-);
+const newTestamentBooks = booksList.value.filter((book) => book.book_number >= 470)
+const oldTestamentBooks = booksList.value.filter((book) => book.book_number <= 460)
 
-const close = (ref) => emit('close', ref);
+const close = (ref) => emit('close', ref)
 
 const firstStep = async (bookNumber, bookFullName) => {
   const settings = {
     bookNumber,
     filename: fileName,
-  };
-  countOfChapters.value = await window.api.bible.getChaptersCount(settings);
-  selectedBookNumber.value = bookNumber;
-  selectedBookName.value = bookFullName;
-  step.value++;
-};
+  }
+  countOfChapters.value = await window.api.bible.getChaptersCount(settings)
+  selectedBookNumber.value = bookNumber
+  selectedBookName.value = bookFullName
+  step.value++
+}
 
 const secondStep = (newChapterNumber) => {
   close({
     bookNumber: selectedBookNumber.value,
     chapterNumber: newChapterNumber,
-  });
-};
+  })
+}
 </script>
 
 <style lang="scss">

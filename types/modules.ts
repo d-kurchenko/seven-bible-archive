@@ -4,5 +4,4 @@ export enum Modules {
   Dictionary = 'dictionary',
   Crossreferences = 'crossreferences',
   Bible = 'bible',
-  
 }

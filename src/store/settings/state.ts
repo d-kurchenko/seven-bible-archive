@@ -1,14 +1,13 @@
-const settings = JSON.parse(window.api.system.getSettings());
-
+const settings = JSON.parse(window.api.system.getSettings())
 
 export interface SettingStateInterface {
-  prop: boolean;
+  prop: boolean
 }
 
 function state(): SettingStateInterface {
   return {
-    ...settings
-  };
+    ...settings,
+  }
 }
 
-export default state;
+export default state

@@ -54,34 +54,32 @@
 </template>
 
 <script setup>
-import useStore from 'src/hooks/useStore';
-import { ref, onMounted } from 'vue';
-import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue';
-import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue';
-import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings.vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import useTextSearcher from 'src/hooks/useTextSearcher';
-import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue';
-import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { ref, onMounted } from 'vue'
+import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
+import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
+import UIModalWindowSettings from 'components/UI/ModalWindow/UIModalWindowSettings.vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import useTextSearcher from 'src/hooks/useTextSearcher'
+import DynamicVirtualScroller from 'components/wrappers/DynamicVirtualScroller.vue'
+import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
+import { Icons } from 'src/types/icons'
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 
-const { id } = useSevenBible();
-const close = (ref) => emit('close', ref);
+const { id } = useSevenBible()
+const close = (ref) => emit('close', ref)
 
-const store = useStore();
-const bibleFileName = ref(
-  store.native.state.settings.workPlace[id].bible.fileName
-);
+const store = useStore()
+const bibleFileName = ref(store.native.state.settings.workPlace[id].bible.fileName)
 const { showLoader, searchInput, textsCount, foundedTexts, searchText } =
-  useTextSearcher(bibleFileName);
+  useTextSearcher(bibleFileName)
 
 const goToText = (bookNumber, chapterNumber) => {
-  const ref = { bookNumber, chapterNumber };
-  close(ref);
-};
+  const ref = { bookNumber, chapterNumber }
+  close(ref)
+}
 
-const input = ref(null);
-onMounted(() => setTimeout(() => input.value.focus(), 300));
+const input = ref(null)
+onMounted(() => setTimeout(() => input.value.focus(), 300))
 </script>

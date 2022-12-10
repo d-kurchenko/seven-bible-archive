@@ -18,4 +18,4 @@ export default {
 
   windowXPositionTitle: 'Window position x axios',
   windowXPositionDescription: 'Description of Window position x axios',
-};
+}

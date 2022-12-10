@@ -14,31 +14,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { Icons } from 'src/types/icons';
+import { ref } from 'vue'
+import { Icons } from 'src/types/icons'
 
 const props = defineProps({
   title: String,
-});
+})
 
-const positions = ref([10, 10]);
+const positions = ref([10, 10])
 
-const card = ref();
+const card = ref()
 
 const onPane = (event) => {
-  const { x, y } = event.delta;
-  const [prevX, prevY] = positions.value;
+  const { x, y } = event.delta
+  const [prevX, prevY] = positions.value
 
-  const nextX = prevX - x;
-  const nextY = prevY - y;
+  const nextX = prevX - x
+  const nextY = prevY - y
 
-  const { clientHeight, clientWidth } = card.value?.$el;
+  const { clientHeight, clientWidth } = card.value?.$el
 
   positions.value = [
     nextX >= window.innerWidth - clientWidth || nextX <= 0 ? prevX : nextX,
-    nextY >= window.innerHeight - clientHeight - 32 || nextY <= 0
-      ? prevY
-      : nextY,
-  ];
-};
+    nextY >= window.innerHeight - clientHeight - 32 || nextY <= 0 ? prevY : nextY,
+  ]
+}
 </script>

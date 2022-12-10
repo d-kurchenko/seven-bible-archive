@@ -21,11 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { Icons } from 'src/types/icons';
+import { Icons } from 'src/types/icons'
 
 interface Props {
-  bordered?: boolean;
+  bordered?: boolean
 }
-const props = withDefaults(defineProps<Props>(), { bordered: true });
-const emit = defineEmits(['close']);
+const props = withDefaults(defineProps<Props>(), { bordered: true })
+const emit = defineEmits(['close'])
 </script>

@@ -10,12 +10,11 @@
 <script>
 export default {
   setup(props) {
-    const onUpdate = (value) =>
-      props.store.state.set(`app.${props.config.path}`, value);
+    const onUpdate = (value) => props.store.state.set(`app.${props.config.path}`, value)
 
     return {
       onUpdate,
-    };
+    }
   },
   props: {
     config: {
@@ -31,5 +30,5 @@ export default {
     },
     store: Object,
   },
-};
+}
 </script>

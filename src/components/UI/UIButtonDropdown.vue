@@ -21,5 +21,5 @@ export default {
     label: String,
     tooltip: String,
   },
-};
+}
 </script>

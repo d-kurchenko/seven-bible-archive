@@ -1,8 +1,8 @@
-import useSevenBible from 'src/hooks/useSevenBible';
-import { ChapterBookmarkCategories } from 'src/types/chapter';
+import useSevenBible from 'src/hooks/useSevenBible'
+import { ChapterBookmarkCategories } from 'src/types/chapter'
 
 export default () => {
-  const { popup } = useSevenBible();
+  const { popup } = useSevenBible()
 
   const onBookmarkBlockClick = (
     bookmarkCategories: ChapterBookmarkCategories,
@@ -12,10 +12,10 @@ export default () => {
       transparent: true,
       bookmarkCategories,
       verseNumber,
-    });
-  };
+    })
+  }
 
   return {
     onBookmarkBlockClick,
-  };
-};
+  }
+}

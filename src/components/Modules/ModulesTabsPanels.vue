@@ -38,8 +38,11 @@
         <template v-slot:body-cell-abr="props">
           <q-td :props="props">
             <div>
-              <q-badge v-if="installedModules.includes(props.row.fil)" :label="props.value" />
-              <span v-else v-text="props.value"/>
+              <q-badge
+                v-if="installedModules.includes(props.row.fil)"
+                :label="props.value"
+              />
+              <span v-else v-text="props.value" />
             </div>
           </q-td>
         </template>
@@ -49,17 +52,17 @@
 </template>
 
 <script setup lang="ts">
-import UIButton from 'components/UI/UIButton.vue';
-import TableFilters from './TableFilters.vue';
-import ModuleDetailedInfo from './ModuleDetailedInfo.vue';
-import { cropString } from 'src/helpers';
-import { Download } from 'types/registry';
-import { ref, shallowRef, watchEffect } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { Icons } from 'src/types/icons';
+import UIButton from 'components/UI/UIButton.vue'
+import TableFilters from './TableFilters.vue'
+import ModuleDetailedInfo from './ModuleDetailedInfo.vue'
+import { cropString } from 'src/helpers'
+import { Download } from 'types/registry'
+import { ref, shallowRef, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Icons } from 'src/types/icons'
 
 export interface TableFilter {
-  language: string,
+  language: string
   other: string
 }
 
@@ -70,7 +73,13 @@ const props = defineProps<{
 
 const columns: any = [
   { name: 'abr', label: 'Abr', field: 'abr', align: 'left' },
-  { name: 'des', label: 'Des', field: 'des', align: 'left', format: (val: string) => cropString(val, 50) },
+  {
+    name: 'des',
+    label: 'Des',
+    field: 'des',
+    align: 'left',
+    format: (val: string) => cropString(val, 50),
+  },
   { name: 'lng', label: 'Lng', field: 'lng', align: 'left' },
   { name: 'siz', label: 'Siz', field: 'siz', align: 'left' },
 ]
@@ -79,24 +88,24 @@ const { t } = useI18n()
 
 const pagination = ref({ rowsPerPage: 0 })
 const selected = shallowRef<Download[]>([])
-const getSelectedString = () => selected.value.length === 0
-  ? ''
-  : `${selected.value.length} ${t('modulesSelectedOf')} ${props.modulesList.length}`
+const getSelectedString = () =>
+  selected.value.length === 0
+    ? ''
+    : `${selected.value.length} ${t('modulesSelectedOf')} ${props.modulesList.length}`
 
 const filter = ref<TableFilter>()
 const filterMethod = (raws: Download[], filter: TableFilter) => {
-
   const lng = filter.language?.toLowerCase() ?? ''
   const oth = filter.other.toLowerCase()
   const isLngEqual = (module: Download) => module.lng.toLowerCase() === lng
   const isAbbrEqual = (module: Download) => module.abr.toLowerCase().includes(oth)
   const isDescEqual = (module: Download) => module.des.toLowerCase().includes(oth)
-  return raws.filter(module =>
-    !lng.length ?
-      isAbbrEqual(module) || isDescEqual(module)
-      : !oth.length ?
-        isLngEqual(module)
-        : isLngEqual(module) && (isAbbrEqual(module) || isDescEqual(module))
+  return raws.filter((module) =>
+    !lng.length
+      ? isAbbrEqual(module) || isDescEqual(module)
+      : !oth.length
+      ? isLngEqual(module)
+      : isLngEqual(module) && (isAbbrEqual(module) || isDescEqual(module))
   )
 }
 
@@ -108,7 +117,8 @@ const onRowClick = (evt: any, row: Download) => {
 }
 
 const installedModules = shallowRef<Download[]>([])
-const getInstalledModules = async () => installedModules.value = await window.api.system.getInstalledModules()
+const getInstalledModules = async () =>
+  (installedModules.value = await window.api.system.getInstalledModules())
 getInstalledModules()
 
 const onDownloadClick = async () => {

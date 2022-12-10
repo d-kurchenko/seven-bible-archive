@@ -144,34 +144,33 @@
 </template>
 
 <script setup lang="ts">
-import useStore from 'src/hooks/useStore';
-import { ref } from 'vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue';
-import { Icons } from 'src/types/icons';
+import useStore from 'src/hooks/useStore'
+import { ref } from 'vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue'
+import { Icons } from 'src/types/icons'
 
-const { id, bible, popup } = useSevenBible();
+const { id, bible, popup } = useSevenBible()
 
-const panels = ['show', 'open'];
-const panel = ref('open');
+const panels = ['show', 'open']
+const panel = ref('open')
 
 const showNextPanel = (current: string) => {
-  const index = panels.indexOf(current);
-  panel.value = panels.length > index + 1 ? panels[index + 1] : panels[0];
-};
+  const index = panels.indexOf(current)
+  panel.value = panels.length > index + 1 ? panels[index + 1] : panels[0]
+}
 const showPrevPanel = (current: string) => {
-  const index = panels.indexOf(current);
-  panel.value =
-    index - 1 !== -1 ? panels[index - 1] : panels[panels.length - 1];
-};
+  const index = panels.indexOf(current)
+  panel.value = index - 1 !== -1 ? panels[index - 1] : panels[panels.length - 1]
+}
 
-const store = useStore();
+const store = useStore()
 
 const changeViewState = (key: string, value: any) => {
-  store.state.set(`workPlace.${id}.bible.view.${key}`, value);
-};
+  store.state.set(`workPlace.${id}.bible.view.${key}`, value)
+}
 const changeState = (key: string, value?: any) => {
-  store.state.set(`workPlace.${id}.${key}`, value);
-};
-const bibleView = bible.value.view;
+  store.state.set(`workPlace.${id}.${key}`, value)
+}
+const bibleView = bible.value.view
 </script>

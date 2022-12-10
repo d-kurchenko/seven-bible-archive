@@ -18,43 +18,38 @@
 </template>
 
 <script>
-import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue';
+import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue'
 
-import { defineComponent, ref } from 'vue';
-import useStore from 'src/hooks/useStore';
-import useSevenBible from 'src/hooks/useSevenBible';
+import { defineComponent, ref } from 'vue'
+import useStore from 'src/hooks/useStore'
+import useSevenBible from 'src/hooks/useSevenBible'
 
 export default defineComponent({
   components: { UIButtonDropdown },
   setup(props) {
-    const { id } = useSevenBible();
-    const modules = ref([]);
-    const store = useStore();
+    const { id } = useSevenBible()
+    const modules = ref([])
+    const store = useStore()
 
     const loadStrongModules = () => {
       if (props.path.length) {
         modules.value = window.api.system
           .fsReaddirSync(props.path)
-          .map((module) => module.split('.')[0]);
-      } else console.log('Отсутствуют модули ... ');
-    };
+          .map((module) => module.split('.')[0])
+      } else console.log('Отсутствуют модули ... ')
+    }
     const onModuleClick = (newFilename) => {
-      const oldFilename = store.state.get(
-        `workPlace.${id}.${props.module}.fileName`
-      );
+      const oldFilename = store.state.get(`workPlace.${id}.${props.module}.fileName`)
       if (newFilename !== oldFilename) {
-        store.state.set(
-          `workPlace.${id}.${props.module}.fileName`,
-          newFilename
-        );
+        store.state.set(`workPlace.${id}.${props.module}.fileName`, newFilename)
       }
-    };
+    }
 
     return {
       onModuleClick,
       loadStrongModules,
       modules,
-    };
+    }
   },
   props: {
     fileName: String,
@@ -64,5 +59,5 @@ export default defineComponent({
       required: true,
     },
   },
-});
+})
 </script>

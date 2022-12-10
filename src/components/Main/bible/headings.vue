@@ -2,14 +2,10 @@
   <div style="transition: 0.2s" class="q-gutter-y-sm">
     <div
       v-if="
-        chapterNumber === 1 &&
-        (info?.detailed_info?.length || moduleIntroduction.length)
+        chapterNumber === 1 && (info?.detailed_info?.length || moduleIntroduction.length)
       "
     >
-      <span
-        class="introduction text-h6"
-        @click="moduleIntroductionWindow = true"
-      >
+      <span class="introduction text-h6" @click="moduleIntroductionWindow = true">
         {{ info.introduction_string || 'Введение' }}
       </span>
 
@@ -41,7 +37,7 @@
         :class="{ introduction: bookIntroduction }"
         @click="
           () => {
-            if (bookIntroduction) bookIntroductionWindow = true;
+            if (bookIntroduction) bookIntroductionWindow = true
           }
         "
       >
@@ -77,44 +73,44 @@
 </template>
 
 <script>
-import { watch, onMounted, ref } from 'vue';
-import useSevenBible from 'src/hooks/useSevenBible';
-import { Icons } from 'src/types/icons';
+import { watch, onMounted, ref } from 'vue'
+import useSevenBible from 'src/hooks/useSevenBible'
+import { Icons } from 'src/types/icons'
 
 export default {
   setup(props) {
-    const { bibleModuleInfo: info, refString } = useSevenBible();
-    const moduleIntroductionWindow = ref(false);
-    const bookIntroductionWindow = ref(false);
-    const chapterIntroductionWindow = ref(false);
-    const moduleIntroduction = ref('');
-    const bookIntroduction = ref('');
-    const chapterIntroduction = ref(null);
+    const { bibleModuleInfo: info, refString } = useSevenBible()
+    const moduleIntroductionWindow = ref(false)
+    const bookIntroductionWindow = ref(false)
+    const chapterIntroductionWindow = ref(false)
+    const moduleIntroduction = ref('')
+    const bookIntroduction = ref('')
+    const chapterIntroduction = ref(null)
 
     const getIntroductions = async () => {
-      moduleIntroduction.value = '';
-      bookIntroduction.value = '';
+      moduleIntroduction.value = ''
+      bookIntroduction.value = ''
       const settings = {
         chapterNumber: props.chapterNumber,
         bookNumber: props.bookNumber,
         filename: props.bibleFileName,
-      };
-      const data = await window.api.bible.getIntroduction(settings);
+      }
+      const data = await window.api.bible.getIntroduction(settings)
 
       data?.forEach((item) => {
         if (item.book_number === 0) {
-          moduleIntroduction.value = item.introduction;
+          moduleIntroduction.value = item.introduction
         }
         if (item.book_number === settings.bookNumber && !item.chapter_number) {
-          bookIntroduction.value = item.introduction;
+          bookIntroduction.value = item.introduction
         }
-      });
-    };
+      })
+    }
 
-    onMounted(() => getIntroductions());
+    onMounted(() => getIntroductions())
     watch([refString, () => props.bibleFileName], () => {
-      setTimeout(() => getIntroductions());
-    });
+      setTimeout(() => getIntroductions())
+    })
 
     return {
       moduleIntroductionWindow,
@@ -125,7 +121,7 @@ export default {
       bookIntroduction,
       info,
       Icons,
-    };
+    }
   },
 
   props: {
@@ -135,5 +131,5 @@ export default {
     bookFullName: String,
     bibleFileName: String,
   },
-};
+}
 </script>

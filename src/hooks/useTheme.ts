@@ -1,44 +1,42 @@
-import defaultThemes from 'src/themes';
-
+import defaultThemes from 'src/themes'
 
 export default () => {
-  const getUserThemes = () => window.api.system.getUserThemes();
+  const getUserThemes = () => window.api.system.getUserThemes()
 
   const getAllThemes = async () => {
-    return [...defaultThemes, ...(await getUserThemes())];
-  };
+    return [...defaultThemes, ...(await getUserThemes())]
+  }
 
-  const readDefaultTheme = (themeName: string) => import(`../themes/${themeName}.js`)
-  .then(res => res.default);
-  const readUserTheme = (themeName: string) =>
-    window.api.system.readUserTheme(themeName);
+  const readDefaultTheme = (themeName: string) =>
+    import(`../themes/${themeName}.js`).then((res) => res.default)
+  const readUserTheme = (themeName: string) => window.api.system.readUserTheme(themeName)
   const setCssVars = (theme: Record<string, string>) => {
-    const body = document.body;
-    body.removeAttribute('style');
+    const body = document.body
+    body.removeAttribute('style')
 
     Object.keys(theme).forEach((key) => {
-      body.style.setProperty('--' + key, theme[key]);
-    });
-  };
+      body.style.setProperty('--' + key, theme[key])
+    })
+  }
   const setTheme = async (themeName: string) => {
     if (defaultThemes.includes(themeName)) {
-      const theme = await readDefaultTheme(themeName);
+      const theme = await readDefaultTheme(themeName)
 
-      setCssVars(theme);
+      setCssVars(theme)
     } else {
-      const userThemes = await getUserThemes();
+      const userThemes = await getUserThemes()
       if (userThemes.includes(themeName)) {
-        const theme = await readUserTheme(themeName);
-        setCssVars(theme);
+        const theme = await readUserTheme(themeName)
+        setCssVars(theme)
       } else {
-        const theme = await readDefaultTheme(defaultThemes[0]);
-        setCssVars(theme);
+        const theme = await readDefaultTheme(defaultThemes[0])
+        setCssVars(theme)
       }
     }
-  };
+  }
 
   return {
     setTheme,
     getAllThemes,
-  };
-};
+  }
+}
