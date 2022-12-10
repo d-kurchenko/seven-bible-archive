@@ -29,7 +29,7 @@ export default {
     const fontList = await window.api.system.getFontList()
     let options = ref([...fontList])
 
-    const filterFn = (val, update, abort) => {
+    const filterFn = (val, update) => {
       update(() => {
         const needle = val.toLowerCase()
         options.value = fontList.filter((v) => v.toLowerCase().indexOf(needle) > -1)

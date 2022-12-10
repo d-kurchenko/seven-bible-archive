@@ -72,7 +72,7 @@ const close = (ref) => emit('close', ref)
 
 const store = useStore()
 const bibleFileName = ref(store.native.state.settings.workPlace[id].bible.fileName)
-const { showLoader, searchInput, textsCount, foundedTexts, searchText } =
+const { showLoader, searchInput, foundedTexts, searchText } =
   useTextSearcher(bibleFileName)
 
 const goToText = (bookNumber, chapterNumber) => {

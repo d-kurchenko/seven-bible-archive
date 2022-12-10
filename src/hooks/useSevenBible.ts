@@ -1,4 +1,4 @@
-import { inject, Ref } from 'vue'
+import { inject } from 'vue'
 import {
   bible_,
   bibleModuleInfo_,

@@ -1,7 +1,6 @@
 import WrapperDatabaseApi from 'src-electron/wrappers/DatabaseApi/DatabaseApi'
 import BetterSqlite from 'better-sqlite3'
 import path from 'path'
-import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
 
 export class Database extends WrapperDatabaseApi {
   static _instance = {}

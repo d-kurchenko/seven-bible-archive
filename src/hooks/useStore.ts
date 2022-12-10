@@ -1,6 +1,5 @@
 import { useStore } from 'src/store'
 import { computed } from 'vue'
-import { activeWorkPlaceWindows } from 'src/store/settings/getters'
 import { BibleRef } from 'src/types/bibleRef'
 
 export default () => {

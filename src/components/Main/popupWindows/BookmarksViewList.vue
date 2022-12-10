@@ -75,7 +75,6 @@ import { ChapterBookmarkCategories } from 'src/types/chapter'
 import { Bookmark, BookmarkCategory } from 'types/bookmark'
 import { isEqual } from 'src/helpers'
 import { Icons } from 'src/types/icons'
-import { ModulesRegistry } from 'types/registry'
 
 const props = defineProps<{
   transparent: boolean

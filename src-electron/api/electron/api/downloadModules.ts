@@ -11,9 +11,8 @@ import AbortController from 'abort-controller'
 export const downloadModules = async (modules: Download[]) => {
   for (const module of modules) {
     const moduleType = module.fil.split('.')[1] ?? Modules.Bible
-    let _path: Path
 
-    _path =
+    const _path: Path =
       moduleType === Modules.Bible
         ? Path.Bible
         : moduleType === Modules.Commentaries
@@ -31,11 +30,12 @@ export const downloadModules = async (modules: Download[]) => {
     for await (let url of module.url) {
       try {
         let downloadModuleUrl = ''
-        url = url.replace(/{.+}/gi, (replacer, idx, all) => {
+        url = url.replace(/{.+}/gi, (replacer) => {
           const aliasToReplace = replacer.replace(/[{}]/gi, '')
           const serverPath = registry.hosts.find((host) => host.alias === aliasToReplace)
-            ?.path!
-          downloadModuleUrl = serverPath
+            ?.path
+
+          downloadModuleUrl = serverPath || ''
           return ''
         })
         downloadModuleUrl = downloadModuleUrl.replace(/\%s/gi, url)
@@ -44,7 +44,7 @@ export const downloadModules = async (modules: Download[]) => {
         const timeout = setTimeout(() => {
           controller.abort()
         }, 200)
-        const data = await fetch(downloadModuleUrl, { signal: controller.signal })
+        const data = await fetch(downloadModuleUrl, { signal: controller.signal as any })
         clearTimeout(timeout)
 
         const buffer = await data.buffer()
@@ -74,4 +74,3 @@ export const downloadModules = async (modules: Download[]) => {
   }
 }
 
-const getDictionaryType = () => {}

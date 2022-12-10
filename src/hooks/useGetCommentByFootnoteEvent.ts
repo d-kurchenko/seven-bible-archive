@@ -4,11 +4,11 @@ import getCommentByRef from 'src/helpers/getCommentByRef'
 import { BibleRef } from 'src/types/bibleRef'
 
 export default (footnotes: Ref<Commentaries[]>) => {
-  const htmlPopupTarget = ref<EventTarget | null>()
+  const htmlPopupTarget = ref<HTMLElement | null>()
   const htmlPopupText = ref<string>()
   const htmlPopup = ref<any>()
 
-  const onGetCommentByFootnote = (target: Element, ref: BibleRef) => {
+  const onGetCommentByFootnote = (target: HTMLElement, ref: BibleRef) => {
     htmlPopupTarget.value = target
     const comment = getCommentByRef(footnotes.value, ref)
     if (!comment) return

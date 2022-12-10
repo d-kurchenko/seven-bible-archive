@@ -5,6 +5,7 @@ import { getSettings } from './helpers/getSettings'
 import useApi from 'src-electron/api/useApi'
 
 const dir = process.env.DEBUGGING ? '' : path.resolve(app.getPath('userData'))
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 global.dir = dir
 process.env.dir = dir.toString()

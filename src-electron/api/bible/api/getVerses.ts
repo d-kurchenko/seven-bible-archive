@@ -1,5 +1,4 @@
 import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
-import { BibleVerses } from 'src-electron/types/bible'
 import { PreparedVerse } from 'types/api-modified/bible'
 import { GetVersesArgs } from 'types/api-args/bible'
 

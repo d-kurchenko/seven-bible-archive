@@ -10,20 +10,20 @@ export default (args: GetPreparedCategoriesArgs) => {
 
   const res: PreparedCategory[] = []
 
-  categories.forEach((category, i) => {
+  categories.forEach((category) => {
     const preparedCategory: PreparedCategory = { ...category, bookmarks: [] }
 
-    category.bookmarks.forEach((bookmark, j) => {
+    category.bookmarks.forEach((bookmark) => {
       const bibleVerses = getVerses({
         filename: bibleFileName,
-        bookNumber: bookmark.bookNumber!,
-        chapterNumber: bookmark.startChapterNumber!,
-        selectedVerseFrom: bookmark.startVerseNumber!,
+        bookNumber: bookmark.bookNumber,
+        chapterNumber: bookmark.startChapterNumber,
+        selectedVerseFrom: bookmark.startVerseNumber,
         selectedVerseTo: bookmark.endVerseNumber,
       })
       preparedCategory.bookmarks.push({
         ...bookmark,
-        bookShortName: extractShortName(booksList, bookmark.bookNumber!),
+        bookShortName: extractShortName(booksList || [], bookmark.bookNumber) || '???',
         texts: bibleVerses,
         // rowid: i.toString() + j,
         // categoryName: category.name

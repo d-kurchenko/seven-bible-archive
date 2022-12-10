@@ -33,6 +33,7 @@ export const storeKey: InjectionKey<VuexStore<StateInterface>> = Symbol('vuex-ke
 
 // Provide typings for `this.$router` inside Vuex stores
 declare module 'vuex' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export interface Store<S> {
     readonly $router: Router
   }

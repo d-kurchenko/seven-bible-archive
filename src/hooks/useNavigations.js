@@ -23,7 +23,7 @@ export default (store, id) => {
   }
 
   onMounted(() => getNavigationState())
-  watch(refString, (n) => getNavigationState())
+  watch(refString, () => getNavigationState())
 
   return {
     arrows,

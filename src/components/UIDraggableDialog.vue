@@ -17,7 +17,7 @@
 import { ref } from 'vue'
 import { Icons } from 'src/types/icons'
 
-const props = defineProps({
+defineProps({
   title: String,
 })
 

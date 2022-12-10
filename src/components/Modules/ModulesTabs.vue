@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { Modules } from 'types/modules'
 const emit = defineEmits(['changeTab'])
-const props = defineProps<{
+defineProps<{
   activeTab: string
 }>()
 const changeTab = (tab: any) => emit('changeTab', tab)

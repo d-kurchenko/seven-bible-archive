@@ -4,7 +4,7 @@
     transition-show="jump-down"
     transition-hide="jump-up"
     no-parent-event
-    :target="htmlPopupTarget"
+    :target="htmlPopupTarget || undefined"
   >
     <div class="q-pa-md" v-html="htmlPopupText" />
   </q-menu>
@@ -103,8 +103,8 @@
               <template v-if="verse.subheadings">
                 <span
                   class="h"
-                  v-for="(subheading, index) in verse.subheadings"
-                  :style="{ direction: subheading.direction }"
+                  v-for="(subheading, index) of verse.subheadings"
+                  :style="{ direction: subheading.direction as DirectionProperty }"
                   :key="'A' + index"
                   v-html="subheading.subheading"
                 />
@@ -125,10 +125,10 @@
                 v-for="(commentary, idx) in verse.commentaries"
                 :key="'B' + idx"
                 @click="
-                  ({ target }) => {
-                    htmlPopupTarget = target
+                  (event) => {
+                    htmlPopupTarget = event.target as HTMLElement
                     htmlPopupText = commentary.text
-                    $refs.htmlPopup.toggle()
+                    htmlPopup.toggle()
                   }
                 "
                 >{{ commentary.moduleName }}</span
@@ -138,12 +138,11 @@
             <div
               class="bookmarks"
               v-if="verse.bookmarkCategories"
-              @click="onBookmarkBlockClick(verse.bookmarkCategories, i + 1)"
+              @click="onBookmarkBlockClick(verse.bookmarkCategories || [], i + 1)"
             >
               <template
-                v-for="(category, categoryName, i) of verse.bookmarkCategories"
-                :key="i"
-                class="bookmark-category"
+                v-for="(category, j) in verse.bookmarkCategories"
+                :key="j"
               >
                 <div
                   v-for="({}, i) in category.bookmarks"
@@ -171,7 +170,6 @@
 
 <script lang="ts" setup>
 import Headings from 'components/Main/bible/headings.vue'
-import ContextMenu from 'components/Main/bible/ContextMenu.vue'
 import useBibleEvents from 'src/hooks/useBibleEvents'
 import useVerseNumber from 'src/hooks/useVerseNumber'
 import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.vue'
@@ -180,7 +178,7 @@ import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWind
 import BibleTopBar from 'components/Main/bible/bibleTopBar.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
 import useStore from 'src/hooks/useStore'
-import { onMounted, watch, computed, ref, defineComponent } from 'vue'
+import { onMounted, watch, computed, ref } from 'vue'
 import useChapter from 'src/hooks/useChapter'
 import useFootnotes from 'src/hooks/useFootnotes'
 import useVerseSelector from 'src/hooks/useVerseSelector'
@@ -192,6 +190,7 @@ import { useI18n } from 'vue-i18n'
 import UIError from 'components/UI/UIError.vue'
 import { BookNumbers } from 'types/bookNumbers'
 import useBookmarkBlock from 'src/hooks/useBookmarkBlock'
+import { DirectionProperty } from 'csstype'
 
 const {
   id,
@@ -249,8 +248,8 @@ const copyVerses = (verses: number[]) => {
   let text = ''
   text += '['
   verses.forEach((verseNumber) => {
-    const html = chapter?.value![verseNumber - 1].text
-    text += clearTags(html)
+    const html = chapter?.value?.[verseNumber - 1].text
+    text += clearTags(html || '')
   })
   text += ']'
   text += `\n${ref}`
@@ -264,9 +263,6 @@ const {
   verseNumberPopupTarget,
   onVerseNumberClick,
   onVerseNumberContextMenu,
-  openCrossreferencesSearcher,
-  openTranslationsComparator,
-  openBookmarkCreator,
 } = useVerseNumber({ copyVerses })
 
 onMounted(() => {

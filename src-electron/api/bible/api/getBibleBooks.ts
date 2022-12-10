@@ -1,10 +1,10 @@
 import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
-import { BibleBooks, BibleBooksAll } from 'src-electron/types/bible'
+import { BibleBooks } from 'src-electron/types/bible'
 
-export default (filename: string): BibleBooks[] => {
+export default (filename: string) => {
   const bibleDatabase = new BibleDatabase(filename)
 
-  let bibleBooks: BibleBooks[]
+  let bibleBooks: BibleBooks[] | undefined
 
   try {
     const sql =
@@ -17,5 +17,5 @@ export default (filename: string): BibleBooks[] => {
     } catch {}
   }
 
-  return bibleBooks!
+  return bibleBooks
 }

@@ -7,10 +7,10 @@ export default () => {
   const onSelectorClick = (verseNumber: number) => {
     if (selectedVerses.value?.includes(verseNumber))
       selectedVerses.value.remove(verseNumber)
-    else insertVerse(selectedVerses.value!, verseNumber)
+    else insertVerse(selectedVerses.value, verseNumber)
   }
   const onSelectorHold = (verseNumber: number) => {
-    insertVerses(selectedVerses.value!, verseNumber)
+    insertVerses(selectedVerses.value, verseNumber)
   }
   const clearSelectedVerses = () => {
     selectedVerses.value = []

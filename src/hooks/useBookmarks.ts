@@ -3,8 +3,6 @@ import { MyRef } from 'src/types/myRef'
 import { Bookmark, BookmarkCategory } from 'types/bookmark'
 import { provide, Ref, ref } from 'vue'
 import { bookmarks_ } from 'src/symbols'
-import { MakeBookmarkArgs, RemoveBookmarkArgs } from 'types/api-args/system'
-import { CreateCategoryArgs } from 'types/api-args/categories'
 import useStore from 'src/hooks/useStore'
 
 let bookmarkFilename: Ref<string>

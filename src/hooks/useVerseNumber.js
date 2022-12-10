@@ -10,7 +10,7 @@ export default ({ copyVerses }) => {
 
   let selectedVerse
 
-  const onVerseNumberClick = ({ target }, verseNumber) => {
+  const onVerseNumberClick = ({}, verseNumber) => {
     selectedVerse = verseNumber
     const verseNumberClickEvent =
       store.state.native.settings.app.control.verseNumberClickEvent

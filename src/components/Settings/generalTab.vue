@@ -23,12 +23,9 @@
           <span
             class="text-h2"
             :data-label="config.label"
-            v-intersection="categoryIntersectionOptions"
           >
             #{{ t(config.label) }}
           </span>
-
-          <span v-if="config.description" v-text="t(config.description)" />
 
           <div v-for="(childConfig, i) in config.children" :key="i" class="q-pb-lg">
             <div class="text-h5">{{ t(childConfig.label) }}</div>
@@ -47,63 +44,37 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import useStore from 'src/hooks/useStore'
 import { ref } from 'vue'
 import configurationList from 'src/settings/configurationList'
 import { useI18n } from 'vue-i18n'
+
+
 import Input from 'components/Settings/components/universal/Input.vue'
 import Select from 'components/Settings/components/universal/Select.vue'
 import FontSelector from 'components/Settings/components/special/FontSelector.vue'
 import ThemeSelector from 'components/Settings/components/special/ThemeSelector.vue'
-import Checkbox from 'components/Settings/components/universal/Checkbox.vue'
-export default {
-  components: {
-    Input,
-    Checkbox,
-    Select,
-    FontSelector,
-    ThemeSelector,
-  },
-  setup() {
-    const { t } = useI18n()
-    const store = useStore()
 
-    const themes = [
-      {
-        label: 'Светлая',
-        value: 'light',
-      },
-      {
-        label: 'Темная',
-        value: 'dark',
-      },
-    ]
-    const app = store.state.getReactive('app')
+Input || Select || FontSelector || ThemeSelector
 
-    const tree = ref(null)
-    const selected = ref(configurationList[0].label)
 
-    const categoryIntersectionOptions = {
-      handler: (entry, cfg) => {
-        const label = entry.target.dataset.label
+const { t } = useI18n()
+const store = useStore()
 
-        // tree.value.setExpanded(label, tree)
-      },
-      cfg: {
-        threshold: 1,
-      },
-    }
+const app = store.state.getReactive('app')
 
-    return {
-      themes,
-      configurationList,
-      t,
-      categoryIntersectionOptions,
-      selected,
-      app,
-      store,
-    }
-  },
-}
+const tree = ref(null)
+const selected = ref(configurationList[0].label)
+
+// const categoryIntersectionOptions: any = {
+//   handler: (entry: any) => {
+//     const label = entry.target.dataset.label
+
+//     // tree.value.setExpanded(label, tree)
+//   },
+//   cfg: {
+//     threshold: 1,
+//   },
+// }
 </script>

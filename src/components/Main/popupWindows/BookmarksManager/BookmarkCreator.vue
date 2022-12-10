@@ -27,8 +27,8 @@
           class="shadow-4 rounded-borders overlay"
         />
         <div class="flex justify-around">
-          <UIButton :tooltip="$t('cancel')" :icon="'cancel'" @click="close" />
-          <UIButton :tooltip="$t('accept')" :icon="'done'" @click="makeBookmark" />
+          <UIButton :tooltip="$t('cancel')" :icon="Icons.Cancel" @click="close" />
+          <UIButton :tooltip="$t('accept')" :icon="Icons.Done" @click="makeBookmark" />
         </div>
       </div>
     </UIModalWindowBody>
@@ -126,9 +126,9 @@ const makeBookmark = async () => {
     settings.bookmark.dateCreated = date
     settings.bookmark.dateModified = date
   }
-  if (isEditMode) {
+  if (isEditMode && categoryNameToDeleteIn) {
     await bookmarks.editBookmark(settings, {
-      categoryName: categoryNameToDeleteIn!,
+      categoryName: categoryNameToDeleteIn,
       bookmark: { ..._bookmark },
     })
     notify.showInfo(t('bookmarkWasEdited'))

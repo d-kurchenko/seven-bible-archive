@@ -1,5 +1,3 @@
-import path from 'path'
-
 export enum Path {
   Modules = 'modules',
   Commentaries = 'modules/commentaries',

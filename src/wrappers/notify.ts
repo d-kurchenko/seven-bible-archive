@@ -1,8 +1,8 @@
-import { Notify } from 'quasar'
+import { Notify, QNotifyCreateOptions } from 'quasar'
 
 interface DefaultSettings {
   timeout?: number
-  position?: any
+  position?: QNotifyCreateOptions['position']
 }
 
 const defaultSettings: DefaultSettings = {

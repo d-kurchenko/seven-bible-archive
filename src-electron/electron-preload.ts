@@ -17,7 +17,7 @@ import { PreparedVerse } from 'types/api-modified/bible'
 import { Download, ModulesRegistry } from 'types/registry'
 import getThemes from './api/system/api/getThemes'
 
-window.dir = process.env.dir!
+window.dir = process.env.dir || ''
 
 export const API = {
   bible: {

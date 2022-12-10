@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkCategory } from 'types/bookmark'
+import { BookmarkCategory } from 'types/bookmark'
 
 export interface GetPreparedCategoriesArgs {
   bibleFileName: string

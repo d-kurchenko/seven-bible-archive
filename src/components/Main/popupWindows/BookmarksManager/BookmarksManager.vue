@@ -214,13 +214,14 @@ onMounted(() => getPreparedCategories())
 const allCategoriesSelected = computed(() => selectedCategory.value.index === 0)
 
 const selectedCategories = computed<PreparedCategory[]>(() => {
-  return allCategoriesSelected.value
-    ? preparedCategories.value!
-    : [
-        preparedCategories.value?.find(
-          (category) => category.name === selectedCategory.value.name
-        )!,
-      ]
+  if (!preparedCategories.value?.length) return []
+  if (allCategoriesSelected.value) return preparedCategories.value
+  else {
+    const preparedCategory = preparedCategories.value.find(
+      (category) => category.name === selectedCategory.value.name
+    )
+    return preparedCategory ? [preparedCategory] : []
+  }
 })
 
 const convertRef = (bookmark: PreparedBookmark) =>

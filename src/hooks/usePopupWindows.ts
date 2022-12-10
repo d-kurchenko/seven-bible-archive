@@ -36,7 +36,10 @@ export const initPopupWindows = () => {
     return new Promise((resolve) => {
       const vNode = h(Component, { ..._props })
 
-      vNode.props!.onClose = (response: any) => {
+      if (!vNode?.props) {
+        return
+      }
+      vNode.props.onClose = (response: any) => {
         resolve(response)
         isPopupShown.value = false
       }

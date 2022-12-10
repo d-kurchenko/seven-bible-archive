@@ -128,7 +128,7 @@ import UIButtonset from 'components/UI/UIButtonset.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
 import useStore from 'src/hooks/useStore'
 import useNavigations from 'src/hooks/useNavigations'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { convertVerses } from 'src/helpers/verseSelector'
 import UIButton from 'components/UI/UIButton.vue'
 import { notify } from 'src/wrappers/notify'
@@ -144,7 +144,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), { selectedVerses: () => [] })
 
-const emit = defineEmits(['clearSelectedVerses', 'copyVerses'])
+defineEmits(['clearSelectedVerses', 'copyVerses'])
 
 const { id, activeWorkPlaces, popup, bookShortName } = useSevenBible()
 const store = useStore()

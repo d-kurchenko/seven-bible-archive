@@ -3,12 +3,11 @@ import useSevenBible from 'src/hooks/useSevenBible'
 import { useI18n } from 'vue-i18n'
 import { splitWords } from 'src/helpers/regex'
 import { Bible } from 'src/types/store/bible'
-import { BibleVerses } from 'src-electron/types/bible'
-import { Bookmark } from 'types/bookmark'
+import { ExtendedBibleVerse } from 'src/components/Main/bible/types'
 
 export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) => {
   const { t } = useI18n()
-  const chapter = ref<BibleVerses[]>()
+  const chapter = ref<ExtendedBibleVerse[]>()
   const { bookFullName, bookShortName, bookmarks } = useSevenBible()
 
   const getChapter = async () => {
@@ -70,7 +69,7 @@ export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) =
           bookmark.endChapterNumber,
         ].includes(settings.chapterNumber)
         if (isCognateBookNumber && isCognateChapterNumber)
-          for (let i = bookmark.startVerseNumber!; i <= bookmark.endVerseNumber!; i++) {
+          for (let i = bookmark.startVerseNumber; i <= bookmark.endVerseNumber; i++) {
             const verseNumber = i - 1
             const currentVerse = data.texts[verseNumber]
 

@@ -27,5 +27,5 @@ interface Props {
   bordered?: boolean
 }
 const props = withDefaults(defineProps<Props>(), { bordered: true })
-const emit = defineEmits(['close'])
+defineEmits(['close'])
 </script>

@@ -57,7 +57,7 @@ import TableFilters from './TableFilters.vue'
 import ModuleDetailedInfo from './ModuleDetailedInfo.vue'
 import { cropString } from 'src/helpers'
 import { Download } from 'types/registry'
-import { ref, shallowRef, watchEffect } from 'vue'
+import { ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Icons } from 'src/types/icons'
 
@@ -119,10 +119,11 @@ const onRowClick = (evt: any, row: Download) => {
 const installedModules = shallowRef<Download[]>([])
 const getInstalledModules = async () =>
   (installedModules.value = await window.api.system.getInstalledModules())
+
 getInstalledModules()
 
 const onDownloadClick = async () => {
-  const downloadedModules = await window.api.electron.downloadModules(selected.value)
+  await window.api.electron.downloadModules(selected.value)
   selected.value = []
   getInstalledModules()
 }

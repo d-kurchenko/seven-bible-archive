@@ -43,5 +43,5 @@ interface Props {
   module: Download
   show: boolean
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>

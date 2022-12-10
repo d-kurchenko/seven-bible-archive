@@ -1,6 +1,6 @@
 import fetch from 'electron-fetch'
 import path from 'path'
-import fs, { readJSONSync } from 'fs-extra'
+import fs from 'fs-extra'
 import { convertDaysToMilliseconds } from 'src-electron/helpers/time'
 import { ModulesRegistry } from 'types/registry'
 const AdmZip = require('adm-zip')

@@ -47,7 +47,7 @@ const preparedModulesList = computed(() => {
     crossreferences: [],
     bible: [],
   }
-  const downloads = modulesRegistry.value?.downloads!
+  const downloads = modulesRegistry.value?.downloads
   if (!downloads) return modulesList
   for (const module of downloads) {
     let moduleType = module.fil.split('.')[1]

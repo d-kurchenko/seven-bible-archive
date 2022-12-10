@@ -30,8 +30,7 @@
   </Splitpanes>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import Strong from 'components/Main/strong/strong.vue'
 import Bible from 'components/Main/bible/Bible.vue'
 import Commentaries from 'components/Main/commentaries/Commentaries.vue'
@@ -50,107 +49,79 @@ import {
   popup_,
 } from 'src/symbols'
 
-export default defineComponent({
-  setup({ id }) {
-    const store = useStore()
-    const bible = store.state.getReactive(`workPlace.${id}.bible`)
-    const bibleFileName = computed(() => bible.value.fileName)
-    useBibleDatabaseConnection(bibleFileName)
+const props = defineProps<{
+  id: number
+}>()
+const { id } = props
 
-    const { info: bibleModuleInfo } = useBibleModuleInfo(bibleFileName)
-    const { component, isPopupShown, popup } = initPopupWindows()
+const store = useStore()
+const bible = store.state.getReactive(`workPlace.${id}.bible`)
+const bibleFileName = computed(() => bible.value.fileName)
+useBibleDatabaseConnection(bibleFileName)
 
-    const activeWorkPlaceWindows = computed(() => {
-      return store.getters.getActiveWorkPlaceWindows(id)
-    })
-    const allModulesClosed = computed(() => {
-      return (
-        !activeWorkPlaceWindows.value.showStrong &&
-        !activeWorkPlaceWindows.value.showCommentaries
-      )
-    })
-    const viewParamsRequiringRerender = computed(() => {
-      const view = bible.value.view
-      return view.showSubheadings + view.showCommentaries + view.showDreamy
-    })
-    const textDirections = computed(() => {
-      return bibleModuleInfo.value?.right_to_left === 'true'
-        ? {
-            nt: 'rtl',
-            ot: 'rtl',
-          }
-        : bibleModuleInfo.value?.right_to_left_nt === 'true'
-        ? {
-            nt: 'rtl',
-            ot: 'ltr',
-          }
-        : bibleModuleInfo.value?.right_to_left_ot === 'true'
-        ? {
-            nt: 'ltr',
-            ot: 'rtl',
-          }
-        : {
-            nt: 'ltr',
-            ot: 'ltr',
-          }
-    })
-    const refString = computed(() => {
-      return bible.value.bookNumber + bible.value.chapterNumber
-    })
-    const strongNumbersPrefix = computed(() => {
-      if (bibleModuleInfo.value?.strong_numbers_prefix) {
-        return bibleModuleInfo.value?.strong_numbers_prefix
-      } else {
-        return bible.value.bookNumber >= 470 ? 'G' : 'H'
-      }
-    })
+const { info: bibleModuleInfo } = useBibleModuleInfo(bibleFileName)
+const { component, isPopupShown, popup } = initPopupWindows()
 
-    const bibleTextKey = ref(0)
-    const bookFullName = ref<string>()
-    const bookShortName = ref<string>()
-
-    provide(id_, id)
-    provide('bibleTextKey', bibleTextKey)
-    provide(bookShortName_, bookShortName)
-    provide(bookFullName_, bookFullName)
-    provide(popup_, popup)
-    provide(bible_, bible)
-    provide(bibleModuleInfo_, bibleModuleInfo)
-    provide('activeWorkPlaceWindows', activeWorkPlaceWindows)
-    provide('allModulesClosed', allModulesClosed)
-    provide('viewParamsRequiringRerender', viewParamsRequiringRerender)
-    provide('textDirections', textDirections)
-    provide('refString', refString)
-    provide('strongNumbersPrefix', strongNumbersPrefix)
-
-    return {
-      component,
-      isPopupShown,
-
-      activeWorkPlaceWindows,
-      allModulesClosed,
-      bible,
-      bibleModuleInfo,
-      bookShortName,
-      bookFullName,
-      textDirections,
-      refString,
-      viewParamsRequiringRerender,
-      strongNumbersPrefix,
-    }
-  },
-  props: {
-    id: {
-      type: Number,
-      required: true,
-    },
-  },
-  components: {
-    Commentaries,
-    Bible,
-    Strong,
-    Splitpanes,
-    Pane,
-  },
+const activeWorkPlaceWindows = computed(() => {
+  return store.getters.getActiveWorkPlaceWindows(id)
 })
+const allModulesClosed = computed(() => {
+  return (
+    !activeWorkPlaceWindows.value.showStrong &&
+    !activeWorkPlaceWindows.value.showCommentaries
+  )
+})
+const viewParamsRequiringRerender = computed(() => {
+  const view = bible.value.view
+  return view.showSubheadings + view.showCommentaries + view.showDreamy
+})
+const textDirections = computed(() => {
+  return bibleModuleInfo.value?.right_to_left === 'true'
+    ? {
+        nt: 'rtl',
+        ot: 'rtl',
+      }
+    : bibleModuleInfo.value?.right_to_left_nt === 'true'
+    ? {
+        nt: 'rtl',
+        ot: 'ltr',
+      }
+    : bibleModuleInfo.value?.right_to_left_ot === 'true'
+    ? {
+        nt: 'ltr',
+        ot: 'rtl',
+      }
+    : {
+        nt: 'ltr',
+        ot: 'ltr',
+      }
+})
+const refString = computed(() => {
+  return bible.value.bookNumber + bible.value.chapterNumber
+})
+const strongNumbersPrefix = computed(() => {
+  if (bibleModuleInfo.value?.strong_numbers_prefix) {
+    return bibleModuleInfo.value?.strong_numbers_prefix
+  } else {
+    return bible.value.bookNumber >= 470 ? 'G' : 'H'
+  }
+})
+
+const bibleTextKey = ref(0)
+const bookFullName = ref<string>()
+const bookShortName = ref<string>()
+
+provide(id_, id)
+provide('bibleTextKey', bibleTextKey)
+provide(bookShortName_, bookShortName)
+provide(bookFullName_, bookFullName)
+provide(popup_, popup)
+provide(bible_, bible)
+provide(bibleModuleInfo_, bibleModuleInfo)
+provide('activeWorkPlaceWindows', activeWorkPlaceWindows)
+provide('allModulesClosed', allModulesClosed)
+provide('viewParamsRequiringRerender', viewParamsRequiringRerender)
+provide('textDirections', textDirections)
+provide('refString', refString)
+provide('strongNumbersPrefix', strongNumbersPrefix)
 </script>

@@ -19,7 +19,7 @@ export default (options: Options) => {
     const newCategory: BookmarkCategory = {
       bookmarks: [],
       colorIndex: 0,
-      name: categoryName.value!,
+      name: categoryName.value || '',
       backgroundColor: categoryColor.value,
       backgroundHighlighting: false,
       isDefault: false,

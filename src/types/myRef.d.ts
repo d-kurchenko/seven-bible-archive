@@ -1,3 +1,3 @@
-export interface MyRef<T = any> {
+export interface MyRef<T> {
   value: T
 }

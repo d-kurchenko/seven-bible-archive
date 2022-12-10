@@ -12,7 +12,7 @@
       <q-list separator class="overlay">
         <q-item
           clickable
-          v-for="(item, i) in translationsTexts"
+          v-for="(item, i) in (translationsTexts as any)"
           :key="i"
           @click="goToModule(item.moduleName)"
           :dir="item.direction[testament]"
@@ -58,7 +58,7 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const { bookShortName, bible } = useSevenBible()
-const { bookNumber, chapterNumber } = bible!.value!
+const { bookNumber, chapterNumber } = bible.value
 
 const testament = bookNumber >= 470 ? 'nt' : 'ot'
 
