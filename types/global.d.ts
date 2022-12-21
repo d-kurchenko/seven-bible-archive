@@ -1,4 +1,4 @@
-import { API } from 'src-electron/electron-preload'
+import { API } from 'app/src-electron/preload/api'
 
 declare global {
   let dir: string
