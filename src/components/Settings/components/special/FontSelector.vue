@@ -10,51 +10,37 @@
     @update:model-value="onSelect"
     @filter="filterFn"
   >
-    <template v-slot:option="scope">
+    <template #option="scope">
       <q-item v-bind="scope.itemProps">
-        <q-item-section :style="{ fontFamily: scope.label }">
-          <q-item-label>{{ scope.label }}</q-item-label>
+        <q-item-section :style="{ fontFamily: (scope as any).label }">
+          <q-item-label>{{ (scope as any).label }}</q-item-label>
         </q-item-section>
       </q-item>
     </template>
   </q-select>
 </template>
 
-<script>
+<script setup lang="ts">
+import { QItem } from 'quasar'
 import { ref } from 'vue'
 
-export default {
-  async setup(props) {
-    const onSelect = (value) => props.store.state.set(`app.${props.config.path}`, value)
-    const fontList = await window.api.system.getFontList()
-    let options = ref([...fontList])
+const props = defineProps<{
+  config: Record<string, any>,
+  value: string | number,
+  description?: string,
+  store: Record<string, any>,
+}>()
 
-    const filterFn = (val, update) => {
-      update(() => {
-        const needle = val.toLowerCase()
-        options.value = fontList.filter((v) => v.toLowerCase().indexOf(needle) > -1)
-      })
-    }
 
-    return {
-      options,
-      filterFn,
-      onSelect,
-    }
-  },
-  props: {
-    config: {
-      required: true,
-    },
-    value: {
-      type: [String, Number],
-      required: true,
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    store: Object,
-  },
+const onSelect = (value: string | number) => props.store.state.set(`app.${props.config.path}`, value)
+const fontList = await window.api.system.getFontList()
+let options = ref([...fontList])
+
+const filterFn = (value: string, update: (callback: () => void) => void) => {
+  update(() => {
+    const needle = value.toLowerCase()
+    options.value = fontList.filter((item: string) => item.toLowerCase().indexOf(needle) > -1)
+  })
 }
+
 </script>

@@ -29,6 +29,7 @@ export default (options: Options) => {
     await options.getPreparedCategories()
     showCategoryCreator.value = false
   }
+
   return {
     categoryName,
     categoryColor,

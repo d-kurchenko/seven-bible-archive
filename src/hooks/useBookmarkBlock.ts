@@ -6,7 +6,7 @@ export default () => {
 
   const onBookmarkBlockClick = (
     bookmarkCategories: BookmarkCategory[],
-    verseNumber: number
+    verseNumber: number,
   ) => {
     popup.showBookmarksViewList({
       transparent: true,

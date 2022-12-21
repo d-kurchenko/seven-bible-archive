@@ -11,6 +11,6 @@ export default () => {
   ipcMain.handle('find-verse-by-strong', (event, args) => getVersesByStrong(args))
   ipcMain.on('connect-strong-database', (event, filename) => connectDatabase(filename))
   ipcMain.on('disconnect-strong-database', (event, filename) =>
-    disconnectDatabase(filename)
+    disconnectDatabase(filename),
   )
 }

@@ -6,7 +6,10 @@
     no-parent-event
     :target="htmlPopupTarget || undefined"
   >
-    <div class="q-pa-md" v-html="htmlPopupText" />
+    <div
+      class="q-pa-md"
+      v-html="htmlPopupText"
+    />
   </q-menu>
 
   <q-menu
@@ -38,8 +41,15 @@
     :target="versePopupTarget"
   >
     <q-list>
-      <q-item v-for="(item, i) in versePopupOptions" :key="i" clickable>
-        <q-item-section v-t="item.label" @click="item.callback" />
+      <q-item
+        v-for="(item, i) in versePopupOptions"
+        :key="i"
+        clickable
+      >
+        <q-item-section
+          v-t="item.label"
+          @click="item.callback"
+        />
       </q-item>
     </q-list>
   </q-menu>
@@ -51,13 +61,16 @@
         :book-number="bible.bookNumber"
         :chapter-number="bible.chapterNumber"
         :selected-verses="selectedVerses"
-        @clearSelectedVerses="clearSelectedVerses"
-        @copyVerses="copyVerses(selectedVerses)"
+        @clear-selected-verses="clearSelectedVerses"
+        @copy-verses="copyVerses(selectedVerses)"
       />
     </UIWorkPlaceWindowHeader>
 
     <UIWorkPlaceWindowBody>
-      <UIError v-if="bibleError.show" v-text="bibleError.message" />
+      <UIError
+        v-if="bibleError.show"
+        v-text="bibleError.message"
+      />
       <div
         v-else
         class="bible-text scroll-container container"
@@ -73,7 +86,7 @@
         :showContinuousText="bible.view.showContinuousText.toString()"
         :showDreamy="bible.view.showDreamy.toString()"
       >
-        <headings
+        <Headings
           :chapter-string="chapterString"
           :chapter-number="bible.chapterNumber"
           :book-full-name="bookFullName"
@@ -98,14 +111,17 @@
               class="verse grow-1"
               :class="{ 'selected-verse': selectedVerses.includes(i + 1) }"
             >
-              <span v-if="verse.story" class="h">{{ verse.story }}</span>
+              <span
+                v-if="verse.story"
+                class="h"
+              >{{ verse.story }}</span>
 
               <template v-if="verse.subheadings">
                 <span
-                  class="h"
                   v-for="(subheading, index) of verse.subheadings"
-                  :style="{ direction: subheading.direction as DirectionProperty }"
                   :key="'A' + index"
+                  class="h"
+                  :style="{ direction: subheading.direction as DirectionProperty }"
                   v-html="subheading.subheading"
                 />
               </template>
@@ -117,13 +133,16 @@
                   @contextmenu.stop="onVerseNumberContextMenu($event, i + 1)"
                   v-text="i + 1"
                 />
-                <span class="verse-text" v-html="verse.text" />
+                <span
+                  class="verse-text"
+                  v-html="verse.text"
+                />
               </span>
 
               <span
-                class="commentary q-pl-xs"
                 v-for="(commentary, idx) in verse.commentaries"
                 :key="'B' + idx"
+                class="commentary q-pl-xs"
                 @click="
                   (event) => {
                     htmlPopupTarget = event.target as HTMLElement
@@ -131,34 +150,36 @@
                     htmlPopup.toggle()
                   }
                 "
-                >{{ commentary.moduleName }}</span
-              >
+              >{{ commentary.moduleName }}</span>
             </span>
 
             <div
-              class="bookmarks"
               v-if="verse.bookmarkCategories"
+              class="bookmarks"
               @click="onBookmarkBlockClick(verse.bookmarkCategories || [], i + 1)"
             >
               <template
-                v-for="(category, j) in verse.bookmarkCategories"
-                :key="j"
+                v-for="(category, k) in verse.bookmarkCategories"
+                :key="k"
               >
                 <div
-                  v-for="({}, i) in category.bookmarks"
-                  :key="i"
+                  v-for="({}, j) in category.bookmarks"
+                  :key="k + '-' + j"
                   class="bookmark bookmark-block"
                   :style="{ backgroundColor: category.backgroundColor }"
                 />
               </template>
             </div>
 
-            <span class="checkbox" :class="{ visible: selectedVerses.includes(i + 1) }">
+            <span
+              class="checkbox"
+              :class="{ visible: selectedVerses.includes(i + 1) }"
+            >
               <q-checkbox
-                @click="onSelectorClick(i + 1)"
                 v-touch-hold.mouse="() => onSelectorHold(i + 1)"
                 :model-value="selectedVerses.includes(i + 1)"
                 size="1.7em"
+                @click="onSelectorClick(i + 1)"
               />
             </span>
           </div>
@@ -178,7 +199,9 @@ import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWind
 import BibleTopBar from 'components/Main/bible/bibleTopBar.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
 import useStore from 'src/hooks/useStore'
-import { onMounted, watch, computed, ref } from 'vue'
+import {
+  onMounted, watch, computed, ref,
+} from 'vue'
 import useChapter from 'src/hooks/useChapter'
 import useFootnotes from 'src/hooks/useFootnotes'
 import useVerseSelector from 'src/hooks/useVerseSelector'
@@ -209,7 +232,10 @@ const bibleError = ref({
   show: false,
   message: '',
 })
-const { chapter, getChapter } = useChapter({ bible, bibleError })
+const { chapter, getChapter } = useChapter({
+  bible,
+  bibleError,
+})
 const { footnotes, getFootNotes } = useFootnotes(bible)
 
 watch(
@@ -223,7 +249,7 @@ watch(
   async () => {
     await getChapter()
     await getFootNotes()
-  }
+  },
 )
 
 const { onVerseContextmenu, versePopup, versePopupOptions, versePopupTarget } = useVerse()
@@ -231,7 +257,7 @@ const { onVerseContextmenu, versePopup, versePopupOptions, versePopupTarget } = 
 const { onVerseClick, htmlPopup, htmlPopupText, htmlPopupTarget } = useBibleEvents(
   id,
   store,
-  footnotes
+  footnotes,
 )
 
 const { onBookmarkBlockClick } = useBookmarkBlock()
@@ -243,7 +269,7 @@ const { t } = useI18n()
 
 const copyVerses = (verses: number[]) => {
   const ref = `${bookShortName?.value} ${bible.value.chapterNumber}:${convertVerses(
-    verses
+    verses,
   )}`
   let text = ''
   text += '['
@@ -263,7 +289,9 @@ const {
   verseNumberPopupTarget,
   onVerseNumberClick,
   onVerseNumberContextMenu,
-} = useVerseNumber({ copyVerses })
+} = useVerseNumber({
+  copyVerses,
+})
 
 onMounted(() => {
   getChapter()
@@ -275,12 +303,12 @@ const chapterString = computed(() => {
   return info.value?.chapter_string_ps && bible.value.bookNumber === BookNumbers.Ps
     ? info.value?.chapter_string_ps
     : info.value?.chapter_string_nt && bible.value.bookNumber >= BookNumbers.Mat
-    ? info.value?.chapter_string_nt
-    : info.value?.chapter_string_ot && bible.value.bookNumber < BookNumbers.Mat
-    ? info.value?.chapter_string_ot
-    : info.value?.chapter_string
-    ? info.value?.chapter_string
-    : localizedChapterName
+      ? info.value?.chapter_string_nt
+      : info.value?.chapter_string_ot && bible.value.bookNumber < BookNumbers.Mat
+        ? info.value?.chapter_string_ot
+        : info.value?.chapter_string
+          ? info.value?.chapter_string
+          : localizedChapterName
 })
 
 // const copyText = async () => {

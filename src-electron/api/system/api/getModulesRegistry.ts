@@ -28,10 +28,12 @@ export default async (): Promise<ModulesRegistry> => {
       return modulesRegistry
     } else {
       await downloadAndExtract()
+
       return readModulesRegistry()
     }
   } catch {
     await downloadAndExtract()
+
     return readModulesRegistry()
   }
 }

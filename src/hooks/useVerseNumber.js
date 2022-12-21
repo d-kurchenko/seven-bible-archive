@@ -39,10 +39,14 @@ export default ({ copyVerses }) => {
     store.state.setBibleRef(id, ref)
   }
   const openCommentariesComparator = () =>
-    popup.showCommentariesComparator({ verseNumber: selectedVerse })
+    popup.showCommentariesComparator({
+      verseNumber: selectedVerse,
+    })
   const openBookmarkCreator = () => {
     popup.showBookmarkCreator({
-      _bookmark: { startVerseNumber: selectedVerse },
+      modelValue: {
+        startVerseNumber: selectedVerse,
+      },
     })
   }
 

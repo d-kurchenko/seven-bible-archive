@@ -1,8 +1,19 @@
 <template>
-  <div class="layout-sidebar shrink-0 border-left" v-show="visibleRight">
+  <div
+    v-show="visibleRight"
+    class="layout-sidebar shrink-0 border-left"
+  >
     <q-list class="full-height overlay-y">
-      <template v-for="(menuItem, index) in menuList" :key="index">
-        <q-item :to="menuItem.path" clickable exact v-ripple>
+      <template
+        v-for="(menuItem, index) in menuList"
+        :key="index"
+      >
+        <q-item
+          v-ripple
+          :to="menuItem.path"
+          clickable
+          exact
+        >
           <q-item-section avatar>
             <q-icon :name="menuItem.icon" />
           </q-item-section>
@@ -10,7 +21,10 @@
             {{ t(menuItem.label) }}
           </q-item-section>
         </q-item>
-        <q-separator :key="'sep' + index" v-if="menuItem.separator" />
+        <q-separator
+          v-if="menuItem.separator"
+          :key="'sep' + index"
+        />
       </template>
     </q-list>
   </div>

@@ -1,21 +1,29 @@
 <template>
   <UIModalWindow>
     <UIModalWindowHeader @click="close">
-      <template #title
-        >{{ bookShortName }} {{ chapterNumber }}:{{ convertVerses(selectedVerses) }}
+      <template #title>
+        {{ bookShortName }} {{ chapterNumber }}:{{ convertVerses(selectedVerses) }}
         в разных местах
       </template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <UIModalWindowBody>
-      <q-list separator class="overlay">
+      <q-list
+        separator
+        class="overlay"
+      >
         <q-item
-          clickable
           v-for="(item, i) in (translationsTexts as any)"
           :key="i"
-          @click="goToModule(item.moduleName)"
+          clickable
           :dir="item.direction[testament]"
+          @click="goToModule(item.moduleName)"
         >
           <q-item-section>
             <q-item-label class="q-gutter-x-md q-pb-sm">
@@ -25,11 +33,14 @@
 
             <q-item-label>
               <p
-                v-for="(item1, i) in item.texts"
-                :key="'text-' + i"
+                v-for="(item1, j) in item.texts"
+                :key="'text-' + j"
                 class="q-gutter-x-sm"
               >
-                <span v-if="item.texts.length > 1" v-text="item1.verse" />
+                <span
+                  v-if="item.texts.length > 1"
+                  v-text="item1.verse"
+                />
                 <span v-html="item1.text" />
               </p>
             </q-item-label>
@@ -41,7 +52,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, PropType, onMounted } from 'vue'
+import {
+  ref, PropType, onMounted,
+} from 'vue'
 import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
 import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
@@ -65,7 +78,9 @@ const testament = bookNumber >= 470 ? 'nt' : 'ot'
 const close = (ref: any) => emit('close', ref)
 
 const goToModule = (filename: string) => {
-  close({ fileName: filename })
+  close({
+    fileName: filename,
+  })
 }
 
 const translationsTexts = ref([])

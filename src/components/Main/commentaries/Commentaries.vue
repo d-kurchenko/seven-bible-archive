@@ -11,16 +11,16 @@
     <UIWorkPlaceWindowBody>
       <template v-if="!showLoader">
         <div
-          class="text-center"
           v-if="!commentaries.length"
+          class="text-center"
           v-text="
             `В модуле &quot;${commentariesModule.fileName}&quot; не найдено комментариев на выбраную главу.`
           "
         />
         <div
+          v-for="(item, i) in (commentaries as any[])"
           v-else
-          v-for="(item, id) in (commentaries as any[])"
-          :key="id"
+          :key="i"
           :items="commentaries"
         >
           <div>
@@ -45,7 +45,9 @@ import UIWorkPlaceWindow from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindow.v
 import UIWorkPlaceWindowHeader from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowHeader.vue'
 import UIWorkPlaceWindowBody from 'components/UI/WorkPlaceWindow/UIWorkPlaceWindowBody.vue'
 
-import { onMounted, watch, computed } from 'vue'
+import {
+  onMounted, watch, computed,
+} from 'vue'
 import useStore from 'src/hooks/useStore'
 import useSevenBible from 'src/hooks/useSevenBible'
 import useCommentaries from 'src/hooks/useCommentaries'
@@ -61,7 +63,7 @@ const chapterNumber = store.state.getReactive(`workPlace.${id}.bible.chapterNumb
 const { commentaries, showLoader, getCommentaries } = useCommentaries(
   id,
   store,
-  commentariesModule
+  commentariesModule,
 )
 
 watch(refString as any, () => {
@@ -73,7 +75,7 @@ watch(
     window.api.commentaries.disconnectDatabase(oldFilename)
     window.api.commentaries.connectDatabase(newFilename)
     getCommentaries()
-  }
+  },
 )
 onMounted(() => getCommentaries())
 </script>

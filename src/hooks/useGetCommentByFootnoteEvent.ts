@@ -9,13 +9,13 @@ export default (footnotes: Ref<Commentaries[] | undefined>) => {
   const htmlPopup = ref<any>()
 
   const onGetCommentByFootnote = (target: HTMLElement, ref: BibleRef) => {
-
     htmlPopupTarget.value = target
     const comment = getCommentByRef(footnotes.value || [], ref)
-    if (!comment) return
+    if (!comment) { return }
     htmlPopupText.value = comment.text
     htmlPopup.value.toggle()
   }
+
   return {
     onGetCommentByFootnote,
     htmlPopup,

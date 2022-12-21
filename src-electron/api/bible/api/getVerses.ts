@@ -12,8 +12,8 @@ export default (args: GetVersesArgs): PreparedVerse[] => {
                WHERE v.book_number = ${bookNumber}
                  AND v.chapter = ${chapterNumber}
                  AND v.verse BETWEEN ${selectedVerseFrom} and ${
-    selectedVerseTo ?? selectedVerseFrom
-  }
+  selectedVerseTo ?? selectedVerseFrom
+}
                  AND b.book_number = v.book_number`
 
   const verses: PreparedVerse[] = bibleDatabase.prepare(sql).all()

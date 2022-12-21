@@ -2,35 +2,45 @@
   <UIModalWindow>
     <q-dialog ref="dialog">
       <q-card>
-        <q-card-section class="scroll-container" style="max-height: 50vh">
+        <q-card-section
+          class="scroll-container"
+          style="max-height: 50vh"
+        >
           <q-select
+            v-model="searchMode"
             hint="Выберите режим поиска"
             style="max-width: 300px"
             filled
-            v-model="searchMode"
             :options="options"
           />
         </q-card-section>
       </q-card>
     </q-dialog>
     <UIModalWindowHeader @close="close">
-      <template #title>Поиск по номеру стронга</template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <template #title>
+        Поиск по номеру стронга
+      </template>
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <UIModalWindowBody>
       <UIModalWindowSettings>
         <q-form>
           <q-input
+            v-model="searchInput"
             clearable
             placeholder="Введите номер"
             filled
             for="aaa"
-            v-model="searchInput"
             class="q-mt-none col"
             hint="Введите номера стронга через пробел"
           >
-            <template v-slot:after>
+            <template #after>
               <q-btn
                 name="aaa"
                 type="submit"
@@ -51,7 +61,9 @@
           </q-input>
         </q-form>
 
-        <div class="q-pa-sm text-right">Найдено текстов: {{ textsCount }}</div>
+        <div class="q-pa-sm text-right">
+          Найдено текстов: {{ textsCount }}
+        </div>
 
         <StrongBody
           :strong-numbers="strongNumbers"
@@ -61,18 +73,21 @@
         />
       </UIModalWindowSettings>
 
-      <DynamicVirtualScroller :items="foundedTexts" class="overlay separated">
-        <template v-slot="{ item }">
+      <DynamicVirtualScroller
+        :items="foundedTexts"
+        class="overlay separated"
+      >
+        <template #default="{ item }">
           <q-item
             clickable
             class="q-px-md"
             @click="goToText(item.book_number, item.chapter)"
           >
             <q-item-section>
-              <q-item-label caption
-                >{{ item.bookShortName }} {{ item.chapter }}:{{ item.verse }}
+              <q-item-label caption>
+                {{ item.bookShortName }} {{ item.chapter }}:{{ item.verse }}
               </q-item-label>
-              <q-item-label v-html="item.text"></q-item-label>
+              <q-item-label v-html="item.text" />
             </q-item-section>
           </q-item>
         </template>
@@ -133,8 +148,9 @@ const searchByStrong = async () => {
     searchMode.value.value === 'AND'
   ) {
     notify.showInfo(
-      'Строка поиска не может сожержать одновременно два префикса (H и G) в текущем режиме поиска.'
+      'Строка поиска не может сожержать одновременно два префикса (H и G) в текущем режиме поиска.',
     )
+
     return
   }
 
@@ -153,7 +169,7 @@ const searchByStrong = async () => {
   data.forEach((current) => {
     current.text = current.text.replace(
       regex,
-      `<mark>${current.strongNumbersPrefix}$1</mark>`
+      `<mark>${current.strongNumbersPrefix}$1</mark>`,
     )
   })
 
@@ -161,7 +177,10 @@ const searchByStrong = async () => {
   textsCount.value = data.length
   showLoader.value = false
 }
-const goToText = (bookNumber, chapterNumber) => close({ bookNumber, chapterNumber })
+const goToText = (bookNumber, chapterNumber) => close({
+  bookNumber,
+  chapterNumber,
+})
 
 onMounted(() => {
   searchInput.value = fixedStrongNumbers.join(' ')

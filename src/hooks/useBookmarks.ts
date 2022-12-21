@@ -1,7 +1,9 @@
 import { myRef } from 'src/helpers'
 import { MyRef } from 'src/types/myRef'
 import { Bookmark, BookmarkCategory } from 'types/bookmark'
-import { provide, Ref, ref } from 'vue'
+import {
+  provide, Ref, ref,
+} from 'vue'
 import { bookmarks_ } from 'src/symbols'
 import useStore from 'src/hooks/useStore'
 
@@ -16,7 +18,10 @@ interface Category {
 const categoriesList = ref<Category[]>([])
 const updateCategoriesList = () => {
   categoriesList.value = [
-    { index: 0, name: 'all' },
+    {
+      index: 0,
+      name: 'all',
+    },
     ...bookmarkCategories.value.map((category: BookmarkCategory, index) => ({
       name: category.name,
       backgroundColor: category.backgroundColor,
@@ -27,7 +32,7 @@ const updateCategoriesList = () => {
 
 const fetchBookmarks = async () => {
   bookmarkCategories.value = await window.api.categories.getBookmarkCategories(
-    bookmarkFilename.value
+    bookmarkFilename.value,
   )
   updateCategoriesList()
 }
@@ -56,7 +61,7 @@ const createCategory = async (newCategory: BookmarkCategory) => {
 }
 const getBookmarkIndex = (bookmarkCategory: string, bookmark: Bookmark) => {
   const categoryIndex = bookmarkCategories.value.findIndex(
-    (category) => category.name === bookmarkCategory
+    (category) => category.name === bookmarkCategory,
   )
 
   const bookmarkIndex = bookmarkCategories.value[categoryIndex].bookmarks.findIndex(
@@ -71,8 +76,9 @@ const getBookmarkIndex = (bookmarkCategory: string, bookmark: Bookmark) => {
         curr.dateCreated === bookmark.dateCreated &&
         curr.dateModified === bookmark.dateModified
       )
-    }
+    },
   )
+
   return {
     categoryIndex,
     bookmarkIndex,

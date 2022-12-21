@@ -1,6 +1,5 @@
-import { InjectionKey } from 'vue'
+import { InjectionKey, Ref } from 'vue'
 import { Bible } from 'src/types/store/bible'
-import { Ref } from 'vue'
 import { Popup } from 'src/hooks/usePopupWindows'
 import { BibleInfo } from 'src-electron/types/bible'
 import { bookmarks } from 'src/hooks/useBookmarks'
@@ -13,7 +12,7 @@ export const bookFullName_: InjectionKey<Ref<string>> = Symbol('bookFullName')
 export const bookShortName_: InjectionKey<Ref<string | undefined>> =
   Symbol('bookShortName')
 export const bookmarks_: InjectionKey<typeof bookmarks> = Symbol('bookmarks')
-//main
+// main
 export const bibleWindowsUpdates_: InjectionKey<Ref<number>> =
   Symbol('bibleWindowsUpdates')
 export const updateBibleWindows_: InjectionKey<() => void> = Symbol('updateBibleWindows')

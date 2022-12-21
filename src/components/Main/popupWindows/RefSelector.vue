@@ -9,17 +9,25 @@
           @click.stop="step === 1 ? close() : step--"
         />
       </template>
-      <template #title
-        >{{
+      <template #title>
+        {{
           step === 1 ? `Выбор книги - ${fileName}` : `${selectedBookName} - ${fileName}`
         }}
       </template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <div class="overflow-hidden-x overlay-y">
       <div v-if="step === 1">
-        <div class="row bordered-buttons top" :class="textDirections.ot">
+        <div
+          class="row bordered-buttons top"
+          :class="textDirections.ot"
+        >
           <q-btn
             v-for="book in oldTestamentBooks"
             :key="book.book_number"
@@ -51,7 +59,10 @@
         </div>
       </div>
 
-      <div v-if="step === 2" class="row bordered-buttons top">
+      <div
+        v-if="step === 2"
+        class="row bordered-buttons top"
+      >
         <q-btn
           v-for="chapter in countOfChapters"
           :key="chapter"

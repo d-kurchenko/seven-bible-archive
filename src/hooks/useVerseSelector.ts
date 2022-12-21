@@ -5,9 +5,7 @@ export default () => {
   const selectedVerses = ref<number[]>([])
 
   const onSelectorClick = (verseNumber: number) => {
-    if (selectedVerses.value?.includes(verseNumber))
-      selectedVerses.value.remove(verseNumber)
-    else insertVerse(selectedVerses.value, verseNumber)
+    if (selectedVerses.value?.includes(verseNumber)) { selectedVerses.value.remove(verseNumber) } else { insertVerse(selectedVerses.value, verseNumber) }
   }
   const onSelectorHold = (verseNumber: number) => {
     insertVerses(selectedVerses.value, verseNumber)

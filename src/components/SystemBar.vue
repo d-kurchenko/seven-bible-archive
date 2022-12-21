@@ -1,10 +1,17 @@
 <template>
   <q-bar class="q-electron-drag">
     <q-icon :name="Icons.Book" />
-    <div class="">Seven Bible</div>
+    <div class="">
+      Seven Bible
+    </div>
     <q-space />
     <div class="q-gutter-x-sm">
-      <q-btn dense flat :icon="Icons.Menu" @click="$emit('toggle-drawer')" />
+      <q-btn
+        dense
+        flat
+        :icon="Icons.Menu"
+        @click="$emit('toggle-drawer')"
+      />
       <q-btn
         :disable="activeWorkPlaces.length > 3"
         dense
@@ -14,9 +21,24 @@
         @click="openNewWorkPlace"
       />
 
-      <q-btn dense flat :icon="Icons.Minimize" @click="minimize" />
-      <q-btn dense flat :icon="Icons.ToggleMaximize" @click="toggleMaximize" />
-      <q-btn dense flat :icon="Icons.Close" @click="close" />
+      <q-btn
+        dense
+        flat
+        :icon="Icons.Minimize"
+        @click="minimize"
+      />
+      <q-btn
+        dense
+        flat
+        :icon="Icons.ToggleMaximize"
+        @click="toggleMaximize"
+      />
+      <q-btn
+        dense
+        flat
+        :icon="Icons.Close"
+        @click="close"
+      />
     </div>
   </q-bar>
   <q-separator />
@@ -28,6 +50,7 @@ import { computed } from 'vue'
 import { Icons } from '../types/icons'
 
 export default {
+  emits: ['toggle-drawer'],
   setup() {
     const store = useStore()
     const activeWorkPlaces = computed(() => store.getters.getActiveWorkPlaces().indexes)
@@ -46,6 +69,5 @@ export default {
       Icons,
     }
   },
-  emits: ['toggle-drawer'],
 }
 </script>

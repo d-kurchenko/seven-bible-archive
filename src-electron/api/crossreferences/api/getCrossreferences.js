@@ -6,7 +6,7 @@ import { BibleDatabase } from 'src-electron/models/Database/BibleDatabase'
 export default (args) => {
   {
     const crossreferencesDir = fs.readdirSync(
-      path.join(global.dir, 'modules', 'crossreferences')
+      path.join(global.dir, 'modules', 'crossreferences'),
     )
     const sql =
       'SELECT *, rowid FROM cross_references WHERE book = ? AND chapter = ? AND verse = ?'
@@ -33,7 +33,7 @@ export default (args) => {
             ref.book_to === foundedRef.book_to &&
             ref.chapter_to === foundedRef.chapter_to &&
             ref.verse_to_start === foundedRef.verse_to_start &&
-            ref.verse_to_end === foundedRef.verse_to_end
+            ref.verse_to_end === foundedRef.verse_to_end,
         )
 
         if (!unique) {
@@ -46,7 +46,7 @@ export default (args) => {
                 ? foundedRef.verse_to_start
                 : foundedRef.verse_to_end,
           })
-          if (!texts.length) continue
+          if (!texts.length) { continue }
           foundedRef.rowid = `${i}${j}`
           foundedRef.texts = texts
           foundedRef.module_name = filename.split('.')[0]
@@ -59,6 +59,7 @@ export default (args) => {
         }
       }
     })
+
     return result
   }
 }

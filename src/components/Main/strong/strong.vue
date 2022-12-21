@@ -28,6 +28,13 @@ import { useStrongDatabaseConnection } from 'src/hooks/DBconnectionController'
 import { computed } from 'vue'
 
 export default {
+  components: {
+    UIWorkPlaceWindowBody,
+    UIWorkPlaceWindowHeader,
+    UIWorkPlaceWindow,
+    StrongTopBar,
+    StrongBody,
+  },
   setup() {
     const { id } = useSevenBible()
     const store = useStore()
@@ -43,13 +50,6 @@ export default {
     return {
       strong,
     }
-  },
-  components: {
-    UIWorkPlaceWindowBody,
-    UIWorkPlaceWindowHeader,
-    UIWorkPlaceWindow,
-    StrongTopBar,
-    StrongBody,
   },
 }
 </script>

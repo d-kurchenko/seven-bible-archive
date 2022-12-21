@@ -1,8 +1,15 @@
 <template>
   <UIModalWindow>
     <UIModalWindowHeader @close="close">
-      <template #title>Настройки отображения комментариев</template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <template #title>
+        Настройки отображения комментариев
+      </template>
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <div class="overlay container">
@@ -10,7 +17,10 @@
         Отмеченные ниже модули комментариев будут использоваться для всех модулей Библии
       </span>
 
-      <div v-for="(moduleName, idx) in commentariesModules" :key="idx">
+      <div
+        v-for="(moduleName, idx) in commentariesModules"
+        :key="idx"
+      >
         <q-checkbox
           :label="moduleName"
           :model-value="!!commentaries.activeModules.includes(moduleName)"

@@ -33,7 +33,9 @@ export default (args) => {
           disabled: false,
         }
       } else {
-        res.arrows.before = { disabled: true }
+        res.arrows.before = {
+          disabled: true,
+        }
       }
     }
 
@@ -61,7 +63,9 @@ export default (args) => {
           disabled: false,
         }
       } else {
-        res.arrows.next = { disabled: true }
+        res.arrows.next = {
+          disabled: true,
+        }
       }
     }
 

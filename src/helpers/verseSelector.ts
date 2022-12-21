@@ -8,17 +8,19 @@ export const insertVerse = (selectedVerses: number[], verse: number) => {
     }
   }
   selectedVerses.splice(index, 0, verse)
+
   return index
 }
 const generateArray = (from: number, to: number) =>
-  Array.from({ length: to - from }, (_, i) => i + from)
+  Array.from({
+    length: to - from,
+  }, (_, i) => i + from)
 
 export const convertVerses = (verses: number[]) => {
   let res = verses[0].toString()
   for (let i = 1; i < verses.length; i++) {
     const verse = verses[i]
-    if (verse - 1 !== verses[i - 1]) res += `,${verse}`
-    else {
+    if (verse - 1 !== verses[i - 1]) { res += `,${verse}` } else {
       let lastIndex = 0
       for (let j = i; j < verses.length; j++) {
         if (j === verses.length - 1) {
@@ -33,13 +35,12 @@ export const convertVerses = (verses: number[]) => {
       i = lastIndex
     }
   }
+
   return res
 }
 
 export const insertVerses = (selectedVerses: number[], verse: number) => {
-  if (selectedVerses.includes(verse)) selectedVerses.length = 0
-  else if (selectedVerses.length === 0) insertVerse(selectedVerses, verse)
-  else {
+  if (selectedVerses.includes(verse)) { selectedVerses.length = 0 } else if (selectedVerses.length === 0) { insertVerse(selectedVerses, verse) } else {
     const index = insertVerse(selectedVerses, verse)
     const neighborVerse = selectedVerses[index - 1] ?? selectedVerses[index + 1]
     const neighborVerseIndex = verse > neighborVerse ? index - 1 : index + 1

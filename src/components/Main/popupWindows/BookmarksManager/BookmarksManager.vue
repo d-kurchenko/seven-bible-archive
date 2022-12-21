@@ -1,18 +1,33 @@
 <template>
   <UIModalWindow @close="close">
-    <q-dialog persistent v-model="showCategoryCreator">
+    <q-dialog
+      v-model="showCategoryCreator"
+      persistent
+    >
       <q-card>
         <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6" v-text="$t('newCategory')" />
+          <div
+            class="text-h6"
+            v-text="$t('newCategory')"
+          />
           <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
+          <q-btn
+            v-close-popup
+            icon="close"
+            flat
+            round
+            dense
+          />
         </q-card-section>
 
         <q-card-section>
-          <q-form class="q-gutter-y-sm" @submit.prevent="createCategory">
+          <q-form
+            class="q-gutter-y-sm"
+            @submit.prevent="createCategory"
+          >
             <q-input
-              outlined
               v-model="categoryName"
+              outlined
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || $t('emptyField'),
@@ -24,20 +39,27 @@
               :label="$t('name')"
             />
             <q-input
-              outlined
               v-model="categoryColor"
+              outlined
               lazy-rules
               readonly
               :rules="[(val) => (val && val.length > 0) || t('emptyField')]"
               :label="$t('color')"
             >
-              <template v-slot:append>
-                <q-icon :name="Icons.Colorize" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <template #append>
+                <q-icon
+                  :name="Icons.Colorize"
+                  class="cursor-pointer"
+                >
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
                     <q-color
+                      v-model="categoryColor"
                       no-header-tabs
                       no-footer
-                      v-model="categoryColor"
                       format-model="hex"
                       default-value="#000000"
                     />
@@ -50,24 +72,42 @@
               style="width: 100%; height: 7px"
               :style="{ backgroundColor: categoryColor }"
             />
-            <q-btn :label="$t('create')" type="submit" />
+            <q-btn
+              :label="$t('create')"
+              type="submit"
+            />
           </q-form>
         </q-card-section>
       </q-card>
     </q-dialog>
-    <q-dialog persistent v-model="showDeleteCategoryConfirm">
+    <q-dialog
+      v-model="showDeleteCategoryConfirm"
+      persistent
+    >
       <q-card>
         <q-card-section class="q-pb-none">
           <q-item-label v-text="$t('deleteCategoryConfirm')" />
           <q-item-label class="flex justify-center q-gutter-x-sm">
-            <q-btn :label="$t('cancel')" flat dense v-close-popup />
-            <q-btn :label="$t('proceed')" flat dense @click.stop="deleteCategory" />
+            <q-btn
+              v-close-popup
+              :label="$t('cancel')"
+              flat
+              dense
+            />
+            <q-btn
+              :label="$t('proceed')"
+              flat
+              dense
+              @click.stop="deleteCategory"
+            />
           </q-item-label>
         </q-card-section>
       </q-card>
     </q-dialog>
     <UIModalWindowHeader @close="close">
-      <template #title><span v-text="$t('bookmarksManager')" /></template>
+      <template #title>
+        <span v-text="$t('bookmarksManager')" />
+      </template>
     </UIModalWindowHeader>
     <UIModalWindowBody>
       <div class="container">
@@ -77,10 +117,10 @@
               ? $t(selectedCategory.name)
               : selectedCategory.name
           "
-          @update:model-value="selectedCategory = $event"
           :options="bookmarks.categoriesList.value"
+          @update:model-value="selectedCategory = $event"
         >
-          <template v-slot:option="{ itemProps, opt }">
+          <template #option="{ itemProps, opt }">
             <q-item v-bind="itemProps">
               <q-item-section>
                 <q-item-label class="flex">
@@ -88,11 +128,11 @@
                   <q-space />
                   <q-btn
                     v-if="opt.index !== 0"
-                    @click.stop="onBeforeDeleteCategory(opt.name)"
                     :icon="Icons.Delete"
                     flat
                     dense
                     round
+                    @click.stop="onBeforeDeleteCategory(opt.name)"
                   />
                 </q-item-label>
                 <!--                <q-space/>-->
@@ -100,14 +140,14 @@
             </q-item>
           </template>
 
-          <template v-slot:append>
+          <template #append>
             <q-btn
               round
               dense
               flat
               :icon="Icons.Plus"
-              @click.stop="openCategoryCreator"
               :title="$t('addCategory')"
+              @click.stop="openCategoryCreator"
             />
           </template>
         </q-select>
@@ -115,13 +155,19 @@
 
       <q-separator />
 
-      <q-list class="overlay" separator>
-        <template v-for="(category, i) in selectedCategories" :key="i">
+      <q-list
+        class="overlay"
+        separator
+      >
+        <template
+          v-for="(category, i) in selectedCategories"
+          :key="i"
+        >
           <q-item
+            v-for="(bookmark, j) in category.bookmarks"
+            :key="i + '-' + j"
             clickable
             class="container"
-            v-for="(bookmark, i) in category.bookmarks"
-            :key="i"
             @click="goToText(bookmark)"
           >
             <q-item-section class="q-gutter-y-sm">
@@ -147,11 +193,14 @@
 
               <q-item-label
                 v-if="bookmark.description.length"
-                v-text="bookmark.description"
                 caption
+                v-text="bookmark.description"
               />
             </q-item-section>
-            <q-item-section side class="flex">
+            <q-item-section
+              side
+              class="flex"
+            >
               <q-btn
                 size="12px"
                 flat
@@ -181,7 +230,9 @@ import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
 import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
 import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
-import { computed, onMounted, ref } from 'vue'
+import {
+  computed, onMounted, ref,
+} from 'vue'
 import { useI18n } from 'vue-i18n'
 import { PreparedBookmark, PreparedCategory } from 'types/api-modified/categories'
 import { GetPreparedCategoriesArgs } from 'types/api-args/categories'
@@ -214,12 +265,12 @@ onMounted(() => getPreparedCategories())
 const allCategoriesSelected = computed(() => selectedCategory.value.index === 0)
 
 const selectedCategories = computed<PreparedCategory[]>(() => {
-  if (!preparedCategories.value?.length) return []
-  if (allCategoriesSelected.value) return preparedCategories.value
-  else {
+  if (!preparedCategories.value?.length) { return [] }
+  if (allCategoriesSelected.value) { return preparedCategories.value } else {
     const preparedCategory = preparedCategories.value.find(
-      (category) => category.name === selectedCategory.value.name
+      (category) => category.name === selectedCategory.value.name,
     )
+
     return preparedCategory ? [preparedCategory] : []
   }
 })
@@ -229,7 +280,7 @@ const convertRef = (bookmark: PreparedBookmark) =>
     bookmark.bookShortName,
     bookmark.startChapterNumber,
     bookmark.startVerseNumber,
-    bookmark.endVerseNumber
+    bookmark.endVerseNumber,
   )
 
 const goToText = (bookmark: PreparedBookmark) => {
@@ -241,7 +292,7 @@ const goToText = (bookmark: PreparedBookmark) => {
 }
 const onEdit = async (bookmark: PreparedBookmark, categoryName: string) => {
   await popup.showBookmarkCreator({
-    _bookmark: {
+    modelValue: {
       bookNumber: bookmark.bookNumber,
       dateCreated: bookmark.dateCreated,
       dateModified: bookmark.dateModified,
@@ -255,7 +306,8 @@ const onEdit = async (bookmark: PreparedBookmark, categoryName: string) => {
     isEditMode: true,
     categoryNameToDeleteIn: categoryName,
   })
-  popup.showBookmarksManager({})
+  popup.showBookmarksManager({
+  })
   updateBibleWindows()
 }
 const onDelete = async (bookmark: PreparedBookmark, categoryName: string) => {
@@ -271,7 +323,9 @@ const {
   showCategoryCreator,
   openCategoryCreator,
   createCategory,
-} = useCategoryCreator({ getPreparedCategories })
+} = useCategoryCreator({
+  getPreparedCategories,
+})
 
 const showDeleteCategoryConfirm = ref(false)
 let categoryToDelete: string

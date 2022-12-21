@@ -3,8 +3,10 @@ import BetterSqlite from 'better-sqlite3'
 import path from 'path'
 
 export class Database extends WrapperDatabaseApi {
-  static _instance = {}
-  static _connections = {}
+  static _instance = {
+  }
+  static _connections = {
+  }
   _path
   _filename
   _directory = 'modules'
@@ -15,7 +17,8 @@ export class Database extends WrapperDatabaseApi {
   constructor(
     filename,
     path,
-    { keepConnections = false, native = false, readonly = true } = {}
+    { keepConnections = false, native = false, readonly = true } = {
+    },
   ) {
     super()
     this._filename = filename
@@ -26,6 +29,7 @@ export class Database extends WrapperDatabaseApi {
 
     if (this._native) {
       this._setConnection()
+
       return this
     }
 
@@ -41,13 +45,16 @@ export class Database extends WrapperDatabaseApi {
       }
       this.constructor._connections[filename]++
     }
+
     return this.constructor._instance[filename]
   }
 
   _setConnection = () => {
     this.database = new BetterSqlite(
       path.resolve(dir, this._directory, ...this._path, this._filename),
-      { readonly: this._readonly }
+      {
+        readonly: this._readonly,
+      },
     )
   }
 

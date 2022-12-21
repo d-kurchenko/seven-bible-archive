@@ -9,17 +9,21 @@ export const bibleActiveModules = (state) => {
     (sum, curr, id) => {
       return curr.active
         ? {
-            indexes: [...sum.indexes, id],
-            fileNames: [...sum.fileNames, curr.bible.fileName],
-            count: sum.indexes.length,
-          }
+          indexes: [...sum.indexes, id],
+          fileNames: [...sum.fileNames, curr.bible.fileName],
+          count: sum.indexes.length,
+        }
         : sum
     },
-    { indexes: [], fileNames: [] }
+    {
+      indexes: [],
+      fileNames: [],
+    },
   )
 }
 export const activeWorkPlaceWindows = (state) => (id) => {
   const workPlace = state.workPlace[id]
+
   return {
     showStrong: workPlace.strong.show,
     showCommentaries: workPlace.commentaries.show,

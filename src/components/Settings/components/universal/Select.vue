@@ -6,40 +6,25 @@
     :options="config.enum"
     @update:model-value="onSelect"
   >
-    <template v-slot:option="scope">
+    <template #option="scope">
       <q-item v-bind="scope.itemProps">
         <q-item-section>
-          <q-item-label>{{ t(scope.label) }}</q-item-label>
+          <q-item-label>{{ t((scope as any).lable) }}</q-item-label>
         </q-item-section>
       </q-item>
     </template>
   </q-select>
 </template>
 
-<script>
+<script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-export default {
-  setup() {
-    const { t } = useI18n()
-    const onSelect = () => null
-    return {
-      t,
-      onSelect,
-    }
-  },
-  props: {
-    config: {
-      required: true,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-  },
-}
+defineProps<{
+  config: Record<string, any>
+  value: string
+  description?: string
+}>()
+const { t } = useI18n()
+const onSelect = () => null
+
 </script>

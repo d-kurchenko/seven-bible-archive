@@ -9,7 +9,7 @@ import deleteCategory from 'src-electron/api/categories/api/deleteCategory'
 export default () => {
   ipcMain.handle('make-bookmark', (event, args) => makeBookmark(args))
   ipcMain.handle('get-bookmark-categories', (event, filename) =>
-    getBookmarkCategories(filename)
+    getBookmarkCategories(filename),
   )
   ipcMain.handle('remove-bookmark', (event, args) => removeBookmark(args))
   ipcMain.handle('get-prepared-categories', (event, args) => getPreparedCategories(args))

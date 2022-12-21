@@ -10,7 +10,9 @@ export default (args) => {
     let res = []
     try {
       res = bibleDatabase.prepare(sql).all(args.bookNumber)
-    } catch {}
+    } catch {
+      console.error('Error while fetching introductions')
+    }
 
     return res
   }

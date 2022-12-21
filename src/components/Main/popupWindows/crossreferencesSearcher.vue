@@ -1,23 +1,33 @@
 <template>
   <UIModalWindow @close="close">
     <UIModalWindowHeader @close="close">
-      <template #title
-        >{{ bookShortName }} {{ chapterNumber }}:{{ selectedVerses[0] }} -
-        ссылки</template
-      >
-      <q-btn flat round :icon="Icons.Dots" />
+      <template #title>
+        {{ bookShortName }} {{ chapterNumber }}:{{ selectedVerses[0] }} -
+        ссылки
+      </template>
+      <q-btn
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <UIModalWindowBody>
-      <DynamicVirtualScroller :items="crossreferences" class="overlay separated">
-        <template v-slot="{ item }">
+      <DynamicVirtualScroller
+        :items="crossreferences"
+        class="overlay separated"
+      >
+        <template #default="{ item }">
           <q-item
             clickable
-            @click="goToText(item.book_to, item.chapter_to)"
             :dir="item.book_to >= 470 ? textDirections.nt : textDirections.ot"
+            @click="goToText(item.book_to, item.chapter_to)"
           >
             <q-item-section>
-              <q-item-label lines="1" class="q-gutter-x-md q-pb-sm">
+              <q-item-label
+                lines="1"
+                class="q-gutter-x-md q-pb-sm"
+              >
                 <bdi class="text-weight-light">{{ item.module_name }}</bdi>
                 <span>{{
                   `${item.bookShortName} ${item.chapter_to}:${item.verse_to_start}${
@@ -28,11 +38,14 @@
 
               <q-item-label>
                 <div class="q-gutter-x-sm">
-                  <span v-if="item.expanded" class="text-subtitle2 text-body2">
+                  <span
+                    v-if="item.expanded"
+                    class="text-subtitle2 text-body2"
+                  >
                     {{ item.texts[0].verse }}
                   </span>
 
-                  <span v-html="{ ...item.texts[0] }.text"></span>
+                  <span v-html="{ ...item.texts[0] }.text" />
                 </div>
                 <div
                   id="el"
@@ -47,7 +60,7 @@
                       {{ firstVerse.verse }}
                     </span>
 
-                    <span v-html="firstVerse.text"></span>
+                    <span v-html="firstVerse.text" />
                   </div>
                 </div>
                 <q-btn
@@ -63,7 +76,12 @@
                     class="absolute-center"
                     name="expand_less"
                   />
-                  <q-icon v-else key="more" class="absolute-center" name="expand_more" />
+                  <q-icon
+                    v-else
+                    key="more"
+                    class="absolute-center"
+                    name="expand_more"
+                  />
                   <!--                </transition>-->
                 </q-btn>
               </q-item-label>
@@ -117,8 +135,9 @@ const getCrosrefferences = async () => {
       if (a.chapter_to === b.chapter_to) {
         return a.verse_to_start - b.verse_to_start
       }
+
       return a.chapter_to - b.chapter_to
-    } else return a.book_to - b.book_to
+    } else { return a.book_to - b.book_to }
   })
 
   crossreferences.value = data
@@ -144,6 +163,9 @@ const openPanel = ({ target }: any, expanded: boolean, ref: any) => {
 }
 
 const goToText = (bookNumber: number, chapterNumber: number) => {
-  close({ bookNumber, chapterNumber })
+  close({
+    bookNumber,
+    chapterNumber,
+  })
 }
 </script>

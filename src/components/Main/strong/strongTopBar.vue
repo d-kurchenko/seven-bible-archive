@@ -7,16 +7,28 @@
     />
     <q-separator vertical />
 
-    <q-btn :label="strongNumbersToString" stretch unelevated no-wrap class="grow-1" />
+    <q-btn
+      :label="strongNumbersToString"
+      stretch
+      unelevated
+      no-wrap
+      class="grow-1"
+    />
     <q-separator vertical />
 
-    <UIButton @click="openStrongSearcher" :icon="Icons.Search" />
+    <UIButton
+      :icon="Icons.Search"
+      @click="openStrongSearcher"
+    />
     <q-separator vertical />
 
     <UIButton :icon="Icons.Dots" />
     <q-separator vertical />
 
-    <UIButton :icon="Icons.Close" @click="close" />
+    <UIButton
+      :icon="Icons.Close"
+      @click="close"
+    />
   </UIButtonset>
 
   <q-separator />
@@ -34,13 +46,16 @@ interface Props {
   strongNumbers: number[]
   strongFileName: string
 }
-const props = withDefaults(defineProps<Props>(), { strongFileName: '' })
+const props = withDefaults(defineProps<Props>(), {
+  strongFileName: '',
+})
 
 const store = useStore()
 const { id, popup } = useSevenBible()
 
 const openStrongSearcher = async () => {
-  const ref = await popup.showStrongSearcher({})
+  const ref = await popup.showStrongSearcher({
+  })
   store.state.setBibleRef(id, ref)
 }
 const close = () => store.state.set(`workPlace.${id}.strong.show`, false)

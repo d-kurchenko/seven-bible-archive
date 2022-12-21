@@ -1,16 +1,16 @@
 export default {
-  //pages
+  // pages
   mainPage: 'Главная',
   modulesPage: 'Модули',
   settingsPage: 'Настройки',
   feedbackPage: 'Обратная связь',
   helpPage: 'Информация',
 
-  //titles
+  // titles
   bookmarksManager: 'Управление закладками',
   newCategory: 'Новая категория',
 
-  //actions
+  // actions
   compareTranslations: 'Сравнить переводы',
   addBookmark: 'Добавить закладку',
   searchCrossreferences: 'Искать ссылки',
@@ -32,7 +32,7 @@ export default {
   addCategory: 'Добавить категорию',
   create: 'Создать',
 
-  //tabs
+  // tabs
   bibleModules: 'Модули библии',
   subheadingsModules: 'Модули заголовков',
   commentariesModules: 'Модули комментариев',
@@ -58,19 +58,19 @@ export default {
     'Открывать окно сравнения переводов стиха в разных модулях Библии',
   openCrossreferencesSearcher: 'Открывать окно перекререкрестных ссылок стиха',
 
-  //labels
+  // labels
   color: 'Цвет',
   name: 'Название',
 
-  //placeholders
+  // placeholders
   noteToBookmark: 'Примечание к заметке',
-  //errors
+  // errors
   nothingFounded: 'Ничего не найдено',
   bookNotFounded:
     'Текущий модуль Библии %s не содержит стихов для выбранной книги. Выберите пожалуйста другую книгу с помощью широкой центральной кнопки в заголовке.',
   emptyField: 'Это поле не может быть пустым',
   categoryExists: 'Категория с тким именем уже сущевствует',
-  //info
+  // info
   bookmarkWasCreated: 'Заметка успешно создна',
   bookmarkWasEdited: 'Заметка успешно отредактирована',
   bookmarkWasDeleted: 'Заметка успешно удалена',
@@ -80,17 +80,17 @@ export default {
 
   bookmarks: 'Закладки',
 
-  //others
+  // others
   all: 'Все',
   modulesSelectedOf: 'модулей выбрано из',
   search: 'Поиск',
   language: 'Язык',
   infoAboutModule: 'Информация о модуле',
 
-  //Modules page
+  // Modules page
   moduleName: 'Название модуля',
 
-  //registry
+  // registry
   abr: 'Аббревиатура',
   lng: 'Язык',
   des: 'Описание',

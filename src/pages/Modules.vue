@@ -3,7 +3,10 @@
     <UILoader v-if="showLoader" />
 
     <div class="flex fit">
-      <ModulesTabs @change-tab="onChangeTab" :active-tab="activeTab" />
+      <ModulesTabs
+        :active-tab="activeTab"
+        @change-tab="onChangeTab"
+      />
       <q-separator vertical />
       <ModulesTabsPanels
         :active-tab="activeTab"
@@ -14,7 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, shallowRef } from 'vue'
+import {
+  computed, nextTick, ref, shallowRef,
+} from 'vue'
 import { Download, ModulesRegistry } from 'types/registry'
 import UILoader from 'src/components/UI/UILoader.vue'
 import { Modules } from 'types/modules'
@@ -48,11 +53,11 @@ const preparedModulesList = computed(() => {
     bible: [],
   }
   const downloads = modulesRegistry.value?.downloads
-  if (!downloads) return modulesList
+  if (!downloads) { return modulesList }
   for (const module of downloads) {
     let moduleType = module.fil.split('.')[1]
-    if (!moduleType) moduleType = Modules.Bible
-    if (!Object.values(Modules).includes(moduleType as Modules)) continue
+    if (!moduleType) { moduleType = Modules.Bible }
+    if (!Object.values(Modules).includes(moduleType as Modules)) { continue }
     modulesList[moduleType].push(module)
   }
 

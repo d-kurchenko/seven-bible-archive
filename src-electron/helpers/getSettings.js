@@ -6,11 +6,15 @@ export const getSettings = () => {
   try {
     const settings = fs.readFileSync(
       join(global.dir, 'user', 'settings', 'settings.json'),
-      { encoding: 'utf8' }
+      {
+        encoding: 'utf8',
+      },
     )
+
     return JSON.parse(settings)
   } catch (e) {
     fs.outputJson(join(global.dir, 'user', 'settings', 'settings.json'), settingsScheme)
+
     return settingsScheme
   }
 }

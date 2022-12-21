@@ -14,8 +14,9 @@ export default (bible: Ref<Bible>) => {
         bible.value.fileName + '.commentaries.SQLite3',
       ])
     ) {
-      //TODO: try to load commentaries module
+      // TODO: try to load commentaries module
       console.warn(`Commentaries module for ${bible.value.fileName} not found`)
+
       return
     }
 

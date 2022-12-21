@@ -1,10 +1,10 @@
 <template>
   <q-tabs
     :model-value="activeTab"
-    @update:model-value="changeTab($event)"
     vertical
     no-caps
     class="container"
+    @update:model-value="changeTab($event)"
   >
     <q-tab
       v-for="(moduleName, i) in Modules"

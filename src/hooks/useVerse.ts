@@ -16,6 +16,7 @@ export default () => {
     // versePopupTarget.value = target
     // versePopup.value.toggle()
   }
+
   return {
     onVerseContextmenu,
     versePopup,

@@ -19,20 +19,20 @@
             />
           </div>
           <q-checkbox
-            @update:model-value="changeViewState('showBookName', $event)"
             :model-value="bibleView.showBookName"
             label="название книги"
+            @update:model-value="changeViewState('showBookName', $event)"
           />
           <q-checkbox
-            @update:model-value="changeViewState('showChapterNumber', $event)"
             :model-value="bibleView.showChapterNumber"
             label="номер главы"
+            @update:model-value="changeViewState('showChapterNumber', $event)"
           />
           <div class="flex no-wrap">
             <q-checkbox
-              @update:model-value="changeViewState('showSubheadings', $event)"
               :model-value="bibleView.showSubheadings"
               label="подзаголовки"
+              @update:model-value="changeViewState('showSubheadings', $event)"
             />
             <q-space />
             <q-btn
@@ -45,9 +45,9 @@
           </div>
           <div class="flex no-wrap">
             <q-checkbox
-              @update:model-value="changeViewState('showCommentaries', $event)"
               :model-value="bibleView.showCommentaries"
               label="комментарии"
+              @update:model-value="changeViewState('showCommentaries', $event)"
             />
             <q-space />
             <q-btn
@@ -59,44 +59,52 @@
             />
           </div>
           <q-checkbox
-            @update:model-value="changeViewState('showVerseNumber', $event)"
             :model-value="bibleView.showVerseNumber"
             label="нумерацию стихов"
+            @update:model-value="changeViewState('showVerseNumber', $event)"
           />
           <q-separator />
 
           <q-checkbox
-            @update:model-value="changeViewState('showParagraphs', $event)"
             :model-value="bibleView.showParagraphs"
             label="абзацы и отступы"
             disable
+            @update:model-value="changeViewState('showParagraphs', $event)"
           />
           <q-checkbox
-            @update:model-value="changeViewState('showContinuousText', $event)"
             :model-value="bibleView.showContinuousText"
             label="непрерывный текст"
+            @update:model-value="changeViewState('showContinuousText', $event)"
           />
           <q-separator />
           <q-checkbox
-            @update:model-value="changeViewState('showStrongNumbers', $event)"
             :model-value="bibleView.showStrongNumbers"
             label="номера стронга"
+            @update:model-value="changeViewState('showStrongNumbers', $event)"
           />
           <q-checkbox
-            @update:model-value="changeViewState('showDreamy', $event)"
             :model-value="bibleView.showDreamy"
             label="сноски"
+            @update:model-value="changeViewState('showDreamy', $event)"
           />
           <q-checkbox
-            @update:model-value="changeViewState('showJesusWords', $event)"
             :model-value="bibleView.showJesusWords"
             label="слова Иисуса"
+            @update:model-value="changeViewState('showJesusWords', $event)"
           />
           <q-separator class="q-my-sm" />
           <div class="flex justify-center">
             <div>
-              <q-btn disable :icon="Icons.Plus" @click="changeFontSize('+')" />
-              <q-btn disable @click="changeFontSize('-')" :icon="Icons.Minus" />
+              <q-btn
+                disable
+                :icon="Icons.Plus"
+                @click="changeFontSize('+')"
+              />
+              <q-btn
+                disable
+                :icon="Icons.Minus"
+                @click="changeFontSize('-')"
+              />
             </div>
           </div>
         </div>

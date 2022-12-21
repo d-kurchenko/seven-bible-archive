@@ -1,11 +1,28 @@
 <template>
-  <q-dialog :model-value="true" persistent seamless class="non-selectable">
+  <q-dialog
+    :model-value="true"
+    persistent
+    seamless
+    class="non-selectable"
+  >
     <q-page-sticky :offset="positions">
-      <q-card class="bg-primary text-white" style="width: 300px" ref="card">
-        <q-bar class="cursor-move" v-touch-pan.prevent.mouse="onPane">
+      <q-card
+        ref="card"
+        class="bg-primary text-white"
+        style="width: 300px"
+      >
+        <q-bar
+          v-touch-pan.prevent.mouse="onPane"
+          class="cursor-move"
+        >
           <div>{{ title }}</div>
           <q-space />
-          <q-btn dense flat :icon="Icons.Close" v-close-popup />
+          <q-btn
+            v-close-popup
+            dense
+            flat
+            :icon="Icons.Close"
+          />
         </q-bar>
         <slot />
       </q-card>
@@ -13,26 +30,31 @@
   </q-dialog>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { Icons } from 'src/types/icons'
+import { QCard } from 'quasar'
 
-defineProps({
-  title: String,
-})
+
+defineProps<{
+  title: string
+}>()
 
 const positions = ref([10, 10])
 
-const card = ref()
+const card = ref<InstanceType<typeof QCard> | null>(null)
 
-const onPane = (event) => {
+const onPane = (event: any) => {
+  const cardEl = card.value?.$el
+  if(!cardEl) return
+
   const { x, y } = event.delta
   const [prevX, prevY] = positions.value
 
   const nextX = prevX - x
   const nextY = prevY - y
 
-  const { clientHeight, clientWidth } = card.value?.$el
+  const { clientHeight, clientWidth } = cardEl
 
   positions.value = [
     nextX >= window.innerWidth - clientWidth || nextX <= 0 ? prevX : nextX,

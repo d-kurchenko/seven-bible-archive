@@ -1,4 +1,6 @@
-import { provide, ref, watch, Ref } from 'vue'
+import {
+  provide, ref, watch, Ref,
+} from 'vue'
 import useBibleModuleTables from 'src/hooks/useBibleModuleTables'
 import { myRef } from 'src/helpers'
 import { BibleBooks, BibleInfo } from 'src-electron/types/bible'
@@ -11,7 +13,7 @@ export default (bibleFileName: Ref<string>) => {
 
   const getBibleModuleInfo = async () => {
     const tables = await useBibleModuleTables(bibleFileName.value)
-    if (!tables.info || !tables.booksList) return
+    if (!tables.info || !tables.booksList) { return }
     info.value = tables.info
     booksList.value = tables.booksList
   }
@@ -22,6 +24,7 @@ export default (bibleFileName: Ref<string>) => {
     window.api.bible.connectDatabase(newFilename)
     getBibleModuleInfo()
   })
+
   return {
     info,
   }

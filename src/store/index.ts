@@ -1,7 +1,9 @@
 import { store } from 'quasar/wrappers'
 import { InjectionKey } from 'vue'
 import { Router } from 'vue-router'
-import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
+import {
+  createStore, Store as VuexStore, useStore as vuexUseStore,
+} from 'vuex'
 import settings from './settings'
 import { SettingStateInterface } from './settings/state'
 

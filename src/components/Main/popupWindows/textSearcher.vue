@@ -1,21 +1,28 @@
 <template>
   <UIModalWindow>
     <UIModalWindowHeader @close="close">
-      <template #title>Поиск по библии - {{ bibleFileName }}</template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <template #title>
+        Поиск по библии - {{ bibleFileName }}
+      </template>
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
     <UIModalWindowBody>
       <UIModalWindowSettings>
         <q-form>
           <q-input
+            ref="input"
+            v-model="searchInput"
             placeholder="Поиск"
             filled
-            v-model="searchInput"
             counter
-            ref="input"
             for="btn"
           >
-            <template v-slot:after>
+            <template #after>
               <q-btn
                 ref="btn"
                 name="btn"
@@ -30,10 +37,16 @@
         </q-form>
       </UIModalWindowSettings>
 
-      <q-linear-progress v-if="showLoader" query />
+      <q-linear-progress
+        v-if="showLoader"
+        query
+      />
 
-      <DynamicVirtualScroller :items="foundedTexts" class="overlay separated">
-        <template v-slot="{ item }">
+      <DynamicVirtualScroller
+        :items="foundedTexts"
+        class="overlay separated"
+      >
+        <template #default="{ item }">
           <q-item
             clickable
             class="q-px-md"
@@ -44,7 +57,7 @@
                 {{ item.long_name }}
                 {{ item.chapter }}:{{ item.verse }}
               </q-item-label>
-              <q-item-label v-html="item.text"></q-item-label>
+              <q-item-label v-html="item.text" />
             </q-item-section>
           </q-item>
         </template>
@@ -76,7 +89,10 @@ const { showLoader, searchInput, foundedTexts, searchText } =
   useTextSearcher(bibleFileName)
 
 const goToText = (bookNumber, chapterNumber) => {
-  const ref = { bookNumber, chapterNumber }
+  const ref = {
+    bookNumber,
+    chapterNumber,
+  }
   close(ref)
 }
 

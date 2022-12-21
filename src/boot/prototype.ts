@@ -1,8 +1,10 @@
 export default async (/* { app, router, Vue ... } */) => {
   String.prototype.format = function (...args) {
     let idx = -1
+
     return this.replace(/%s/g, (match) => {
       idx++
+
       return args[idx] ? args[idx] : match
     })
   }
@@ -23,10 +25,12 @@ export default async (/* { app, router, Vue ... } */) => {
     const proxy = keys.reduce((prev, curr) => {
       return prev ? prev[curr] : null
     }, obj)
-    if (typeof proxy[lastKey] === 'object')
-      proxy[lastKey] = { ...proxy[lastKey], ...value }
-    else if (!value) proxy[lastKey] = !proxy[lastKey]
-    else proxy[lastKey] = value
+    if (typeof proxy[lastKey] === 'object') {
+      proxy[lastKey] = {
+        ...proxy[lastKey],
+        ...value,
+      }
+    } else if (!value) { proxy[lastKey] = !proxy[lastKey] } else { proxy[lastKey] = value }
   }
   Array.prototype.remove = function (value) {
     this.splice(this.indexOf(value), 1)
@@ -34,6 +38,7 @@ export default async (/* { app, router, Vue ... } */) => {
 
   Boolean.parse = function (str, fallback) {
     const fallback_ = typeof fallback !== 'undefined' ? fallback : false
+
     return str === 'true' ? true : str === 'true' ? true : fallback_
   }
 }

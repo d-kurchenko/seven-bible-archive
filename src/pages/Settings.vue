@@ -1,6 +1,9 @@
 <template>
   <div class="fit flex d-column">
-    <q-tabs v-model="tab" inline-label>
+    <q-tabs
+      v-model="tabName"
+      inline-label
+    >
       <q-tab
         v-for="tab in tabs"
         :key="tab.name"
@@ -11,7 +14,10 @@
     </q-tabs>
     <q-separator />
 
-    <q-tab-panels v-model="tab" class="col">
+    <q-tab-panels
+      v-model="tabName"
+      class="col"
+    >
       <q-tab-panel
         v-for="tab in [tabs[0]]"
         :key="tab.name"
@@ -24,40 +30,27 @@
   </div>
 </template>
 
-<script>
-import { computed, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import GeneralTab from 'components/Settings/generalTab.vue'
 import { useI18n } from 'vue-i18n'
 
-export default {
-  setup() {
-    const { t } = useI18n()
+GeneralTab
 
-    const tabs = [
-      {
-        name: 'generalTab',
-        label: 'generalTab',
-        icon: 'settings',
-      },
-      {
-        name: 'themeEditorTab',
-        label: 'themeEditorTab',
-        icon: 'brush',
-      },
-    ]
-    const tab = ref(tabs[0].name)
+const { t } = useI18n()
 
-    const activeTabLabel = computed(
-      () => tabs.find((currTab) => (currTab.name = tab.value)).label
-    )
-
-    return {
-      tab,
-      tabs,
-      activeTabLabel,
-      t,
-    }
+const tabs = [
+  {
+    name: 'generalTab',
+    label: 'generalTab',
+    icon: 'settings',
   },
-  components: { GeneralTab },
-}
+  {
+    name: 'themeEditorTab',
+    label: 'themeEditorTab',
+    icon: 'brush',
+  },
+]
+const tabName = ref(tabs[0].name)
+
 </script>

@@ -1,8 +1,15 @@
 <template>
   <UIModalWindow>
     <UIModalWindowHeader @close="close">
-      <template #title>Настройки отображения подзаголовков</template>
-      <q-btn disable flat round :icon="Icons.Dots" />
+      <template #title>
+        Настройки отображения подзаголовков
+      </template>
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
 
     <div class="overlay container">
@@ -16,12 +23,13 @@
 
       <q-separator class="q-my-sm" />
 
-      <span
-        >Отмеченные ниже модули подзаголовков будут использоваться для всех модулей
-        Библии</span
-      >
+      <span>Отмеченные ниже модули подзаголовков будут использоваться для всех модулей
+        Библии</span>
 
-      <div v-for="(moduleName, idx) in subheadingsModulesList" :key="idx">
+      <div
+        v-for="(moduleName, idx) in subheadingsModulesList"
+        :key="idx"
+      >
         <q-checkbox
           :label="moduleName"
           :model-value="!!subheadings.activeModules.includes(moduleName)"

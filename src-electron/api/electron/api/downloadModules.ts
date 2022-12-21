@@ -16,12 +16,12 @@ export const downloadModules = async (modules: Download[]) => {
       moduleType === Modules.Bible
         ? Path.Bible
         : moduleType === Modules.Commentaries
-        ? Path.Commentaries
-        : moduleType === Modules.Crossreferences
-        ? Path.Crossreferences
-        : moduleType === Modules.Subheadings
-        ? Path.Subheadings
-        : Path.Dictionaries
+          ? Path.Commentaries
+          : moduleType === Modules.Crossreferences
+            ? Path.Crossreferences
+            : moduleType === Modules.Subheadings
+              ? Path.Subheadings
+              : Path.Dictionaries
 
     const fullPath = path.join(dir, _path)
 
@@ -36,6 +36,7 @@ export const downloadModules = async (modules: Download[]) => {
             ?.path
 
           downloadModuleUrl = serverPath || ''
+
           return ''
         })
         downloadModuleUrl = downloadModuleUrl.replace(/\%s/gi, url)
@@ -44,7 +45,9 @@ export const downloadModules = async (modules: Download[]) => {
         const timeout = setTimeout(() => {
           controller.abort()
         }, 200)
-        const data = await fetch(downloadModuleUrl, { signal: controller.signal as any })
+        const data = await fetch(downloadModuleUrl, {
+          signal: controller.signal as any,
+        })
         clearTimeout(timeout)
 
         const buffer = await data.buffer()
@@ -68,7 +71,7 @@ export const downloadModules = async (modules: Download[]) => {
 
         break
       } catch (err) {
-        console.log(err)
+        console.error('Error while downloading module')
       }
     }
   }

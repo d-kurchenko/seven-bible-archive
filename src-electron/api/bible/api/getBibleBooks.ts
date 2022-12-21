@@ -14,7 +14,9 @@ export default (filename: string) => {
     try {
       const sql = 'SELECT book_number, short_name, long_name FROM books'
       bibleBooks = bibleDatabase.prepare(sql).all()
-    } catch {}
+    } catch {
+      console.error('Error while fetching bible module books')
+    }
   }
 
   return bibleBooks

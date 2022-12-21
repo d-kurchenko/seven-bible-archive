@@ -7,28 +7,13 @@
   />
 </template>
 
-<script>
-export default {
-  setup(props) {
-    const onUpdate = (value) => props.store.state.set(`app.${props.config.path}`, value)
+<script setup lang="ts">
+const props = defineProps<{
+  config: Record<string, any>,
+  value: boolean,
+  description?: string,
+  store: Record<string, any>,
+}>()
 
-    return {
-      onUpdate,
-    }
-  },
-  props: {
-    config: {
-      required: true,
-    },
-    value: {
-      type: Boolean,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    store: Object,
-  },
-}
+const onUpdate = (value: boolean) => props.store.state.set(`app.${props.config.path}`, value)
 </script>

@@ -1,22 +1,30 @@
 <template>
   <UIModalWindow>
     <UIModalWindowHeader @close="close">
-      <template #title
-        >Закладка {{ bookShortName }} {{ bible.chapterNumber }}:{{
+      <template #title>
+        Закладка {{ bookShortName }} {{ bible.chapterNumber }}:{{
           convertedVerses
-        }}</template
-      >
-      <q-btn disable flat round :icon="Icons.Dots" />
+        }}
+      </template>
+      <q-btn
+        disable
+        flat
+        round
+        :icon="Icons.Dots"
+      />
     </UIModalWindowHeader>
     <UIModalWindowBody>
       <div class="container fit flex d-column">
-        <q-select v-model="selectedCategory" :options="categoriesList" />
+        <q-select
+          v-model="selectedCategory"
+          :options="categoriesList"
+        />
         <textarea
+          v-model="bookmark.description"
+          v-focus.next
           maxlength="1000"
           :placeholder="$t('noteToBookmark')"
           class="fit overlay reset shadow-4 rounded-borders container"
-          v-model="bookmark.description"
-          v-focus.next
         />
       </div>
       <q-separator />
@@ -27,8 +35,16 @@
           class="shadow-4 rounded-borders overlay"
         />
         <div class="flex justify-around">
-          <UIButton :tooltip="$t('cancel')" :icon="Icons.Cancel" @click="close" />
-          <UIButton :tooltip="$t('accept')" :icon="Icons.Done" @click="makeBookmark" />
+          <UIButton
+            :tooltip="$t('cancel')"
+            :icon="Icons.Cancel"
+            @click="close"
+          />
+          <UIButton
+            :tooltip="$t('accept')"
+            :icon="Icons.Done"
+            @click="makeBookmark"
+          />
         </div>
       </div>
     </UIModalWindowBody>
@@ -40,7 +56,9 @@ import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
 import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
 import UIModalWindowBody from 'components/UI/ModalWindow/UIModalWindowBody.vue'
 import useSevenBible from 'src/hooks/useSevenBible'
-import { computed, onMounted, ref } from 'vue'
+import {
+  computed, onMounted, ref,
+} from 'vue'
 import BibleVerses from 'components/Main/BibleVerses.vue'
 import UIButton from 'components/UI/UIButton.vue'
 import { createDateString } from 'src/helpers'
@@ -52,14 +70,12 @@ import { PreparedVerse } from 'types/api-modified/bible'
 import { BookmarkArgs } from 'src/hooks/useBookmarks'
 
 interface Props {
-  _bookmark: Bookmark
+  modelValue: Bookmark
   isEditMode?: boolean
   categoryNameToDeleteIn?: string
 }
 
-let props = withDefaults(defineProps<Props>(), {
-  isEditMode: false,
-})
+let props = defineProps<Props>()
 
 const emit = defineEmits(['close'])
 
@@ -71,18 +87,21 @@ const {
   updateBibleWindows,
 } = useSevenBible()
 
-const { _bookmark, isEditMode, categoryNameToDeleteIn } = props
+const { modelValue, isEditMode, categoryNameToDeleteIn } = props
 
 const bookmark = ref<Bookmark>({
   bookNumber: bible.bookNumber,
   startChapterNumber: bible.chapterNumber,
   endChapterNumber: bible.chapterNumber,
-  startVerseNumber: _bookmark.startVerseNumber,
-  endVerseNumber: _bookmark.endVerseNumber ?? _bookmark.startVerseNumber,
+  startVerseNumber: modelValue.startVerseNumber,
+  endVerseNumber: modelValue.endVerseNumber ?? modelValue.startVerseNumber,
   description: '',
   isForRussianNumbering: Boolean.parse(info.russian_numbering),
 })
-bookmark.value = { ...bookmark.value, ..._bookmark }
+bookmark.value = {
+  ...bookmark.value,
+  ...modelValue,
+}
 
 const close = () => emit('close')
 const verses = ref<PreparedVerse[]>()
@@ -115,21 +134,24 @@ const categoriesList = bookmarks.bookmarkCategories.value.map((category) => cate
 const selectedCategory = ref(categoryNameToDeleteIn ?? categoriesList[0])
 
 const makeBookmark = async () => {
-  if (!bookmark.value.startVerseNumber) return
+  if (!bookmark.value.startVerseNumber) { return }
   const settings: BookmarkArgs = {
     categoryName: selectedCategory.value,
-    bookmark: { ...bookmark.value },
+    bookmark: {
+      ...bookmark.value,
+    },
   }
   const date = createDateString()
-  if (isEditMode) settings.bookmark.dateModified = date
-  else {
+  if (isEditMode) { settings.bookmark.dateModified = date } else {
     settings.bookmark.dateCreated = date
     settings.bookmark.dateModified = date
   }
   if (isEditMode && categoryNameToDeleteIn) {
     await bookmarks.editBookmark(settings, {
       categoryName: categoryNameToDeleteIn,
-      bookmark: { ..._bookmark },
+      bookmark: {
+        ...modelValue,
+      },
     })
     notify.showInfo(t('bookmarkWasEdited'))
   } else {

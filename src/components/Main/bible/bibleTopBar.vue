@@ -1,5 +1,8 @@
 <template>
-  <UIButtonset v-if="!selectedVerses.length" key="standard">
+  <UIButtonset
+    v-if="!selectedVerses.length"
+    key="standard"
+  >
     <ModuleSelector
       :file-name="bibleFileName"
       :path="['modules', 'books']"
@@ -16,15 +19,24 @@
 
     <q-separator vertical />
 
-    <UIButton :icon="Icons.Search" @click="openTextSearcher" />
+    <UIButton
+      :icon="Icons.Search"
+      @click="openTextSearcher"
+    />
 
     <q-separator vertical />
 
-    <UIButton :title="$t('openStrong')" :icon="Icons.Strong" />
+    <UIButton
+      :title="$t('openStrong')"
+      :icon="Icons.Strong"
+    />
 
     <q-separator vertical />
 
-    <UIButton :title="$t('openCommentaries')" :icon="Icons.Commentaries" />
+    <UIButton
+      :title="$t('openCommentaries')"
+      :icon="Icons.Commentaries"
+    />
 
     <q-separator vertical />
 
@@ -36,7 +48,10 @@
 
     <q-separator vertical />
 
-    <UIButton disable :icon="Icons.Dictionary" />
+    <UIButton
+      disable
+      :icon="Icons.Dictionary"
+    />
 
     <q-separator vertical />
 
@@ -55,15 +70,21 @@
     />
     <q-separator vertical />
 
-    <quick-settings />
+    <QuickSettings />
 
     <template v-if="activeWorkPlacesCount > 1">
       <q-separator vertical />
-      <UIButton :icon="Icons.Close" @click.stop="closeWorkPlace" />
+      <UIButton
+        :icon="Icons.Close"
+        @click.stop="closeWorkPlace"
+      />
     </template>
   </UIButtonset>
 
-  <UIButtonset v-else key="selector">
+  <UIButtonset
+    v-else
+    key="selector"
+  >
     <UIButton
       :tooltip="$t('cancelSelection')"
       :icon="Icons.Cancel"
@@ -81,7 +102,11 @@
 
     <q-separator vertical />
 
-    <UIButton :tooltip="$t('copy')" :icon="Icons.Copy" @click="$emit('copyVerses')" />
+    <UIButton
+      :tooltip="$t('copy')"
+      :icon="Icons.Copy"
+      @click="$emit('copyVerses')"
+    />
 
     <q-separator vertical />
 
@@ -94,27 +119,27 @@
     <q-separator vertical />
 
     <UIButton
-      @click="openCrossreferencesSearcher"
       :tooltip="$t('searchCrossreferences')"
       :icon="Icons.CompareCrossreferences"
       :disable="selectedVerses.length > 1"
+      @click="openCrossreferencesSearcher"
     />
 
     <q-separator vertical />
 
     <UIButton
-      @click="compareSelectedVerses"
       :tooltip="$t('compareTranslations')"
       :icon="Icons.Book"
+      @click="compareSelectedVerses"
     />
 
     <q-separator vertical />
 
     <UIButton
-      @click="openCommentariesComparator"
       :tooltip="$t('searchCommentaries')"
       :icon="Icons.CompareCommentaries"
       :disable="selectedVerses.length > 1"
+      @click="openCommentariesComparator"
     />
   </UIButtonset>
 
@@ -142,7 +167,9 @@ interface Props {
   bibleFileName: string
   selectedVerses: number[]
 }
-const props = withDefaults(defineProps<Props>(), { selectedVerses: () => [] })
+const props = withDefaults(defineProps<Props>(), {
+  selectedVerses: () => [],
+})
 
 defineEmits(['clearSelectedVerses', 'copyVerses'])
 
@@ -156,9 +183,10 @@ const activeWorkPlacesCount = computed(() => activeWorkPlaces.value.indexes.leng
 
 const { t } = useI18n()
 
-const openPopupAndSetRef = async (callback: CallableFunction, props = {}) => {
+const openPopupAndSetRef = async (callback: CallableFunction, props = {
+}) => {
   const ref = await callback(props)
-  if (!ref) return
+  if (!ref) { return }
   store.state.setBibleRef(id, ref)
 }
 const openRefSelector = () => openPopupAndSetRef(popup.showRefSelector)
@@ -172,11 +200,13 @@ const openCrossreferencesSearcher = () =>
     selectedVerses: props.selectedVerses,
   })
 const openCommentariesComparator = () =>
-  popup.showCommentariesComparator({ verseNumber: props.selectedVerses[0] })
+  popup.showCommentariesComparator({
+    verseNumber: props.selectedVerses[0],
+  })
 
 const selectionRef = computed(
   () =>
-    `${bookShortName.value} ${props.chapterNumber}:${convertVerses(props.selectedVerses)}`
+    `${bookShortName.value} ${props.chapterNumber}:${convertVerses(props.selectedVerses)}`,
 )
 
 const copySelectionRef = () => {
@@ -188,7 +218,7 @@ const copySelectionRef = () => {
 const openBookmarkCreator = () => {
   const verses = props.selectedVerses
   popup.showBookmarkCreator({
-    _bookmark: {
+    modelValue: {
       startVerseNumber: verses[0],
       endVerseNumber: verses[verses.length - 1],
     },

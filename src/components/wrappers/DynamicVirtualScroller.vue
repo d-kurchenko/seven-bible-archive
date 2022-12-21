@@ -2,11 +2,16 @@
   <DynamicScroller
     :items="items"
     :min-item-size="54"
-    keyField="rowid"
+    key-field="rowid"
     style="min-height: 100px"
   >
-    <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem :item="item" :active="active" buffer="20" :data-index="index">
+    <template #default="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        buffer="20"
+        :data-index="index"
+      >
         <slot :item="item" />
       </DynamicScrollerItem>
     </template>

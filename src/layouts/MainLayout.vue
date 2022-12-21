@@ -1,12 +1,15 @@
 <template>
-  <q-layout :style="font" class="flex d-column fit">
-    <SystemBar @toggleDrawer="visibleRight = !visibleRight" />
+  <q-layout
+    :style="font"
+    class="flex d-column fit"
+  >
+    <SystemBar @toggle-drawer="visibleRight = !visibleRight" />
     <div class="flex col">
       <div class="layout-main fit min-w-0">
         <router-view />
       </div>
 
-      <SideMenu :visibleRight="visibleRight" />
+      <SideMenu :visible-right="visibleRight" />
     </div>
   </q-layout>
 </template>
@@ -40,14 +43,13 @@ const changeAppSettings = (settings) =>
 
 const saveProgramState = async () => {
   const bounds = await window.api.electron.getWindowBounds()
-  changeAppSettings({ win: bounds })
+  changeAppSettings({
+    win: bounds,
+  })
   saveProgramSettings(store.state.settings)
 }
 
-setInterval(() => {
-  saveProgramState()
-  console.log('saved')
-}, 60000 * 5)
+setInterval(saveProgramState, 60000 * 5)
 
 window.api.electron.onCloseApp(async () => {
   await saveProgramState()

@@ -3,10 +3,12 @@ import path from 'path'
 
 export default () => {
   try {
-    const dir = fs.readdirSync(path.join(global.dir, 'user', 'themes'))
-    return dir.map((theme) => theme.split('.')[0])
+    const themesDirectory = fs.readdirSync(path.join(dir, 'user', 'themes'))
+
+    return themesDirectory.map((theme) => theme.split('.')[0])
   } catch (error) {
-    console.log(error)
+    console.error('Error while reading theme')
+
     return []
   }
 }

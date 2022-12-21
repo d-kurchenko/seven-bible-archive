@@ -24,7 +24,7 @@ export default () => {
   ipcMain.handle('get-compared-translations', (event, args) => getCompared(args))
   ipcMain.on('connect-bible-database', (event, filename) => connectDatabase(filename))
   ipcMain.on('disconnect-bible-database', (event, filename) =>
-    disconnectDatabase(filename)
+    disconnectDatabase(filename),
   )
   ipcMain.handle('get-bible-verses', (event, args) => getVerses(args))
 }

@@ -1,11 +1,19 @@
-import { onMounted, ref, watch } from 'vue'
+import {
+  onMounted, ref, watch,
+} from 'vue'
 import useSevenBible from 'src/hooks/useSevenBible'
 
 export default (store, id) => {
   const { refString } = useSevenBible()
   const arrows = ref({
-    next: { ref: null, disabled: true },
-    before: { ref: null, disabled: true },
+    next: {
+      ref: null,
+      disabled: true,
+    },
+    before: {
+      ref: null,
+      disabled: true,
+    },
   })
 
   const onNavigateClick = (btn) => {

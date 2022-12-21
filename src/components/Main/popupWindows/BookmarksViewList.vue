@@ -1,17 +1,26 @@
 <template>
-  <UIModalWindow :transparent="transparent" @close="close">
+  <UIModalWindow
+    :transparent="transparent"
+    @close="close"
+  >
     <UIModalWindowBody class="justify-center items-center overflow-hidden">
-      <q-card style="max-width: 50%" class="overflow-hidden flex d-column q-ma-lg">
+      <q-card
+        style="max-width: 50%"
+        class="overflow-hidden flex d-column q-ma-lg"
+      >
         <q-card-section>
           {{ $t('bookmarks') }} {{ bookShortName }} {{ chapterNumber }}:{{ verseNumber }}
         </q-card-section>
         <q-separator />
 
         <div class="overlay">
-          <template v-for="(categoryName, i) in categoriesNames" :key="i">
+          <template
+            v-for="(categoryName, i) in categoriesNames"
+            :key="i"
+          >
             <div
-              v-for="(bookmark, i) in bookmarkCategories[categoryName].bookmarks"
-              :key="i"
+              v-for="(bookmark, j) in bookmarkCategories[categoryName].bookmarks"
+              :key="i + '-' + j"
             >
               <q-separator />
               <q-card-section class="flex q-gutter-x-sm">
@@ -54,7 +63,7 @@
                 <div
                   v-if="
                     bookmark.dateModified &&
-                    bookmark.dateCreated !== bookmark.dateModified
+                      bookmark.dateCreated !== bookmark.dateModified
                   "
                   v-text="new Date(bookmark.dateModified).toLocaleString()"
                 />
@@ -87,9 +96,7 @@ const emit = defineEmits(['close'])
 const categoriesNames = Object.keys(props.bookmarkCategories)
 const close = () => emit('close')
 const {
-  bible: {
-    value: { chapterNumber },
-  },
+  bible: { value: { chapterNumber } },
   bookShortName,
   popup,
   bookmarks,
@@ -98,7 +105,9 @@ const {
 
 const onEditClick = (categoryName: string, bookmark: Bookmark) => {
   popup.showBookmarkCreator({
-    _bookmark: { ...bookmark },
+    modelValue: {
+      ...bookmark,
+    },
     categoryNameToDeleteIn: categoryName,
     isEditMode: true,
   })
@@ -108,13 +117,13 @@ const onDeleteClick = async (categoryName: string, bookmark: Bookmark) => {
   updateBibleWindows()
   // eslint-disable-next-line vue/no-mutating-props
   const currentBookmarks = props.bookmarkCategories[categoryName].bookmarks
-  const bookmarkIndex = currentBookmarks.findIndex((_bookmark: any) =>
-    isEqual(_bookmark, bookmark)
+  const bookmarkIndex = currentBookmarks.findIndex((item: any) =>
+    isEqual(item, bookmark),
   )
   currentBookmarks.splice(bookmarkIndex, 1)
   if (!currentBookmarks.length) {
     categoriesNames.remove(categoryName)
-    if (!categoriesNames.length) close()
+    if (!categoriesNames.length) { close() }
   }
 }
 

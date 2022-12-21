@@ -17,7 +17,10 @@
     />
     <q-separator vertical />
 
-    <UIButton :icon="Icons.Close" @click="close" />
+    <UIButton
+      :icon="Icons.Close"
+      @click="close"
+    />
   </UIButtonset>
   <q-separator />
 </template>

@@ -9,6 +9,7 @@ export default (args) => {
       'SELECT * FROM commentaries WHERE book_number = ? AND chapter_number_from = ?'
     const res = commentariesDatabase.prepare(sql).all(args.bookNumber, args.chapterNumber)
     commentariesDatabase.close()
+
     return res
   }
 }

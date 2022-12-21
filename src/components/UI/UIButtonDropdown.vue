@@ -10,16 +10,15 @@
     :icon="icon"
     :label="label"
     :title="tooltip"
-    ><slot
-  /></q-btn-dropdown>
+  >
+    <slot />
+  </q-btn-dropdown>
 </template>
 
-<script>
-export default {
-  props: {
-    icon: String,
-    label: String,
-    tooltip: String,
-  },
-}
+<script setup lang="ts">
+defineProps<{
+  label: string,
+  icon?: string,
+  tooltip?: string,
+}>()
 </script>

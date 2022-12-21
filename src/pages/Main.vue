@@ -1,20 +1,22 @@
 <template>
   <div class="full-height overflow-hidden">
     <Splitpanes :dbl-click-splitter="false">
-      <pane
+      <Pane
         v-for="id in indexes"
         :key="id"
         min-size="10"
         class="relative-position overflow-auto"
       >
         <WorkPlace :id="id" />
-      </pane>
+      </Pane>
     </Splitpanes>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, ref } from 'vue'
+import {
+  computed, provide, ref,
+} from 'vue'
 import useStore from 'src/hooks/useStore'
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'

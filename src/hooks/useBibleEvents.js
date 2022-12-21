@@ -9,15 +9,16 @@ export default (id, store, footnotes) => {
     useGetCommentByFootnoteEvent(footnotes)
 
   const onVerseClick = ({ target }, ref) => {
-    if (target.tagName === 'S')
+    if (target.tagName === 'S') {
       store.state.set(`workPlace.${id}.strong`, {
         show: true,
         strongNumbers: [strongNumbersPrefix.value + target.innerText],
       })
+    }
 
-    if (target.tagName === 'W') onStrongSearch(target)
+    if (target.tagName === 'W') { onStrongSearch(target) }
 
-    if (target.tagName === 'F') onGetCommentByFootnote(target, ref)
+    if (target.tagName === 'F') { onGetCommentByFootnote(target, ref) }
   }
 
   return {

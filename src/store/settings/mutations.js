@@ -2,11 +2,17 @@ export function changeAppSettingsPointly(state, { key, value }) {
   state.programSettings[key] = value
 }
 export const changeAppSettings = (state, settings) => {
-  state.app = { ...state.app, ...settings }
+  state.app = {
+    ...state.app,
+    ...settings,
+  }
 }
 
 export const changeModuleState = (state, { id, key, settings }) => {
-  state.workPlace[id][key] = { ...state.workPlace[id][key], ...settings }
+  state.workPlace[id][key] = {
+    ...state.workPlace[id][key],
+    ...settings,
+  }
 }
 
 export const changeModuleStatePointly = (state, { id, moduleName, key, value }) => {
@@ -20,14 +26,12 @@ export const changeModuleStatePointly = (state, { id, moduleName, key, value }) 
 
 export function toggleActiveModule(state, { id, key, name, value }) {
   const arr = state.workPlace[id].bible.view[key].activeModules
-  if (value === true) arr.push(name)
-  else arr.splice(arr.indexOf(name), 1)
+  if (value === true) { arr.push(name) } else { arr.splice(arr.indexOf(name), 1) }
 }
 
 export const openNewWorkPlace = (state) => {
   const notActiveWindow = state.workPlace.find((window) => !window.active)
-  if (notActiveWindow) notActiveWindow.active = true
-  else {
+  if (notActiveWindow) { notActiveWindow.active = true } else {
     const lastWindowIndex = state.workPlace.length - 1
     state.workPlace.push(JSON.parse(JSON.stringify(state.workPlace[lastWindowIndex])))
   }

@@ -1,5 +1,5 @@
+import { Commentaries } from 'app/src-electron/types/commentaries'
 import { ipcRenderer } from 'electron'
-import { Commentaries } from 'src/types/store/bible'
 
 export default {
   connectDatabase: (filename: string) =>

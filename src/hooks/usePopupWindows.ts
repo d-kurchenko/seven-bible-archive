@@ -1,4 +1,6 @@
-import { ref, h, Ref, VNode } from 'vue'
+import {
+  ref, h, Ref, VNode,
+} from 'vue'
 import RefSelector from 'components/Main/popupWindows/RefSelector.vue'
 import TextSearcher from 'components/Main/popupWindows/textSearcher.vue'
 import TranslationsComparator from 'components/Main/popupWindows/TranslationsComparator.vue'
@@ -32,9 +34,12 @@ export const initPopupWindows = () => {
   const isPopupShown = ref(true)
   const component: Ref<VNode | null> = ref(null)
 
-  const showPopup = (Component: any, _props: any = {}) => {
+  const showPopup = (Component: any, _props: any = {
+  }) => {
     return new Promise((resolve) => {
-      const vNode = h(Component, { ..._props })
+      const vNode = h(Component, {
+        ..._props,
+      })
 
       if (!vNode?.props) {
         return

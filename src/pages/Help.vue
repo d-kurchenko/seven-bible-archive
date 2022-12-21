@@ -1,6 +1,8 @@
 <template>
   <div class="scroll-container container">
-    <p class="text-h5">Информация</p>
+    <p class="text-h5">
+      Информация
+    </p>
     <p>
       Да Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab aperiam quam, fugiat
       aliquam animi nam ex. Sit quaerat mollitia incidunt soluta ut! Magni repellat

@@ -9,20 +9,39 @@
 
   <div class="popup-windows">
     <transition name="fade">
-      <component v-if="isPopupShown" :is="component" />
+      <component
+        :is="component"
+        v-if="isPopupShown"
+      />
     </transition>
   </div>
 
-  <Splitpanes horizontal class="full-height">
-    <Pane min-size="10" class="overflow-hidden flex d-column">
+  <Splitpanes
+    horizontal
+    class="full-height"
+  >
+    <Pane
+      min-size="10"
+      class="overflow-hidden flex d-column"
+    >
       <Bible />
     </Pane>
-    <Pane v-if="!allModulesClosed" min-size="10" class="overflow-hidden">
+    <Pane
+      v-if="!allModulesClosed"
+      min-size="10"
+      class="overflow-hidden"
+    >
       <Splitpanes>
-        <Pane v-if="activeWorkPlaceWindows.showCommentaries" min-size="10">
+        <Pane
+          v-if="activeWorkPlaceWindows.showCommentaries"
+          min-size="10"
+        >
           <Commentaries />
         </Pane>
-        <Pane v-if="activeWorkPlaceWindows.showStrong" min-size="10">
+        <Pane
+          v-if="activeWorkPlaceWindows.showStrong"
+          min-size="10"
+        >
           <Strong />
         </Pane>
       </Splitpanes>
@@ -36,7 +55,9 @@ import Bible from 'components/Main/bible/Bible.vue'
 import Commentaries from 'components/Main/commentaries/Commentaries.vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import useStore from 'src/hooks/useStore'
-import { computed, provide, ref } from 'vue'
+import {
+  computed, provide, ref,
+} from 'vue'
 import useBibleModuleInfo from 'src/hooks/useBibleModuleInfo'
 import { useBibleDatabaseConnection } from 'src/hooks/DBconnectionController'
 import { initPopupWindows } from 'src/hooks/usePopupWindows'
@@ -73,28 +94,29 @@ const allModulesClosed = computed(() => {
 })
 const viewParamsRequiringRerender = computed(() => {
   const view = bible.value.view
+
   return view.showSubheadings + view.showCommentaries + view.showDreamy
 })
 const textDirections = computed(() => {
   return bibleModuleInfo.value?.right_to_left === 'true'
     ? {
-        nt: 'rtl',
-        ot: 'rtl',
-      }
+      nt: 'rtl',
+      ot: 'rtl',
+    }
     : bibleModuleInfo.value?.right_to_left_nt === 'true'
-    ? {
+      ? {
         nt: 'rtl',
         ot: 'ltr',
       }
-    : bibleModuleInfo.value?.right_to_left_ot === 'true'
-    ? {
-        nt: 'ltr',
-        ot: 'rtl',
-      }
-    : {
-        nt: 'ltr',
-        ot: 'ltr',
-      }
+      : bibleModuleInfo.value?.right_to_left_ot === 'true'
+        ? {
+          nt: 'ltr',
+          ot: 'rtl',
+        }
+        : {
+          nt: 'ltr',
+          ot: 'ltr',
+        }
 })
 const refString = computed(() => {
   return bible.value.bookNumber + bible.value.chapterNumber

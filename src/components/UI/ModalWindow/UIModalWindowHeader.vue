@@ -26,6 +26,8 @@ import { Icons } from 'src/types/icons'
 interface Props {
   bordered?: boolean
 }
-const props = withDefaults(defineProps<Props>(), { bordered: true })
+const props = withDefaults(defineProps<Props>(), {
+  bordered: true,
+})
 defineEmits(['close'])
 </script>

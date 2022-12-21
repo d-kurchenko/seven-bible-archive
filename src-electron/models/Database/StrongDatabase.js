@@ -1,8 +1,10 @@
 import { ModuleDatabase } from 'src-electron/models/Database/ModuleDatabase'
 
 export class StrongDatabase extends ModuleDatabase {
-  static _instance = {}
-  static _connections = {}
+  static _instance = {
+  }
+  static _connections = {
+  }
   static ext = '.dictionary.SQLite3'
   static path = ['dictionaries', 'strong']
 

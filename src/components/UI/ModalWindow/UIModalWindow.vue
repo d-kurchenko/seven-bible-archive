@@ -1,9 +1,9 @@
 <template>
   <div
-    class="ui-modal-window flex d-column absolute fit overflow-hidden-y no-outline"
     v-focus
-    @keydown.esc="$emit('close')"
+    class="ui-modal-window flex d-column absolute fit overflow-hidden-y no-outline"
     :class="{ 'background-transparent': transparent }"
+    @keydown.esc="$emit('close')"
     @click="onCLick"
   >
     <slot />
@@ -26,7 +26,6 @@ const onCLick = (event: any) => {
     (props.transparent &&
       event.target.parentElement.classList.contains('ui-modal-window')) ||
     event.target.classList.contains('ui-modal-window')
-  )
-    emit('close')
+  ) { emit('close') }
 }
 </script>

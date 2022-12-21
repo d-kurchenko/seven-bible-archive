@@ -17,8 +17,11 @@ export default (args) => {
 
     booksDir.forEach((moduleName) => {
       try {
-        const item = {}
-        const bibleDatabase = new BibleDatabase(moduleName, { native: true })
+        const item = {
+        }
+        const bibleDatabase = new BibleDatabase(moduleName, {
+          native: true,
+        })
         const data = bibleDatabase.prepare(sql).all()
         if (data) {
           item.texts = data
@@ -30,7 +33,9 @@ export default (args) => {
           res.push(item)
         }
         bibleDatabase.close()
-      } catch {}
+      } catch {
+        console.error('Error while fetching compared references')
+      }
     })
 
     return res

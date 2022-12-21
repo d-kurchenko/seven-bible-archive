@@ -13,35 +13,18 @@
   />
 </template>
 
-<script>
+<script setup lang="ts">
 import useTheme from 'src/hooks/useTheme'
 
-export default {
-  async setup(props) {
-    const { getAllThemes, setTheme } = useTheme()
+const props = defineProps<{
+  config: Record<string, any>,
+  value: string,
+  description?: string,
+  store: Record<string, any>,
+}>()
 
-    const onSelect = (value) => props.store.state.set(`app.${props.config.path}`, value)
-    let themeList = await getAllThemes()
+const { getAllThemes, setTheme } = useTheme()
 
-    return {
-      themeList,
-      setTheme,
-      onSelect,
-    }
-  },
-  props: {
-    config: {
-      required: true,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    store: Object,
-  },
-}
+const onSelect = (value: string) => props.store.state.set(`app.${props.config.path}`, value)
+let themeList = await getAllThemes()
 </script>

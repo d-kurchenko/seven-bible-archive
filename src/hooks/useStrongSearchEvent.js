@@ -6,7 +6,7 @@ export default (id, store, strongNumbersPrefix) => {
   const { bibleModuleInfo: info } = useSevenBible()
 
   const isStrong = computed(() =>
-    info.value.strong_numbers === 'false' ? false : 'strong_numbers' in info.value
+    info.value.strong_numbers === 'false' ? false : 'strong_numbers' in info.value,
   )
   const onStrongSearch = (target) => {
     if (target.nextElementSibling?.tagName !== 'S' || !isStrong.value) {
@@ -14,6 +14,7 @@ export default (id, store, strongNumbersPrefix) => {
         ? 'Для выбраного модуля отсутствует поддержка номеров стронга'
         : `Слово '${target.innerText}' не найдено в словаре стронга`
       notify.showWarning(message)
+
       return
     }
     let strongNumbers = []

@@ -10,10 +10,13 @@ export default () => {
     getReactive: (path: string) =>
       computed(() => Object.getValue(path, store.state.settings)),
     set(path: string, value: any) {
-      store.commit('settings/setState', { path, value })
+      store.commit('settings/setState', {
+        path,
+        value,
+      })
     },
     setBibleRef: (id: number, bibleRef: BibleRef) => {
-      if (bibleRef) state.set(`workPlace.${id}.bible`, bibleRef)
+      if (bibleRef) { state.set(`workPlace.${id}.bible`, bibleRef) }
     },
     native: store.state,
   }

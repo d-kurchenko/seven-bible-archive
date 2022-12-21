@@ -4,6 +4,7 @@ export default (args) => {
   {
     const parsedNumbers = args.strongNumbers.map((current) => {
       const strongNumbersPrefix = current[0].toUpperCase()
+
       return {
         strongNumbersPrefix,
         number: current.substr(1),
@@ -12,12 +13,12 @@ export default (args) => {
           args.fixedStrongNumbersPrefix !== strongNumbersPrefix
             ? '<0'
             : args.fixedStrongNumbersPrefix
-            ? '>0'
-            : strongNumbersPrefix === 'H'
-            ? '<=460'
-            : strongNumbersPrefix === 'G'
-            ? '>=470'
-            : '<0',
+              ? '>0'
+              : strongNumbersPrefix === 'H'
+                ? '<=460'
+                : strongNumbersPrefix === 'G'
+                  ? '>=470'
+                  : '<0',
       }
     })
     let res = []
@@ -25,15 +26,16 @@ export default (args) => {
     if (args.separator === 'AND') {
       let sql = `SELECT v.*, v.rowid b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumbers[0].testament} AND v.book_number = b.book_number `
       parsedNumbers.forEach(
-        (item) => (sql += `AND v.text like '%<S>${item.number}</S>%' `)
+        (item) => (sql += `AND v.text like '%<S>${item.number}</S>%' `),
       )
       res = bibleDatabase.prepare(sql).all()
       res.forEach(
         (item) =>
-          (item.strongNumbersPrefix = parsedNumbers[0].testament === '<=460' ? 'H' : 'G')
+          (item.strongNumbersPrefix = parsedNumbers[0].testament === '<=460' ? 'H' : 'G'),
       )
     } else if (args.separator === 'OR') {
-      const texts = {}
+      const texts = {
+      }
       parsedNumbers.forEach((parsedNumber) => {
         const sql = `SELECT v.*, v.rowid, b.short_name as bookShortName FROM verses v, books b WHERE v.book_number ${parsedNumber.testament} AND v.book_number = b.book_number AND v.text like '%<S>${parsedNumber.number}</S>%'`
         const findedTexts = bibleDatabase.prepare(sql).all()

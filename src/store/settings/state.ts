@@ -4,7 +4,7 @@ export interface SettingStateInterface {
   prop: boolean
 }
 
-function state(): SettingStateInterface {
+const state = function (): SettingStateInterface {
   return {
     ...settings,
   }

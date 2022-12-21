@@ -3,28 +3,30 @@ import { BibleBooksFront } from 'src/types/bibleModule'
 import { BookNumbers, nonCanonicalBooks } from 'types/bookNumbers'
 import { BookCategories } from 'types/bookCategory'
 
-export const myRef = (value: any) => ({ value })
+export const myRef = (value: any) => ({
+  value,
+})
 
 export const getBookCategory = (bookNumber: BookNumbers): BookCategories => {
   return nonCanonicalBooks.includes(bookNumber)
     ? BookCategories.NonCanonical
     : bookNumber <= BookNumbers.Deu
-    ? BookCategories.Torah
-    : bookNumber <= BookNumbers.Esth
-    ? BookCategories.MajorProphets
-    : bookNumber <= BookNumbers.Song
-    ? BookCategories.Poetry
-    : bookNumber <= BookNumbers.Mal
-    ? BookCategories.MinorProphets
-    : bookNumber <= BookNumbers.John
-    ? BookCategories.Gospels
-    : bookNumber === BookNumbers.Acts
-    ? BookCategories.Acts
-    : bookNumber <= BookNumbers.Jud
-    ? BookCategories.Epistles
-    : bookNumber === BookNumbers.Rev
-    ? BookCategories.Revelations
-    : BookCategories.NonCanonical
+      ? BookCategories.Torah
+      : bookNumber <= BookNumbers.Esth
+        ? BookCategories.MajorProphets
+        : bookNumber <= BookNumbers.Song
+          ? BookCategories.Poetry
+          : bookNumber <= BookNumbers.Mal
+            ? BookCategories.MinorProphets
+            : bookNumber <= BookNumbers.John
+              ? BookCategories.Gospels
+              : bookNumber === BookNumbers.Acts
+                ? BookCategories.Acts
+                : bookNumber <= BookNumbers.Jud
+                  ? BookCategories.Epistles
+                  : bookNumber === BookNumbers.Rev
+                    ? BookCategories.Revelations
+                    : BookCategories.NonCanonical
 }
 
 export const clearTags = (html: string) =>
@@ -35,13 +37,13 @@ export const cropString = (string: string, length: number) =>
 
 export const injectStrict = <T>(key: InjectionKey<T>, fallback?: T) => {
   const resolved = inject(key, fallback)
-  if (resolved === null || resolved === undefined)
-    throw new Error(`Could not resolve ${key.toString()}`)
+  if (resolved === null || resolved === undefined) { throw new Error(`Could not resolve ${key.toString()}`) }
+
   return resolved
 }
 
 export const initBooksCategories = (booksList: BibleBooksFront[]) => {
-  if (booksList[0].bookCategory) return
+  if (booksList[0].bookCategory) { return }
   booksList.forEach((book: BibleBooksFront) => {
     book.bookCategory = getBookCategory(book.book_number)
   })
@@ -91,10 +93,7 @@ export const refToString = (
   bookName: string,
   chapterNumber: number,
   startVerseNumber?: number,
-  endVerseNumber?: number
+  endVerseNumber?: number,
 ) => {
-  if (!startVerseNumber) return `${bookName} ${chapterNumber}`
-  else if (startVerseNumber === endVerseNumber)
-    return `${bookName} ${chapterNumber}:${startVerseNumber}`
-  else return `${bookName} ${chapterNumber}:${startVerseNumber}-${endVerseNumber}`
+  if (!startVerseNumber) { return `${bookName} ${chapterNumber}` } else if (startVerseNumber === endVerseNumber) { return `${bookName} ${chapterNumber}:${startVerseNumber}` } else { return `${bookName} ${chapterNumber}:${startVerseNumber}-${endVerseNumber}` }
 }

@@ -27,26 +27,27 @@ export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) =
     if (!data.bookNames) {
       bibleError.value.message = t('bookNotFounded').format(settings.filename)
       bibleError.value.show = true
+
       return
     }
 
-    //set abreviatures
+    // set abreviatures
     bookFullName.value = data.bookNames.bookFullName
     bookShortName.value = data.bookNames.bookShortName
 
-    //parse text
+    // parse text
     data.texts.forEach((element: any) => (element.text = splitWords(element.text)))
-    //stories
+    // stories
     data.stories?.forEach((story: any) => {
       data.texts[story.verse - 1].story = story.title
     })
-    //subheadings
+    // subheadings
     data.subheadings?.forEach((subheading: any) => {
       const verseNumber = subheading.verse - 1
-      if (!data.texts[verseNumber].subheadings) data.texts[verseNumber].subheadings = []
+      if (!data.texts[verseNumber].subheadings) { data.texts[verseNumber].subheadings = [] }
       data.texts[verseNumber].subheadings.push(subheading)
     })
-    //commentaries
+    // commentaries
     if (data.commentaries) {
       Object.keys(data.commentaries).forEach((moduleName) => {
         for (const commentaryModule of data.commentaries[moduleName]) {
@@ -54,13 +55,13 @@ export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) =
           const idx = commentaryModule.verse_number_to
             ? commentaryModule.verse_number_to - 1
             : commentaryModule.verse_number_from - 1
-          if (idx <= 0) continue
-          if (!data.texts[idx].commentaries) data.texts[idx].commentaries = []
+          if (idx <= 0) { continue }
+          if (!data.texts[idx].commentaries) { data.texts[idx].commentaries = [] }
           data.texts[idx].commentaries.push(commentaryModule)
         }
       })
     }
-    //bookmarks
+    // bookmarks
     bookmarks.bookmarkCategories.value.forEach((category) => {
       category.bookmarks.forEach((bookmark) => {
         const isCognateBookNumber = bookmark.bookNumber === settings.bookNumber
@@ -68,19 +69,24 @@ export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) =
           bookmark.startChapterNumber,
           bookmark.endChapterNumber,
         ].includes(settings.chapterNumber)
-        if (isCognateBookNumber && isCognateChapterNumber)
+        if (isCognateBookNumber && isCognateChapterNumber) {
           for (let i = bookmark.startVerseNumber; i <= bookmark.endVerseNumber; i++) {
             const verseNumber = i - 1
             const currentVerse = data.texts[verseNumber]
 
-            if (!currentVerse.bookmarkCategories) currentVerse.bookmarkCategories = {}
-            if (!currentVerse.bookmarkCategories[category.name])
+            if (!currentVerse.bookmarkCategories) {
+              currentVerse.bookmarkCategories = {
+              }
+            }
+            if (!currentVerse.bookmarkCategories[category.name]) {
               currentVerse.bookmarkCategories[category.name] = {
                 ...category,
                 bookmarks: [],
               }
+            }
             currentVerse.bookmarkCategories[category.name].bookmarks.push(bookmark)
           }
+        }
       })
     })
     chapter.value = data.texts

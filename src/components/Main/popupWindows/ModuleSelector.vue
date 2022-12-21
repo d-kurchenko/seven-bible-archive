@@ -1,10 +1,20 @@
 <template>
-  <UIButtonDropdown :label="fileName" @before-show="loadStrongModules">
+  <UIButtonDropdown
+    :label="fileName"
+    @before-show="loadStrongModules"
+  >
     <q-list>
-      <div v-for="(fileName, idx) in modules" :key="idx">
-        <q-item clickable v-close-popup @click="onModuleClick(fileName)">
+      <div
+        v-for="(moduleFileName, idx) in modules"
+        :key="idx"
+      >
+        <q-item
+          v-close-popup
+          clickable
+          @click="onModuleClick(moduleFileName)"
+        >
           <q-item-section>
-            <q-item-label>{{ fileName }}</q-item-label>
+            <q-item-label>{{ moduleFileName }}</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-icon name="book" />
@@ -17,47 +27,34 @@
   </UIButtonDropdown>
 </template>
 
-<script>
+<script setup lang="ts">
 import UIButtonDropdown from 'components/UI/UIButtonDropdown.vue'
 
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import useStore from 'src/hooks/useStore'
 import useSevenBible from 'src/hooks/useSevenBible'
 
-export default defineComponent({
-  components: { UIButtonDropdown },
-  setup(props) {
-    const { id } = useSevenBible()
-    const modules = ref([])
-    const store = useStore()
+const props = defineProps<{
+  fileName: string,
+  module: string,
+  path: string[],
+}>()
 
-    const loadStrongModules = () => {
-      if (props.path.length) {
-        modules.value = window.api.system
-          .fsReaddirSync(props.path)
-          .map((module) => module.split('.')[0])
-      } else console.log('Отсутствуют модули ... ')
-    }
-    const onModuleClick = (newFilename) => {
-      const oldFilename = store.state.get(`workPlace.${id}.${props.module}.fileName`)
-      if (newFilename !== oldFilename) {
-        store.state.set(`workPlace.${id}.${props.module}.fileName`, newFilename)
-      }
-    }
+const { id } = useSevenBible()
+const modules = ref<string[]>([])
+const store = useStore()
 
-    return {
-      onModuleClick,
-      loadStrongModules,
-      modules,
-    }
-  },
-  props: {
-    fileName: String,
-    module: String,
-    path: {
-      type: Array,
-      required: true,
-    },
-  },
-})
+const loadStrongModules = () => {
+  if (props.path.length) {
+    modules.value = window.api.system
+      .fsReaddirSync(props.path)
+      .map((module) => module.split('.')[0])
+  }
+}
+const onModuleClick = (newFilename: string) => {
+  const oldFilename = store.state.get(`workPlace.${id}.${props.module}.fileName`)
+  if (newFilename !== oldFilename) {
+    store.state.set(`workPlace.${id}.${props.module}.fileName`, newFilename)
+  }
+}
 </script>

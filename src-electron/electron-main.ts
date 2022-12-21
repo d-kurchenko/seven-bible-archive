@@ -1,4 +1,6 @@
-import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron'
+import {
+  app, BrowserWindow, nativeTheme, ipcMain,
+} from 'electron'
 import path from 'path'
 import os from 'os'
 import { getSettings } from './helpers/getSettings'
@@ -9,9 +11,7 @@ const dir = process.env.DEBUGGING ? '' : path.resolve(app.getPath('userData'))
 // @ts-ignore
 global.dir = dir
 process.env.dir = dir.toString()
-const {
-  app: { win },
-} = getSettings()
+const { app: { win } } = getSettings()
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform()
@@ -20,7 +20,9 @@ try {
   if (platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
     require('fs').unlinkSync(path.join(app.getPath('userData'), 'DevTools Extensions'))
   }
-} catch (_) {}
+} catch (error) {
+  console.error(error)
+}
 
 useApi()
 

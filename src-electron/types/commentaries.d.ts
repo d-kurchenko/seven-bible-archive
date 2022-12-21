@@ -14,4 +14,5 @@ export interface Commentaries {
   verse_number_to: number | nullable
   marker: string
   text: string
+  filename: string
 }

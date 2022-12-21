@@ -8,37 +8,23 @@
   />
 </template>
 
-<script>
+<script setup lang="ts">
 import { debounce } from 'quasar'
 
-export default {
-  setup(props) {
-    const onInput = debounce((value) => {
-      if (props.config.type === 'number') {
-        if (isNaN(value)) return
-        value = parseInt(value)
-      }
+const props = defineProps<{
+  config: Record<string, any>
+  value: string | number
+  description?: string,
+  store: Record<string, any>,
+}>()
 
-      props.store.state.set(`app.${props.config.path}`, value)
-    }, 500)
+const onInput = debounce((value) => {
+  if (props.config.type === 'number') {
+    if (isNaN(value)) { return }
+    value = parseInt(value)
+  }
 
-    return {
-      onInput,
-    }
-  },
-  props: {
-    config: {
-      required: true,
-    },
-    value: {
-      type: [String, Number],
-      required: true,
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    store: Object,
-  },
-}
+  props.store.state.set(`app.${props.config.path}`, value)
+}, 500)
+
 </script>

@@ -6,14 +6,17 @@ import { CommentariesDatabase } from 'src-electron/models/Database/CommentariesD
 export default (args) => {
   {
     const bibleDatabase = new BibleDatabase(args.filename)
-    const res = {}
+    const res = {
+    }
     try {
       let sql = 'SELECT text FROM verses WHERE book_number = ? AND chapter = ?'
       res.texts = bibleDatabase.prepare(sql).all(args.bookNumber, args.chapterNumber)
       sql =
         'SELECT long_name as bookFullName, short_name as bookShortName from books WHERE book_number = ?'
       res.bookNames = bibleDatabase.prepare(sql).get(args.bookNumber)
-    } catch {}
+    } catch {
+      console.error('Error while fetching chapter')
+    }
 
     // subheadings
     if (args.showSubheadings) {
@@ -21,7 +24,9 @@ export default (args) => {
         const sql =
           'SELECT verse, title from stories where book_number = ? AND chapter = ?'
         res.stories = bibleDatabase.prepare(sql).all(args.bookNumber, args.chapterNumber)
-      } catch {}
+      } catch {
+        console.error('Error while fetching stories')
+      }
 
       if (!res.stories || !args.embededOverwriteOthers) {
         res.subheadings = []
@@ -48,13 +53,16 @@ export default (args) => {
 
             res.subheadings.push(...data)
             subheadingsDatabase.close()
-          } catch {}
+          } catch {
+            console.error('Error while fetching subheadings')
+          }
         })
       }
     }
 
     if (args.showCommentaries) {
-      res.commentaries = {}
+      res.commentaries = {
+      }
       args.activeModulesCommentaries.forEach((moduleName) => {
         try {
           const commentariesDatabase = new CommentariesDatabase(moduleName, {
@@ -65,9 +73,11 @@ export default (args) => {
           const commentaries = commentariesDatabase
             .prepare(sql)
             .all(args.bookNumber, args.chapterNumber)
-          if (commentaries.length) res.commentaries[moduleName] = commentaries
+          if (commentaries.length) { res.commentaries[moduleName] = commentaries }
           commentariesDatabase.close()
-        } catch {}
+        } catch {
+          console.error('Error while fetching commentaries')
+        }
       })
     }
 

@@ -8,7 +8,7 @@ export default boot(({ app }) => {
           el.tabIndex = 0
           el.focus()
         },
-        binding.modifiers.next ? 300 : 0
+        binding.modifiers.next ? 300 : 0,
       )
     },
   })

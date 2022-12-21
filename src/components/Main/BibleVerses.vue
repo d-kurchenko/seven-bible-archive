@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div v-for="(verse, i) in verses" :key="i">
-      <span v-if="verses.length > 1" v-text="verse.verse + ' '" />
+    <div
+      v-for="(verse, i) in verses"
+      :key="i"
+    >
+      <span
+        v-if="verses.length > 1"
+        v-text="verse.verse + ' '"
+      />
       <span v-html="verse.text" />
     </div>
   </div>

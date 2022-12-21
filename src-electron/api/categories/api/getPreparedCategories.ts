@@ -11,7 +11,10 @@ export default (args: GetPreparedCategoriesArgs) => {
   const res: PreparedCategory[] = []
 
   categories.forEach((category) => {
-    const preparedCategory: PreparedCategory = { ...category, bookmarks: [] }
+    const preparedCategory: PreparedCategory = {
+      ...category,
+      bookmarks: [],
+    }
 
     category.bookmarks.forEach((bookmark) => {
       const bibleVerses = getVerses({
@@ -31,5 +34,6 @@ export default (args: GetPreparedCategoriesArgs) => {
     })
     res.push(preparedCategory)
   })
+
   return res
 }
