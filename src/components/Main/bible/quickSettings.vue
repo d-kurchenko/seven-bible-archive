@@ -98,12 +98,10 @@
               <q-btn
                 disable
                 :icon="Icons.Plus"
-                @click="changeFontSize('+')"
               />
               <q-btn
                 disable
                 :icon="Icons.Minus"
-                @click="changeFontSize('-')"
               />
             </div>
           </div>

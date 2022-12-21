@@ -68,6 +68,8 @@ import {
   bookShortName_,
   id_,
   popup_,
+  textDirections_,
+TextDirection,
 } from 'src/symbols'
 
 const props = defineProps<{
@@ -97,7 +99,7 @@ const viewParamsRequiringRerender = computed(() => {
 
   return view.showSubheadings + view.showCommentaries + view.showDreamy
 })
-const textDirections = computed(() => {
+const textDirections = computed<TextDirection>(() => {
   return bibleModuleInfo.value?.right_to_left === 'true'
     ? {
       nt: 'rtl',
@@ -143,7 +145,7 @@ provide(bibleModuleInfo_, bibleModuleInfo)
 provide('activeWorkPlaceWindows', activeWorkPlaceWindows)
 provide('allModulesClosed', allModulesClosed)
 provide('viewParamsRequiringRerender', viewParamsRequiringRerender)
-provide('textDirections', textDirections)
+provide(textDirections_, textDirections)
 provide('refString', refString)
 provide('strongNumbersPrefix', strongNumbersPrefix)
 </script>

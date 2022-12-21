@@ -117,5 +117,6 @@ module.exports = {
     "no-empty-pattern": "off",
     "no-useless-escape": "off",
     "vue/no-v-html": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
 };

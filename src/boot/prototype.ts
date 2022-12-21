@@ -5,7 +5,7 @@ export default async (/* { app, router, Vue ... } */) => {
     return this.replace(/%s/g, (match) => {
       idx++
 
-      return args[idx] ? args[idx] : match
+      return args[idx] ? args[idx].toString() : match
     })
   }
 

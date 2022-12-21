@@ -141,5 +141,4 @@ watch([refString, () => props.bibleFileName], () => {
   setTimeout(() => getIntroductions())
 })
 
-
 </script>

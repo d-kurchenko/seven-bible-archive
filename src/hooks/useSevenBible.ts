@@ -9,6 +9,7 @@ import {
   id_,
   popup_,
   updateBibleWindows_,
+  textDirections_
 } from 'src/symbols'
 import { injectStrict } from 'src/helpers'
 
@@ -45,7 +46,7 @@ export default () => {
       return inject('viewParamsRequiringRerender')
     },
     get textDirections() {
-      return inject('textDirections')
+      return injectStrict(textDirections_)
     },
     get refString() {
       return inject('refString')

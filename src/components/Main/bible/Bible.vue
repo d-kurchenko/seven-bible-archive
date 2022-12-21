@@ -89,7 +89,7 @@
         <Headings
           :chapter-string="chapterString"
           :chapter-number="bible.chapterNumber"
-          :book-full-name="bookFullName"
+          :book-full-name="bookFullName || ''"
           :book-number="bible.bookNumber"
           :bible-file-name="bible.fileName"
         />

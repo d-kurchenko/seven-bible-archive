@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  label: string,
+  label?: string,
   icon?: string,
   tooltip?: string,
 }>()

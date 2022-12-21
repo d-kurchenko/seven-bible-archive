@@ -1,8 +1,8 @@
+import { Store } from 'src/types/store/store'
+
 const settings = JSON.parse(window.api.system.getSettings())
 
-export interface SettingStateInterface {
-  prop: boolean
-}
+export interface SettingStateInterface extends Store {}
 
 const state = function (): SettingStateInterface {
   return {

@@ -33,6 +33,12 @@
   </UIModalWindow>
 </template>
 
+<script lang="ts">
+export interface A {
+  a: string,
+}
+</script>
+
 <script setup lang="ts">
 import UIModalWindow from 'components/UI/ModalWindow/UIModalWindow.vue'
 import UIModalWindowHeader from 'components/UI/ModalWindow/UIModalWindowHeader.vue'
