@@ -143,7 +143,7 @@ const onRowClick = (evt: any, row: Download) => {
   showModuleDetailedInfo.value = true
 }
 
-const installedModules = shallowRef<Download[]>([])
+const installedModules = shallowRef<string[]>([])
 const getInstalledModules = async () =>
   (installedModules.value = await window.api.system.getInstalledModules())
 

@@ -6,7 +6,7 @@ export const getInstalledModules = async () => {
   const modulesPaths = glob.sync(path.join(dir, Path.Modules) + '/**/*.SQLite3')
   const modulesNames = modulesPaths.map(
     (name) => name.match(/(?<=\/)[^\/]+(?=\.sqlite3)/i)?.[0],
-  )
+  ).filter<string>(Boolean as any)
 
   return modulesNames
 }
