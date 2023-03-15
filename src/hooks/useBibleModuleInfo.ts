@@ -8,7 +8,7 @@ import { MyRef } from 'src/types/myRef'
 
 export default (bibleFileName: Ref<string>) => {
   const info = ref<BibleInfo>()
-  const booksList: MyRef<BibleBooks> = myRef(null)
+  const booksList: MyRef<BibleBooks[]> = myRef(null)
   provide('booksList', booksList)
 
   const getBibleModuleInfo = async () => {

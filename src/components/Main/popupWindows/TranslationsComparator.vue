@@ -83,7 +83,7 @@ const goToModule = (filename: string) => {
   })
 }
 
-const translationsTexts = ref([])
+const translationsTexts = ref<any[]>([])
 const getComparedTranslations = async () => {
   const settings = {
     bookNumber: bookNumber,

@@ -1,23 +1,17 @@
-import { BibleBooks, BibleInfo } from 'app/src-electron/types/bible'
+import { BibleChanels } from 'app/src-electron/api/bible/useBibleApi'
 import { GetVersesArgs } from 'app/types/api-args/bible'
-import { PreparedVerse } from 'app/types/api-modified/bible'
 import { ipcRenderer } from 'electron'
 
 export default {
-  connectDatabase: (filename: string) =>
-    ipcRenderer.send('connect-bible-database', filename),
-  disconnectDatabase: (filename: string) =>
-    ipcRenderer.send('disconnect-bible-database', filename),
-  getChapter: (args: any) => ipcRenderer.invoke('get-chapter', args),
-  getTopBarState: (args: any) => ipcRenderer.invoke('get-top-bar-state', args),
-  getBibleInfo: (filename: string): Promise<BibleInfo> =>
-    ipcRenderer.invoke('get-bible-info', filename),
-  getBibleBooks: (filename: string): Promise<BibleBooks> =>
-    ipcRenderer.invoke('get-bible-books', filename),
-  getChaptersCount: (args: any) => ipcRenderer.invoke('get-count-of-chapters', args),
-  getFindedTexts: (args: any) => ipcRenderer.invoke('find-texts-in-bible', args),
-  getIntroduction: (args: any) => ipcRenderer.invoke('get-introductions', args),
-  getCompared: (args: any) => ipcRenderer.invoke('get-compared-translations', args),
-  getVerses: (args: GetVersesArgs): Promise<PreparedVerse[]> =>
-    ipcRenderer.invoke('get-bible-verses', args),
+  connectDatabase: (filename: string) => ipcRenderer.send(BibleChanels.CONNECT_DATABASE, filename),
+  disconnectDatabase: (filename: string) => ipcRenderer.send(BibleChanels.DISCONNECT_DATABASE, filename),
+  getChapter: (args: any): Promise<any> => ipcRenderer.invoke(BibleChanels.GET_CHAPTER, args),
+  getTopBarState: (args: any) => ipcRenderer.invoke(BibleChanels.GET_TOP_BAR_STATE, args),
+  getBibleInfo: (filename: string) => ipcRenderer.invoke(BibleChanels.GET_INFO, filename),
+  getBibleBooks: (filename: string) => ipcRenderer.invoke(BibleChanels.GET_BOOKS, filename),
+  getChaptersCount: (args: any) => ipcRenderer.invoke(BibleChanels.GET_CHAPTER_COUNTS, args),
+  getFindedTexts: (args: any) => ipcRenderer.invoke(BibleChanels.GET_FINDED_TEXTS, args),
+  getIntroduction: (args: any) => ipcRenderer.invoke(BibleChanels.GET_INTRODUCTIONS, args),
+  getCompared: (args: any) => ipcRenderer.invoke(BibleChanels.GET_COMPARED_TRANSLATIONS, args),
+  getVerses: (args: GetVersesArgs) => ipcRenderer.invoke(BibleChanels.GET_VERSES, args),
 }
