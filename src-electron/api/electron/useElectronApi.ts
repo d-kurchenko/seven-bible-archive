@@ -12,9 +12,9 @@ export const ElectronChanels = {
 }
 
 export default () => {
-  ipcMain.on('close', () => closeWindow())
-  ipcMain.on('minimize', () => minimizeWindow())
-  ipcMain.on('toggle-maximize', () => toggleMaximizeWindow())
-  ipcMain.handle('get-window-bounds', () => getWindowBounds())
-  ipcMain.handle('download-modules', ({}, modules) => downloadModules(modules))
+  ipcMain.on(ElectronChanels.CLOSE_WINDOW, () => closeWindow())
+  ipcMain.on(ElectronChanels.MINIMIZE_WINDOW, () => minimizeWindow())
+  ipcMain.on(ElectronChanels.TOGGLE_MAXIMIZE_WINDOW, () => toggleMaximizeWindow())
+  ipcMain.handle(ElectronChanels.GET_WINDOW_BOUNDS, () => getWindowBounds())
+  ipcMain.handle(ElectronChanels.DOWNLOAD_MODULES, ({}, modules) => downloadModules(modules))
 }
