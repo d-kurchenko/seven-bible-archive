@@ -1,9 +1,9 @@
 import fs from 'fs-extra'
 import path from 'path'
 
-export default (state) => {
+export default (state: string) => {
   return fs.writeFileSync(
-    path.join(global.dir, 'user', 'settings', 'settings.json'),
+    path.join(dir, 'user', 'settings', 'settings.json'),
     state,
   )
 }

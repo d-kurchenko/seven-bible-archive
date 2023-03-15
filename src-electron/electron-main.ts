@@ -4,7 +4,7 @@ import {
 import path from 'path'
 import os from 'os'
 import { getSettings } from './helpers/getSettings'
-import useApi from 'src-electron/api/useApi'
+import useApi from 'app/src-electron/api/useApi'
 
 const dir = process.env.DEBUGGING ? '' : path.resolve(app.getPath('userData'))
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
