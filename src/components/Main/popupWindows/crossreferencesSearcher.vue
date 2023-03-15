@@ -119,7 +119,7 @@ const {
   fileName: bibleFileName,
 } = store.native.state.settings.workPlace[id].bible
 
-const crossreferences = ref([])
+const crossreferences = ref<any[]>([])
 
 const getCrosrefferences = async () => {
   const settings = {

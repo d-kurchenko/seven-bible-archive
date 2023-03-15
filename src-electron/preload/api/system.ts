@@ -10,15 +10,8 @@ export default {
   saveProgramSettings: (state: string) => ipcRenderer.invoke(SystemChanels.SAVE_SETTINGS, state),
   getModulesRegistry: () => ipcRenderer.invoke(SystemChanels.GET_MODULES_REGISTRY),
   getInstalledModules: () => ipcRenderer.invoke(SystemChanels.GET_INSTALLED_MODULES),
-  fsReaddirSync: (_path: string[]) =>
-    fs.readdirSync(path.join(window.dir, ..._path)),
-  fsReadFileSync: (_path: string[]) =>
-    fs.readFileSync(path.join(window.dir, ..._path), {
-      encoding: 'utf-8',
-    }),
+  fsReaddirSync: (_path: string[]) => fs.readdirSync(path.join(window.dir, ..._path)),
+  fsReadFileSync: (_path: string[]) => fs.readFileSync(path.join(window.dir, ..._path), { encoding: 'utf-8' }),
   fsExistsSync: (_path: string[]) => fs.existsSync(path.join(window.dir, ..._path)),
-  getSettings: () =>
-    fs.readFileSync(path.join(window.dir, 'user', 'settings', 'settings.json'), {
-      encoding: 'utf8',
-    }),
+  getSettings: () => fs.readFileSync(path.join(window.dir, 'user', 'settings', 'settings.json'), { encoding: 'utf8' }),
 }

@@ -2,7 +2,7 @@ import { DeleteCategoryArgs } from 'types/api-args/categories'
 import {
   getBookmarkCategories,
   writeBookmarkCategories,
-} from 'src-electron/api/categories/api/categoriesFS'
+} from 'src-electron/api/bookmarks/api/categoriesFS'
 
 export default (args: DeleteCategoryArgs) => {
   const categories = getBookmarkCategories(args.filename)

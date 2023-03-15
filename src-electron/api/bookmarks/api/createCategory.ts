@@ -2,7 +2,7 @@ import { CreateCategoryArgs } from 'types/api-args/categories'
 import {
   getBookmarkCategories,
   writeBookmarkCategories,
-} from 'src-electron/api/categories/api/categoriesFS'
+} from 'src-electron/api/bookmarks/api/categoriesFS'
 
 export default (args: CreateCategoryArgs) => {
   const categories = getBookmarkCategories('bookmarks')
