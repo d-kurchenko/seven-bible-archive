@@ -36,13 +36,13 @@ setTheme(app.value.appearance.theme)
 
 const stringify = (state) => JSON.stringify(state, null, 2)
 const saveProgramSettings = (state) =>
-  window.api.system.saveProgramSettings(stringify(state))
+  window.api.system.SAVE_SETTINGS(stringify(state))
 
 const changeAppSettings = (settings) =>
   store.commit('settings/changeAppSettings', settings)
 
 const saveProgramState = async () => {
-  const bounds = await window.api.electron.getWindowBounds()
+  const bounds = await window.api.electron.GET_WINDOW_BOUNDS()
   changeAppSettings({
     win: bounds,
   })

@@ -124,7 +124,7 @@ const getIntroductions = async () => {
     bookNumber: props.bookNumber,
     filename: props.bibleFileName,
   }
-  const data = await window.api.bible.getIntroduction(settings)
+  const data = await window.api.bible.GET_INTRODUCTIONS(settings)
 
   data?.forEach((item: any) => {
     if (item.book_number === 0) {

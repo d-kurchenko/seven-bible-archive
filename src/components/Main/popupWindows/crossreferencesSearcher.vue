@@ -128,7 +128,7 @@ const getCrosrefferences = async () => {
     verse: props.selectedVerses[0],
     filename: bibleFileName,
   }
-  let data = await window.api.crossreferences.getCrossreferences(settings)
+  let data = await window.api.crossreferences.GET_CROSSREFERENCES(settings)
 
   data.sort((a: any, b: any) => {
     if (a.book_to === b.book_to) {

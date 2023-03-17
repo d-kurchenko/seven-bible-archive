@@ -115,7 +115,7 @@ const firstStep = async (bookNumber, bookFullName) => {
     bookNumber,
     filename: fileName,
   }
-  countOfChapters.value = await window.api.bible.getChaptersCount(settings)
+  countOfChapters.value = await window.api.bible.GET_CHAPTER_COUNTS(settings)
   selectedBookNumber.value = bookNumber
   selectedBookName.value = bookFullName
   step.value++

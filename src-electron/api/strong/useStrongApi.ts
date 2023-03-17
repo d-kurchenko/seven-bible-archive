@@ -1,22 +1,19 @@
 import { ipcMain } from 'electron'
-import getStrongNumbersInfo from 'app/src-electron/api/strong/api/getStrongNumbersInfo'
-import getVersesByStrong from 'app/src-electron/api/strong/api/getVersesByStrong'
-import {
-  connectDatabase,
-  disconnectDatabase,
-} from 'app/src-electron/api/strong/api/databaseConnection'
 import { ChanelKey } from 'app/src-electron/electron'
+import * as API from './api'
+
+type API = typeof API
 
 export const StrongChanels = {
-  'GET_NUMBERS_INFO': Symbol('strong:get-numbers-info') as ChanelKey<typeof getStrongNumbersInfo>,
-  'GET_VERSE_BY_NUMBER': Symbol('strong:get-verse-by-number') as ChanelKey<typeof getVersesByStrong>,
-  'CONNECT_DATABASE': Symbol('strong:connect-database') as ChanelKey<typeof connectDatabase>,
-  'DISSCONNECT_DATABASE': Symbol('strong:disconnect-database') as ChanelKey<typeof disconnectDatabase>,
+  'GET_NUMBERS_INFO': 'strong:get-numbers-info' as ChanelKey<API['getStrongNumbersInfo']>,
+  'GET_VERSE_BY_NUMBER': 'strong:get-verse-by-number' as ChanelKey<API['getVersesByStrong']>,
+  'CONNECT_DATABASE': 'strong:connect-database' as ChanelKey<API['connectDatabase']>,
+  'DISSCONNECT_DATABASE': 'strong:disconnect-database' as ChanelKey<API['disconnectDatabase']>,
 }
 
 export default () => {
-  ipcMain.handle(StrongChanels.GET_NUMBERS_INFO, (_, args) => getStrongNumbersInfo(args))
-  ipcMain.handle(StrongChanels.GET_VERSE_BY_NUMBER, (_, args) => getVersesByStrong(args))
-  ipcMain.on(StrongChanels.CONNECT_DATABASE, (_, filename) => connectDatabase(filename))
-  ipcMain.on(StrongChanels.DISSCONNECT_DATABASE, (_, filename) => disconnectDatabase(filename))
+  ipcMain.handle(StrongChanels.GET_NUMBERS_INFO, (_, args) => API.getStrongNumbersInfo(args))
+  ipcMain.handle(StrongChanels.GET_VERSE_BY_NUMBER, (_, args) => API.getVersesByStrong(args))
+  ipcMain.on(StrongChanels.CONNECT_DATABASE, (_, filename) => API.connectDatabase(filename))
+  ipcMain.on(StrongChanels.DISSCONNECT_DATABASE, (_, filename) => API.disconnectDatabase(filename))
 }

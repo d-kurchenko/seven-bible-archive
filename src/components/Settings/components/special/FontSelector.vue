@@ -33,7 +33,7 @@ const props = defineProps<{
 
 
 const onSelect = (value: string | number) => props.store.state.set(`app.${props.config.path}`, value)
-const fontList = await window.api.system.getFontList()
+const fontList = await window.api.system.GET_FONT_LIST()
 let options = ref([...fontList])
 
 const filterFn = (value: string, update: (callback: () => void) => void) => {

@@ -23,7 +23,7 @@ export default ({ bible, bibleError }: { bible: Ref<Bible>; bibleError: any }) =
       activeModulesCommentaries: [...bible.value.view.commentaries.activeModules],
     }
     bibleError.value.show = false
-    const data = await window.api.bible.getChapter(settings)
+    const data = await window.api.bible.GET_CHAPTER(settings) as any
     if (!data.bookNames) {
       bibleError.value.message = t('bookNotFounded').format(settings.filename)
       bibleError.value.show = true

@@ -145,12 +145,12 @@ const onRowClick = (evt: any, row: Download) => {
 
 const installedModules = shallowRef<string[]>([])
 const getInstalledModules = async () =>
-  (installedModules.value = await window.api.system.getInstalledModules())
+  (installedModules.value = await window.api.system.GET_INSTALLED_MODULES())
 
 getInstalledModules()
 
 const onDownloadClick = async () => {
-  await window.api.electron.downloadModules(selected.value)
+  await window.api.electron.DOWNLOAD_MODULES(selected.value)
   selected.value = []
   getInstalledModules()
 }

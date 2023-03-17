@@ -72,8 +72,8 @@ watch(refString as any, () => {
 watch(
   () => commentariesModule.value.fileName,
   (newFilename, oldFilename) => {
-    window.api.commentaries.disconnectDatabase(oldFilename)
-    window.api.commentaries.connectDatabase(newFilename)
+    window.api.commentaries.DISCONNECT_DATABASE(oldFilename)
+    window.api.commentaries.CONNECT_DATABASE(newFilename)
     getCommentaries()
   },
 )

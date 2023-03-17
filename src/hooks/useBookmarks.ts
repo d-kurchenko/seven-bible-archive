@@ -31,7 +31,7 @@ const updateCategoriesList = () => {
 }
 
 const fetchBookmarks = async () => {
-  bookmarkCategories.value = await window.api.categories.getBookmarkCategories(
+  bookmarkCategories.value = await window.api.categories.GET_BOOKMARK_CATEGORIES(
     bookmarkFilename.value,
   )
   updateCategoriesList()
@@ -42,7 +42,7 @@ export interface BookmarkArgs {
   bookmark: Bookmark
 }
 const addBookmark = async (args: BookmarkArgs) => {
-  await window.api.categories.makeBookmark({
+  await window.api.categories.CREATE_BOOKMARK({
     filename: bookmarkFilename.value,
     ...args,
   })
@@ -53,7 +53,7 @@ const editBookmark = async (args: BookmarkArgs, argsToDelete: BookmarkArgs) => {
   await addBookmark(args)
 }
 const createCategory = async (newCategory: BookmarkCategory) => {
-  await window.api.categories.createCategory({
+  await window.api.categories.CREATE_CATEGORY({
     filename: bookmarkFilename.value,
     category: newCategory,
   })
@@ -87,14 +87,14 @@ const getBookmarkIndex = (bookmarkCategory: string, bookmark: Bookmark) => {
 
 const deleteBookmark = async (bookmarkCategory: string, bookmark: Bookmark) => {
   const indexes = getBookmarkIndex(bookmarkCategory, bookmark)
-  await window.api.categories.removeBookmark({
+  await window.api.categories.REMOVE_BOOKMARK({
     filename: bookmarkFilename.value,
     ...indexes,
   })
   await fetchBookmarks()
 }
 const deleteCategory = async (categoryName: string) => {
-  await window.api.categories.deleteCategory({
+  await window.api.categories.DELETE_CATEGORY({
     filename: bookmarkFilename.value,
     categoryName,
   })

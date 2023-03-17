@@ -20,7 +20,7 @@ export default (bibleFileName) => {
       searchString: normalizedSearchInput,
       filename: bibleFileName.value,
     }
-    foundedTexts.value = await window.api.bible.getFindedTexts(settings)
+    foundedTexts.value = await window.api.bible.GET_FINDED_TEXTS(settings)
     textsCount.value = foundedTexts.value.length
     showLoader.value = false
 

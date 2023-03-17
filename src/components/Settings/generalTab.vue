@@ -45,7 +45,7 @@
               {{ t(childConfig.label) }}
             </div>
             <component
-              :is="childConfig.component"
+              :is="settingsComponents[childConfig.component]"
               :store="store"
               :config="childConfig"
               :value="Object.getValue(childConfig.path, app)"
@@ -61,16 +61,16 @@
 
 <script setup lang="ts">
 import useStore from 'src/hooks/useStore'
-import { ref } from 'vue'
+import { ref, defineAsyncComponent, DefineComponent } from 'vue'
 import configurationList from 'src/settings/configurationList'
 import { useI18n } from 'vue-i18n'
 
-import Input from 'components/Settings/components/universal/Input.vue'
-import Select from 'components/Settings/components/universal/Select.vue'
-import FontSelector from 'components/Settings/components/special/FontSelector.vue'
-import ThemeSelector from 'components/Settings/components/special/ThemeSelector.vue'
-
-Input || Select || FontSelector || ThemeSelector
+const settingsComponents: Record<string, DefineComponent<any, any, any>> = {
+  'theme-selector': defineAsyncComponent(() => import('components/Settings/components/special/ThemeSelector.vue')),
+  'font-selector': defineAsyncComponent(() => import('components/Settings/components/special/FontSelector.vue')),
+  'select': defineAsyncComponent(() => import('components/Settings/components/universal/Select.vue')),
+  'input': defineAsyncComponent(() => import('components/Settings/components/universal/Input.vue')),
+}
 
 const { t } = useI18n()
 const store = useStore()

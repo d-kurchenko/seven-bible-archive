@@ -1,20 +1,21 @@
 import { ChanelKey } from 'app/src-electron/electron'
 import { ipcMain } from 'electron'
-import { closeWindow, getWindowBounds, minimizeWindow, toggleMaximizeWindow } from 'src-electron/api/electron/api/window'
-import { downloadModules } from './api/downloadModules'
+import * as API from './api'
+
+type API = typeof API
 
 export const ElectronChanels = {
-  'CLOSE_WINDOW': Symbol('electron:close-window') as ChanelKey<typeof closeWindow>,
-  'MINIMIZE_WINDOW': Symbol('electron:minimize-window') as ChanelKey<typeof minimizeWindow>,
-  'TOGGLE_MAXIMIZE_WINDOW': Symbol('electron:toggle-maximize-window') as ChanelKey<typeof toggleMaximizeWindow>,
-  'GET_WINDOW_BOUNDS': Symbol('electron:get-window-bounds') as ChanelKey<typeof getWindowBounds>,
-  'DOWNLOAD_MODULES': Symbol('electron:download-modules') as ChanelKey<typeof downloadModules>,
+  'CLOSE_WINDOW': 'electron:close-window' as ChanelKey<API['closeWindow'], false>,
+  'MINIMIZE_WINDOW': 'electron:minimize-window' as ChanelKey<API['minimizeWindow'], false>,
+  'TOGGLE_MAXIMIZE_WINDOW': 'electron:toggle-maximize-window' as ChanelKey<API['toggleMaximizeWindow'], false>,
+  'GET_WINDOW_BOUNDS': 'electron:get-window-bounds' as ChanelKey<API['getWindowBounds']>,
+  'DOWNLOAD_MODULES': 'electron:download-modules' as ChanelKey<API['downloadModules']>,
 }
 
 export default () => {
-  ipcMain.on(ElectronChanels.CLOSE_WINDOW, () => closeWindow())
-  ipcMain.on(ElectronChanels.MINIMIZE_WINDOW, () => minimizeWindow())
-  ipcMain.on(ElectronChanels.TOGGLE_MAXIMIZE_WINDOW, () => toggleMaximizeWindow())
-  ipcMain.handle(ElectronChanels.GET_WINDOW_BOUNDS, () => getWindowBounds())
-  ipcMain.handle(ElectronChanels.DOWNLOAD_MODULES, ({}, modules) => downloadModules(modules))
+  ipcMain.on(ElectronChanels.CLOSE_WINDOW, () => API.closeWindow())
+  ipcMain.on(ElectronChanels.MINIMIZE_WINDOW, () => API.minimizeWindow())
+  ipcMain.on(ElectronChanels.TOGGLE_MAXIMIZE_WINDOW, () => API.toggleMaximizeWindow())
+  ipcMain.handle(ElectronChanels.GET_WINDOW_BOUNDS, () => API.getWindowBounds())
+  ipcMain.handle(ElectronChanels.DOWNLOAD_MODULES, ({}, modules) => API.downloadModules(modules))
 }

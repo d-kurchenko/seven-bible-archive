@@ -46,7 +46,7 @@ const searchInfo = async () => {
     strongNumbers: [...props.strongNumbers],
     filename: props.strongFileName,
   }
-  strongNumbersInfo.value = await window.api.strong.getStrongNumbersInfo(settings)
+  strongNumbersInfo.value = await window.api.strong.GET_NUMBERS_INFO(settings)
 }
 
 onMounted(() => searchInfo())
@@ -58,8 +58,8 @@ watch(
 watch(
   () => props.strongFileName,
   (newFilename, oldFilename) => {
-    window.api.strong.disconnectDatabase(oldFilename)
-    window.api.strong.connectDatabase(newFilename)
+    window.api.strong.DISSCONNECT_DATABASE(oldFilename)
+    window.api.strong.CONNECT_DATABASE(newFilename)
     searchInfo()
   },
 )

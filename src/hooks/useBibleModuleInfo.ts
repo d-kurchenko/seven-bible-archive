@@ -20,8 +20,8 @@ export default (bibleFileName: Ref<string>) => {
   getBibleModuleInfo()
 
   watch(bibleFileName, (newFilename, oldFilename) => {
-    window.api.bible.disconnectDatabase(oldFilename)
-    window.api.bible.connectDatabase(newFilename)
+    window.api.bible.DISCONNECT_DATABASE(oldFilename)
+    window.api.bible.CONNECT_DATABASE(newFilename)
     getBibleModuleInfo()
   })
 

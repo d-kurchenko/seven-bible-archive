@@ -1,17 +1,14 @@
 import { BookmarksChanels } from 'app/src-electron/api/bookmarks/useBookmarkApi'
-import {
-  CreateCategoryArgs,
-  DeleteCategoryArgs,
-  GetPreparedCategoriesArgs,
-} from 'app/types/api-args/categories'
-import { MakeBookmarkArgs, RemoveBookmarkArgs } from 'app/types/api-args/system'
+import { RendererListener } from 'app/src-electron/electron'
 import { ipcRenderer } from 'electron'
 
+type C = typeof BookmarksChanels
+
 export default {
-  makeBookmark: (args: MakeBookmarkArgs) => ipcRenderer.invoke(BookmarksChanels.CREATE_BOOKMARK, args),
-  getBookmarkCategories: (filename: string) => ipcRenderer.invoke(BookmarksChanels.GET_BOOKMARK_CATEGORIES, filename),
-  removeBookmark: (args: RemoveBookmarkArgs) => ipcRenderer.invoke(BookmarksChanels.REMOVE_BOOKMARK, args),
-  getPreparedCategories: (args: GetPreparedCategoriesArgs) => ipcRenderer.invoke(BookmarksChanels.GET_PREPARED_CATEGORIES, args),
-  createCategory: (args: CreateCategoryArgs) => ipcRenderer.invoke(BookmarksChanels.CREATE_CATEGORY, args),
-  deleteCategory: (args: DeleteCategoryArgs) => ipcRenderer.invoke(BookmarksChanels.DELETE_CATEGORY, args),
+  CREATE_BOOKMARK: ((...args) => ipcRenderer.invoke(BookmarksChanels.CREATE_BOOKMARK, ...args)) as RendererListener<C['CREATE_BOOKMARK']>,
+  GET_BOOKMARK_CATEGORIES: ((...args) => ipcRenderer.invoke(BookmarksChanels.GET_BOOKMARK_CATEGORIES, ...args)) as RendererListener<C['GET_BOOKMARK_CATEGORIES']>,
+  REMOVE_BOOKMARK: ((...args) => ipcRenderer.invoke(BookmarksChanels.REMOVE_BOOKMARK, ...args)) as RendererListener<C['REMOVE_BOOKMARK']>,
+  GET_PREPARED_CATEGORIES: ((...args) => ipcRenderer.invoke(BookmarksChanels.GET_PREPARED_CATEGORIES, ...args)) as RendererListener<C['GET_PREPARED_CATEGORIES']>,
+  CREATE_CATEGORY: ((...args) => ipcRenderer.invoke(BookmarksChanels.CREATE_CATEGORY, ...args)) as RendererListener<C['CREATE_CATEGORY']>,
+  DELETE_CATEGORY: ((...args) => ipcRenderer.invoke(BookmarksChanels.DELETE_CATEGORY, ...args)) as RendererListener<C['DELETE_CATEGORY']>,
 }

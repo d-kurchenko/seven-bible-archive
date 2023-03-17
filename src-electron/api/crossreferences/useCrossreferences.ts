@@ -1,11 +1,12 @@
 import { ChanelKey } from 'app/src-electron/electron'
 import { ipcMain } from 'electron'
-import getCrossreferences from 'src-electron/api/crossreferences/api/getCrossreferences'
+import * as API from './api'
 
+type API = typeof API
 export const CrossreferencesChanels = {
-  'GET_CROSSREFERENCES': Symbol('electron:close-window') as ChanelKey<typeof getCrossreferences>,
+  'GET_CROSSREFERENCES': 'electron:close-window' as ChanelKey<API['getCrossreferences']>,
 }
 
 export default () => {
-  ipcMain.handle(CrossreferencesChanels.GET_CROSSREFERENCES, (event, args) => getCrossreferences(args))
+  ipcMain.handle(CrossreferencesChanels.GET_CROSSREFERENCES, ({}, args) => API.getCrossreferences(args))
 }

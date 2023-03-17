@@ -39,7 +39,7 @@ const modulesRegistry = shallowRef<ModulesRegistry>()
 
 const fetchModulesRegistry = async () => {
   showLoader.value = true
-  modulesRegistry.value = await window.api.system.getModulesRegistry()
+  modulesRegistry.value = await window.api.system.GET_MODULES_REGISTRY()
   nextTick(() => (showLoader.value = false))
 }
 fetchModulesRegistry()

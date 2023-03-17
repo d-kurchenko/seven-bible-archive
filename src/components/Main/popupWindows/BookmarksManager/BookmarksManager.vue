@@ -258,7 +258,7 @@ const getPreparedCategories = async () => {
     bibleFileName: bible.value.fileName,
     categories: bookmarks.bookmarkCategories.value,
   }
-  preparedCategories.value = await window.api.categories.getPreparedCategories(settings)
+  preparedCategories.value = await window.api.categories.GET_PREPARED_CATEGORIES(settings)
 }
 onMounted(() => getPreparedCategories())
 

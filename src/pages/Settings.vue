@@ -24,7 +24,7 @@
         :name="tab.name"
         class="overflow-hidden no-padding"
       >
-        <component :is="`${tab.name}`" />
+        <component :is="tab.component" />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -35,15 +35,14 @@ import { ref } from 'vue'
 import GeneralTab from 'components/Settings/generalTab.vue'
 import { useI18n } from 'vue-i18n'
 
-GeneralTab
 
 const { t } = useI18n()
-
 const tabs = [
   {
     name: 'generalTab',
     label: 'generalTab',
     icon: 'settings',
+    component: GeneralTab
   },
   {
     name: 'themeEditorTab',

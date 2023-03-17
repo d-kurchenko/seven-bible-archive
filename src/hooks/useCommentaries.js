@@ -12,7 +12,7 @@ export default (id, store, commentariesModule) => {
       filename: commentariesModule.value.fileName,
     }
     let commentariesData
-    commentariesData = await window.api.commentaries.getCommentaries(settings)
+    commentariesData = await window.api.commentaries.GET_COMMENTARIES(settings)
     commentaries.value = commentariesData
     nextTick(() => (showLoader.value = false))
   }, 500)

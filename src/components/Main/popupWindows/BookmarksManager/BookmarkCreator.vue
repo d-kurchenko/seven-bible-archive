@@ -114,7 +114,7 @@ const getVersesText = async () => {
     selectedVerseFrom: bookmark.value.startVerseNumber,
     selectedVerseTo: bookmark.value.endVerseNumber,
   }
-  verses.value = await window.api.bible.getVerses(settings)
+  verses.value = await window.api.bible.GET_VERSES(settings)
 }
 
 onMounted(() => {

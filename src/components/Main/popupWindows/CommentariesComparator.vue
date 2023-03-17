@@ -74,7 +74,7 @@ const getCompared = async () => {
     verseNumber: props.verseNumber,
   }
   loading.value = true
-  comparedCommentaries.value = await window.api.commentaries.getCompared(settings)
+  comparedCommentaries.value = await window.api.commentaries.GET_COMPARED(settings)
   nextTick(() => (loading.value = false))
 }
 

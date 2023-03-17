@@ -90,7 +90,7 @@ const getComparedTranslations = async () => {
     chapterNumber: chapterNumber,
     versesNumbers: [...props.selectedVerses],
   }
-  translationsTexts.value = await window.api.bible.getCompared(settings)
+  translationsTexts.value = await window.api.bible.GET_COMPARED_TRANSLATIONS(settings)
 }
 onMounted(() => getComparedTranslations())
 </script>

@@ -44,10 +44,10 @@ const { id } = useSevenBible()
 const modules = ref<string[]>([])
 const store = useStore()
 
-const loadStrongModules = () => {
+const loadStrongModules = async () => {
   if (props.path.length) {
-    modules.value = window.api.system
-      .fsReaddirSync(props.path)
+    modules.value = (await window.api.system
+      .GET_READ_DIR(props.path))
       .map((module) => module.split('.')[0])
   }
 }

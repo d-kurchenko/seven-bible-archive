@@ -1,7 +1,7 @@
 import defaultThemes from 'src/themes'
 
 export default () => {
-  const getUserThemes = () => window.api.system.getUserThemes()
+  const getUserThemes = () => window.api.system.GET_THEMES()
 
   const getAllThemes = async () => {
     return [...defaultThemes, ...(await getUserThemes())]
@@ -9,7 +9,7 @@ export default () => {
 
   const readDefaultTheme = (themeName: string) =>
     import(`../themes/${themeName}.js`).then((res) => res.default)
-  const readUserTheme = (themeName: string) => window.api.system.readUserTheme(themeName)
+  const readUserTheme = (themeName: string) => window.api.system.GET_USER_THEMES(themeName)
   const setCssVars = (theme: Record<string, string>) => {
     const body = document.body
     body.removeAttribute('style')
