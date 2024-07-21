@@ -15,6 +15,6 @@ export const getReadFile = (_path: string[]) =>
 export const getExists = (_path: string[]) =>
   fs.existsSync(path.join(dir, ..._path))
 export const getSettings = () =>
-  fs.readFileSync(path.join(dir, 'user', 'settings', 'settings.json'), {
+  fs.readFileSync(path.join(dir, 'modules', 'user', 'settings', 'settings.json'), {
     encoding: 'utf8',
   })

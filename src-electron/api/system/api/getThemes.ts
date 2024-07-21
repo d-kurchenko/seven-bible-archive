@@ -3,7 +3,7 @@ import path from 'path'
 
 export default () => {
   try {
-    const themesDirectory = fs.readdirSync(path.join(dir, 'user', 'themes'))
+    const themesDirectory = fs.readdirSync(path.join(dir, 'modules', 'user', 'themes'))
 
     return themesDirectory.map((theme) => theme.split('.')[0])
   } catch (error) {

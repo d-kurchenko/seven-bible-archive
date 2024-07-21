@@ -208,7 +208,7 @@ module.exports = configure(function (/* ctx */) {
         productName: 'Seven Bible',
         // npmRebuild: false,
         // npmSkipBuildFromSource: true,
-        // extraResources: ["./modules/**", "./user/**"],
+        // extraResources: ["./modules/**"],
         win: {
           target: ['nsis', 'portable'],
         },
@@ -221,7 +221,7 @@ module.exports = configure(function (/* ctx */) {
       // extendElectronMainConf(config) {
       //   // config.plugins.push(
       //   //   new WatchIgnorePlugin({
-      //   //     paths: [/user/, /modules/, /node_modules/, /dist/],
+      //   //     paths: [/modules/, /node_modules/, /dist/],
       //   //   })
       //   // );
       //   config.resolve.alias = {
@@ -234,7 +234,7 @@ module.exports = configure(function (/* ctx */) {
       // extendElectronPreloadConf(config) {
       //   // config.plugins.push(
       //   //   new WatchIgnorePlugin({
-      //   //     paths: [/user/, /modules/, /node_modules/, /dist/],
+      //   //     paths: [/modules/, /node_modules/, /dist/],
       //   //   })
       //   // );
       //   config.resolve.alias = {

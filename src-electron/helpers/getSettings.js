@@ -5,7 +5,7 @@ import { settingsScheme } from 'src-electron/objects/settingsScheme'
 export const getSettings = () => {
   try {
     const settings = fs.readFileSync(
-      join(global.dir, 'user', 'settings', 'settings.json'),
+      join(global.dir, 'modules', 'user', 'settings', 'settings.json'),
       {
         encoding: 'utf8',
       },
@@ -13,7 +13,7 @@ export const getSettings = () => {
 
     return JSON.parse(settings)
   } catch (e) {
-    fs.outputJson(join(global.dir, 'user', 'settings', 'settings.json'), settingsScheme)
+    fs.outputJson(join(global.dir, 'modules', 'user', 'settings', 'settings.json'), settingsScheme)
 
     return settingsScheme
   }

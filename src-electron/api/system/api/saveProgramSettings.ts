@@ -3,7 +3,7 @@ import path from 'path'
 
 export default (state: string) => {
   return fs.writeFileSync(
-    path.join(dir, 'user', 'settings', 'settings.json'),
+    path.join(dir, 'modules', 'user', 'settings', 'settings.json'),
     state,
   )
 }

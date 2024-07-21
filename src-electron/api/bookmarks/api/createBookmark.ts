@@ -5,7 +5,7 @@ import { BookmarkCategory } from 'types/bookmark'
 
 export default (args: MakeBookmarkArgs) => {
   const filename = 'bookmarks.mbb.json'
-  const _path = path.join(dir, 'user', 'bookmarks', filename)
+  const _path = path.join(dir, 'modules', 'user', 'bookmarks', filename)
   const categories: BookmarkCategory[] = fs.readJSONSync(_path).categories
   const categoryIndex = categories.findIndex(
     (category) => category.name === args.categoryName,

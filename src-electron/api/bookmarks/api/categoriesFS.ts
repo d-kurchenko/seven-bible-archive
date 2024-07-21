@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import { BookmarkCategory } from 'types/bookmark'
 
-const pathToCategories = path.join('user', 'bookmarks')
+const pathToCategories = path.join('modules', 'user', 'bookmarks')
 const ext = '.mbb.json'
 
 export const getBookmarkCategories = (filename: string): BookmarkCategory[] => {
