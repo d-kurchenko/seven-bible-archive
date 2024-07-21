@@ -9,7 +9,7 @@
     <template #option="scope">
       <q-item v-bind="scope.itemProps">
         <q-item-section>
-          <q-item-label>{{ t((scope as any).lable) }}</q-item-label>
+          <q-item-label>{{ t((scope as any).label) }}</q-item-label>
         </q-item-section>
       </q-item>
     </template>
@@ -19,12 +19,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-defineProps<{
+const props = defineProps<{
   config: Record<string, any>
   value: string
   description?: string
+  store: Record<string, any>
 }>()
 const { t } = useI18n()
-const onSelect = () => null
-
+const onSelect = (value: string) => props.store.state.set(`app.${props.config.path}`, value)
 </script>
