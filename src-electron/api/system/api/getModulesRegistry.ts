@@ -12,7 +12,7 @@ export default async (): Promise<ModulesRegistry> => {
   const readModulesRegistry = (): ModulesRegistry =>
     fs.readJSONSync(path.join(_path, 'registry.json'))
   const downloadAndExtract = async () => {
-    const data = await fetch('http://mybible.i-t.kz/registry.zip')
+    const data = await fetch('http://mybible.infoo.pro/registry.zip')
     const buffer = await data.buffer()
     const zip = new AdmZip(buffer)
     zip.extractAllTo(_path, true)

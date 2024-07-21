@@ -67,6 +67,17 @@ export const downloadModules = async (modules: Download[]) => {
         fs.renameSync(fileNameBefore, fileNameAfter)
         const resFilePath = path.join(fullPath, resFileName)
         fs.moveSync(fileNameAfter, resFilePath)
+        if( moduleType === Modules.Bible){
+          const files = fs.readdirSync(catalogPathToExtract)
+          if(files.includes('.commentaries.SQLite3')){
+            const fileNameBefore = path.join(catalogPathToExtract, '.commentaries.SQLite3')
+            const resFileName = module.abr + '.commentaries.SQLite3'
+            const fileNameAfter = path.join(catalogPathToExtract, resFileName)
+            fs.renameSync(fileNameBefore, fileNameAfter)
+            const resFilePath = path.join(path.join(dir, Path.Commentaries), resFileName)
+            fs.moveSync(fileNameAfter, resFilePath)
+          }
+        }
         fs.removeSync(catalogPathToExtract)
 
         break
